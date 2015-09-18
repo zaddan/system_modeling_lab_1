@@ -477,7 +477,8 @@ float temp;
 //  cout << *bp;
 //  cout<< **bp;
   
-  *bp=(unsigned char *)malloc(516);
+//       (unsigned char *)malloc(516);
+  //*bp = bpArray;
   *bp=*bp+258;
   for(k=-256;k<257;k++)
   {
@@ -1974,11 +1975,13 @@ FILE   *ofp;
 char   filename [80],
        *tcp;
 //uchar  *in, *bp, *mid;
-char *bp;
+uchar *bp;
 //##
 uchar in[X_SIZE_CONST * Y_SIZE_CONST],
       mid[X_SIZE_CONST * Y_SIZE_CONST];  
-// bp[BP_CONST],
+
+uchar bpArray [BP_CONST];
+bp = bpArray;
 float  dt=4.0;
 int    //*r,
 	   argindex=3,
@@ -2076,6 +2079,7 @@ int r[X_SIZE_CONST * Y_SIZE_CONST];
       /* {{{ edges */
 
       //r   = (int *) malloc(x_size * y_size * sizeof(int));  //##initialized earlier
+      
       setup_brightness_lut(&bp,bt,6); //## change
 //       setup_brightness_lut(bp,bt,6); //## change
 	  
