@@ -1,0 +1,161 @@
+\begin{theindex}
+
+  \item {C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T}, 
+		\hyperpage{5}
+    \subitem {dx}, \hyperpage{5}
+    \subitem {dy}, \hyperpage{5}
+    \subitem {I}, \hyperpage{5}
+    \subitem {info}, \hyperpage{5}
+    \subitem {x}, \hyperpage{5}
+    \subitem {y}, \hyperpage{5}
+  \item {corner\discretionary {-}{}{}\_\discretionary {-}{}{}draw}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{8}
+
+  \indexspace
+
+  \item {dx}
+    \subitem {C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T}, 
+		\hyperpage{5}
+  \item {dy}
+    \subitem {C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T}, 
+		\hyperpage{5}
+
+  \indexspace
+
+  \item {edge\discretionary {-}{}{}\_\discretionary {-}{}{}draw}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{8}
+  \item {enlarge}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{9}
+  \item {exit\discretionary {-}{}{}\_\discretionary {-}{}{}error}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{8}
+
+  \indexspace
+
+  \item {F\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}I}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{8}
+
+  \indexspace
+
+  \item {get\discretionary {-}{}{}\_\discretionary {-}{}{}image}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{9}
+  \item {getint}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{10}
+
+  \indexspace
+
+  \item {I}
+    \subitem {C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T}, 
+		\hyperpage{5}
+  \item {info}
+    \subitem {C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T}, 
+		\hyperpage{5}
+  \item {int\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}uchar}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{10}
+
+  \indexspace
+
+  \item {M\discretionary {-}{}{}A\discretionary {-}{}{}X\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}S}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{8}
+  \item {main}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{10}
+  \item {median}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{11}
+
+  \indexspace
+
+  \item {put\discretionary {-}{}{}\_\discretionary {-}{}{}image}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{12}
+
+  \indexspace
+
+  \item {S\discretionary {-}{}{}E\discretionary {-}{}{}V\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}U\discretionary {-}{}{}P\discretionary {-}{}{}P}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{8}
+  \item {setup\discretionary {-}{}{}\_\discretionary {-}{}{}brightness\discretionary {-}{}{}\_\discretionary {-}{}{}lut}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{12}
+  \item {susan.\discretionary {-}{}{}c}, \hyperpage{7}
+    \subitem {corner\discretionary {-}{}{}\_\discretionary {-}{}{}draw}, 
+		\hyperpage{8}
+    \subitem {edge\discretionary {-}{}{}\_\discretionary {-}{}{}draw}, 
+		\hyperpage{8}
+    \subitem {enlarge}, \hyperpage{9}
+    \subitem {exit\discretionary {-}{}{}\_\discretionary {-}{}{}error}, 
+		\hyperpage{8}
+    \subitem {F\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}I}, 
+		\hyperpage{8}
+    \subitem {get\discretionary {-}{}{}\_\discretionary {-}{}{}image}, 
+		\hyperpage{9}
+    \subitem {getint}, \hyperpage{10}
+    \subitem {int\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}uchar}, 
+		\hyperpage{10}
+    \subitem {M\discretionary {-}{}{}A\discretionary {-}{}{}X\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}S}, 
+		\hyperpage{8}
+    \subitem {main}, \hyperpage{10}
+    \subitem {median}, \hyperpage{11}
+    \subitem {put\discretionary {-}{}{}\_\discretionary {-}{}{}image}, 
+		\hyperpage{12}
+    \subitem {S\discretionary {-}{}{}E\discretionary {-}{}{}V\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}U\discretionary {-}{}{}P\discretionary {-}{}{}P}, 
+		\hyperpage{8}
+    \subitem {setup\discretionary {-}{}{}\_\discretionary {-}{}{}brightness\discretionary {-}{}{}\_\discretionary {-}{}{}lut}, 
+		\hyperpage{12}
+    \subitem {susan\discretionary {-}{}{}\_\discretionary {-}{}{}corners}, 
+		\hyperpage{12}
+    \subitem {susan\discretionary {-}{}{}\_\discretionary {-}{}{}corners\discretionary {-}{}{}\_\discretionary {-}{}{}quick}, 
+		\hyperpage{13}
+    \subitem {susan\discretionary {-}{}{}\_\discretionary {-}{}{}edges}, 
+		\hyperpage{13}
+    \subitem {susan\discretionary {-}{}{}\_\discretionary {-}{}{}edges\discretionary {-}{}{}\_\discretionary {-}{}{}small}, 
+		\hyperpage{13}
+    \subitem {susan\discretionary {-}{}{}\_\discretionary {-}{}{}principle}, 
+		\hyperpage{14}
+    \subitem {susan\discretionary {-}{}{}\_\discretionary {-}{}{}principle\discretionary {-}{}{}\_\discretionary {-}{}{}small}, 
+		\hyperpage{14}
+    \subitem {susan\discretionary {-}{}{}\_\discretionary {-}{}{}smoothing}, 
+		\hyperpage{14}
+    \subitem {susan\discretionary {-}{}{}\_\discretionary {-}{}{}thin}, 
+		\hyperpage{15}
+    \subitem {T\discretionary {-}{}{}O\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}L\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}Y\discretionary {-}{}{}P\discretionary {-}{}{}E}, 
+		\hyperpage{8}
+    \subitem {uchar}, \hyperpage{8}
+    \subitem {usage}, \hyperpage{15}
+  \item {susan\discretionary {-}{}{}\_\discretionary {-}{}{}corners}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{12}
+  \item {susan\discretionary {-}{}{}\_\discretionary {-}{}{}corners\discretionary {-}{}{}\_\discretionary {-}{}{}quick}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{13}
+  \item {susan\discretionary {-}{}{}\_\discretionary {-}{}{}edges}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{13}
+  \item {susan\discretionary {-}{}{}\_\discretionary {-}{}{}edges\discretionary {-}{}{}\_\discretionary {-}{}{}small}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{13}
+  \item {susan\discretionary {-}{}{}\_\discretionary {-}{}{}principle}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{14}
+  \item {susan\discretionary {-}{}{}\_\discretionary {-}{}{}principle\discretionary {-}{}{}\_\discretionary {-}{}{}small}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{14}
+  \item {susan\discretionary {-}{}{}\_\discretionary {-}{}{}smoothing}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{14}
+  \item {susan\discretionary {-}{}{}\_\discretionary {-}{}{}thin}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{15}
+
+  \indexspace
+
+  \item {T\discretionary {-}{}{}O\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}L\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}Y\discretionary {-}{}{}P\discretionary {-}{}{}E}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{8}
+
+  \indexspace
+
+  \item {uchar}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{8}
+  \item {usage}
+    \subitem {susan.\discretionary {-}{}{}c}, \hyperpage{15}
+
+  \indexspace
+
+  \item {x}
+    \subitem {C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T}, 
+		\hyperpage{5}
+
+  \indexspace
+
+  \item {y}
+    \subitem {C\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T}, 
+		\hyperpage{5}
+
+\end{theindex}

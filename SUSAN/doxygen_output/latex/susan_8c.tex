@@ -1,0 +1,569 @@
+\hypertarget{susan_8c}{\section{susan.\-c File Reference}
+\label{susan_8c}\index{susan.\-c@{susan.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$sys/file.\-h$>$}\\*
+{\ttfamily \#include $<$malloc.\-h$>$}\\*
+Include dependency graph for susan.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{susan_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structCORNER__LIST}{C\-O\-R\-N\-E\-R\-\_\-\-L\-I\-S\-T}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{susan_8c_ab90947580a2729c7a0a568d132e437c3}{S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P}~/$\ast$ size for non-\/max corner suppression; S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P or F\-I\-V\-E\-\_\-\-S\-U\-P\-P $\ast$/
+\item 
+\#define \hyperlink{susan_8c_a5d127adc21b181b1d978ce8699b1b2e6}{M\-A\-X\-\_\-\-C\-O\-R\-N\-E\-R\-S}~15000  /$\ast$ max corners per frame $\ast$/
+\item 
+\#define \hyperlink{susan_8c_ad909bb2c75ec6279ac9f1b9195d99b04}{exit\-\_\-error}(I\-F\-B, I\-F\-C)~\{ fprintf(stderr,I\-F\-B,I\-F\-C); exit(0); \}
+\item 
+\#define \hyperlink{susan_8c_a6a3aee2972ef5000bae5e381857062d3}{F\-T\-O\-I}(a)~( (a) $<$ 0 ? ((int)(a-\/0.\-5)) \-: ((int)(a+0.\-5)) )
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef int \hyperlink{susan_8c_a86e16c98eb51b6c6cbfd4445e016febe}{T\-O\-T\-A\-L\-\_\-\-T\-Y\-P\-E}
+\item 
+typedef unsigned char \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{susan_8c_afe55eae96aed06d16232a3b56fcf1ad3}{usage} ()
+\item 
+int \hyperlink{susan_8c_a428ffcc962aa1fbf3be38510ad17f474}{getint} (F\-I\-L\-E $\ast$fd)
+\item 
+void \hyperlink{susan_8c_a3993687eb023d06d63ed66f53a198c2d}{get\-\_\-image} (filename, unsigned char $\ast$$\ast$in, int $\ast$x\-\_\-size, int $\ast$y\-\_\-size)
+\item 
+\hyperlink{susan_8c_ab972f8bb970947bf6ac43a89a221c572}{put\-\_\-image} (filename,$\ast$in, int x\-\_\-size, int y\-\_\-size)
+\item 
+\hyperlink{susan_8c_a520f867c54f88e272a2a4c8595cc5f0b}{int\-\_\-to\-\_\-uchar} (int $\ast$r, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, int size)
+\item 
+void \hyperlink{susan_8c_a9fc6a478772e01bdc50a48d8cd94d481}{setup\-\_\-brightness\-\_\-lut} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$$\ast$bp, int thresh, int form)
+\item 
+\hyperlink{susan_8c_a685459f90ee6b454c8747e94ee88d4fc}{susan\-\_\-principle} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, int $\ast$r, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$bp, int max\-\_\-no, int x\-\_\-size, int y\-\_\-size)
+\item 
+\hyperlink{susan_8c_abf8ca7ddd110bc6f926dcf3ed02ff869}{susan\-\_\-principle\-\_\-small} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, int $\ast$r, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$bp, int max\-\_\-no, int x\-\_\-size, int y\-\_\-size)
+\item 
+\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} \hyperlink{susan_8c_ad0fbbdc15578079079e1b2c46f0fb153}{median} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, int i, int j, int x\-\_\-size)
+\item 
+\hyperlink{susan_8c_a2128021e6ee2528c8f7e01635f480b59}{enlarge} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$$\ast$in, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$tmp\-\_\-image, int $\ast$x\-\_\-size, int $\ast$y\-\_\-size, int border)
+\item 
+void \hyperlink{susan_8c_ad95c6fc8fd8a731485b5cfd60fda987a}{susan\-\_\-smoothing} (int three\-\_\-by\-\_\-three, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, float dt, int x\-\_\-size, int y\-\_\-size, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$bp)
+\item 
+\hyperlink{susan_8c_aa5a36ad57160a0bdcb81042686de51cc}{edge\-\_\-draw} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$mid, int x\-\_\-size, int y\-\_\-size, int drawing\-\_\-mode)
+\item 
+\hyperlink{susan_8c_aa88fd8fca3fef9d0efa8c5378f78e34c}{susan\-\_\-thin} (int $\ast$r, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$mid, int x\-\_\-size, int y\-\_\-size)
+\item 
+\hyperlink{susan_8c_aa135c7b9e22a013135de19aa3e659479}{susan\-\_\-edges} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, int $\ast$r, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$mid, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$bp, int max\-\_\-no, int x\-\_\-size, int y\-\_\-size)
+\item 
+\hyperlink{susan_8c_a9cfc1d9eeb72244600208da4a8b365ce}{susan\-\_\-edges\-\_\-small} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, int $\ast$r, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$mid, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$bp, int max\-\_\-no, int x\-\_\-size, int y\-\_\-size)
+\item 
+\hyperlink{susan_8c_a3f29f0e851d0a2e1ee282a50a676102c}{corner\-\_\-draw} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, \hyperlink{structCORNER__LIST}{C\-O\-R\-N\-E\-R\-\_\-\-L\-I\-S\-T} corner\-\_\-list, int x\-\_\-size, int drawing\-\_\-mode)
+\item 
+\hyperlink{susan_8c_aca54cf00c3fc816aae6978907fd91588}{susan\-\_\-corners} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, int $\ast$r, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$bp, int max\-\_\-no, \hyperlink{structCORNER__LIST}{C\-O\-R\-N\-E\-R\-\_\-\-L\-I\-S\-T} corner\-\_\-list, int x\-\_\-size, int y\-\_\-size)
+\item 
+\hyperlink{susan_8c_a7470d48a549324cf33e6f4286115739c}{susan\-\_\-corners\-\_\-quick} (\hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$in, int $\ast$r, \hyperlink{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$bp, int max\-\_\-no, \hyperlink{structCORNER__LIST}{C\-O\-R\-N\-E\-R\-\_\-\-L\-I\-S\-T} corner\-\_\-list, int x\-\_\-size, int y\-\_\-size)
+\item 
+\hyperlink{susan_8c_a0708a0954f39ecdc7aa901286295ad01}{main} (int argc, argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{susan_8c_ad909bb2c75ec6279ac9f1b9195d99b04}{\index{susan.\-c@{susan.\-c}!exit\-\_\-error@{exit\-\_\-error}}
+\index{exit\-\_\-error@{exit\-\_\-error}!susan.c@{susan.\-c}}
+\subsubsection[{exit\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}\#define exit\-\_\-error(
+\begin{DoxyParamCaption}
+\item[{}]{I\-F\-B, }
+\item[{}]{I\-F\-C}
+\end{DoxyParamCaption}
+)~\{ fprintf(stderr,I\-F\-B,I\-F\-C); exit(0); \}}}\label{susan_8c_ad909bb2c75ec6279ac9f1b9195d99b04}
+\hypertarget{susan_8c_a6a3aee2972ef5000bae5e381857062d3}{\index{susan.\-c@{susan.\-c}!F\-T\-O\-I@{F\-T\-O\-I}}
+\index{F\-T\-O\-I@{F\-T\-O\-I}!susan.c@{susan.\-c}}
+\subsubsection[{F\-T\-O\-I}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\-T\-O\-I(
+\begin{DoxyParamCaption}
+\item[{}]{a}
+\end{DoxyParamCaption}
+)~( (a) $<$ 0 ? ((int)(a-\/0.\-5)) \-: ((int)(a+0.\-5)) )}}\label{susan_8c_a6a3aee2972ef5000bae5e381857062d3}
+\hypertarget{susan_8c_a5d127adc21b181b1d978ce8699b1b2e6}{\index{susan.\-c@{susan.\-c}!M\-A\-X\-\_\-\-C\-O\-R\-N\-E\-R\-S@{M\-A\-X\-\_\-\-C\-O\-R\-N\-E\-R\-S}}
+\index{M\-A\-X\-\_\-\-C\-O\-R\-N\-E\-R\-S@{M\-A\-X\-\_\-\-C\-O\-R\-N\-E\-R\-S}!susan.c@{susan.\-c}}
+\subsubsection[{M\-A\-X\-\_\-\-C\-O\-R\-N\-E\-R\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\-A\-X\-\_\-\-C\-O\-R\-N\-E\-R\-S~15000  /$\ast$ max corners per frame $\ast$/}}\label{susan_8c_a5d127adc21b181b1d978ce8699b1b2e6}
+\hypertarget{susan_8c_ab90947580a2729c7a0a568d132e437c3}{\index{susan.\-c@{susan.\-c}!S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P@{S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P}}
+\index{S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P@{S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P}!susan.c@{susan.\-c}}
+\subsubsection[{S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P~/$\ast$ size for non-\/max corner suppression; S\-E\-V\-E\-N\-\_\-\-S\-U\-P\-P or F\-I\-V\-E\-\_\-\-S\-U\-P\-P $\ast$/}}\label{susan_8c_ab90947580a2729c7a0a568d132e437c3}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{susan_8c_a86e16c98eb51b6c6cbfd4445e016febe}{\index{susan.\-c@{susan.\-c}!T\-O\-T\-A\-L\-\_\-\-T\-Y\-P\-E@{T\-O\-T\-A\-L\-\_\-\-T\-Y\-P\-E}}
+\index{T\-O\-T\-A\-L\-\_\-\-T\-Y\-P\-E@{T\-O\-T\-A\-L\-\_\-\-T\-Y\-P\-E}!susan.c@{susan.\-c}}
+\subsubsection[{T\-O\-T\-A\-L\-\_\-\-T\-Y\-P\-E}]{\setlength{\rightskip}{0pt plus 5cm}typedef int {\bf T\-O\-T\-A\-L\-\_\-\-T\-Y\-P\-E}}}\label{susan_8c_a86e16c98eb51b6c6cbfd4445e016febe}
+\hypertarget{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}{\index{susan.\-c@{susan.\-c}!uchar@{uchar}}
+\index{uchar@{uchar}!susan.c@{susan.\-c}}
+\subsubsection[{uchar}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned char {\bf uchar}}}\label{susan_8c_a65f85814a8290f9797005d3b28e7e5fc}
+
+
+\subsection{Function Documentation}
+\hypertarget{susan_8c_a3f29f0e851d0a2e1ee282a50a676102c}{\index{susan.\-c@{susan.\-c}!corner\-\_\-draw@{corner\-\_\-draw}}
+\index{corner\-\_\-draw@{corner\-\_\-draw}!susan.c@{susan.\-c}}
+\subsubsection[{corner\-\_\-draw}]{\setlength{\rightskip}{0pt plus 5cm}corner\-\_\-draw (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{{\bf C\-O\-R\-N\-E\-R\-\_\-\-L\-I\-S\-T}}]{corner\-\_\-list, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{drawing\-\_\-mode}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a3f29f0e851d0a2e1ee282a50a676102c}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{susan_8c_a3f29f0e851d0a2e1ee282a50a676102c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_aa5a36ad57160a0bdcb81042686de51cc}{\index{susan.\-c@{susan.\-c}!edge\-\_\-draw@{edge\-\_\-draw}}
+\index{edge\-\_\-draw@{edge\-\_\-draw}!susan.c@{susan.\-c}}
+\subsubsection[{edge\-\_\-draw}]{\setlength{\rightskip}{0pt plus 5cm}edge\-\_\-draw (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{{\bf uchar} $\ast$}]{mid, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size, }
+\item[{int}]{drawing\-\_\-mode}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_aa5a36ad57160a0bdcb81042686de51cc}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{susan_8c_aa5a36ad57160a0bdcb81042686de51cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a2128021e6ee2528c8f7e01635f480b59}{\index{susan.\-c@{susan.\-c}!enlarge@{enlarge}}
+\index{enlarge@{enlarge}!susan.c@{susan.\-c}}
+\subsubsection[{enlarge}]{\setlength{\rightskip}{0pt plus 5cm}enlarge (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$$\ast$}]{in, }
+\item[{{\bf uchar} $\ast$}]{tmp\-\_\-image, }
+\item[{int   $\ast$}]{x\-\_\-size, }
+\item[{int $\ast$}]{y\-\_\-size, }
+\item[{int}]{border}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a2128021e6ee2528c8f7e01635f480b59}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{susan_8c_a2128021e6ee2528c8f7e01635f480b59_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a3993687eb023d06d63ed66f53a198c2d}{\index{susan.\-c@{susan.\-c}!get\-\_\-image@{get\-\_\-image}}
+\index{get\-\_\-image@{get\-\_\-image}!susan.c@{susan.\-c}}
+\subsubsection[{get\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}void get\-\_\-image (
+\begin{DoxyParamCaption}
+\item[{filename}]{, }
+\item[{unsigned char  $\ast$$\ast$}]{in, }
+\item[{int            $\ast$}]{x\-\_\-size, }
+\item[{int $\ast$}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a3993687eb023d06d63ed66f53a198c2d}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{susan_8c_a3993687eb023d06d63ed66f53a198c2d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{susan_8c_a3993687eb023d06d63ed66f53a198c2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a428ffcc962aa1fbf3be38510ad17f474}{\index{susan.\-c@{susan.\-c}!getint@{getint}}
+\index{getint@{getint}!susan.c@{susan.\-c}}
+\subsubsection[{getint}]{\setlength{\rightskip}{0pt plus 5cm}int getint (
+\begin{DoxyParamCaption}
+\item[{F\-I\-L\-E $\ast$}]{fd}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a428ffcc962aa1fbf3be38510ad17f474}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{susan_8c_a428ffcc962aa1fbf3be38510ad17f474_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a520f867c54f88e272a2a4c8595cc5f0b}{\index{susan.\-c@{susan.\-c}!int\-\_\-to\-\_\-uchar@{int\-\_\-to\-\_\-uchar}}
+\index{int\-\_\-to\-\_\-uchar@{int\-\_\-to\-\_\-uchar}!susan.c@{susan.\-c}}
+\subsubsection[{int\-\_\-to\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}int\-\_\-to\-\_\-uchar (
+\begin{DoxyParamCaption}
+\item[{int   $\ast$}]{r, }
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a520f867c54f88e272a2a4c8595cc5f0b}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{susan_8c_a520f867c54f88e272a2a4c8595cc5f0b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a0708a0954f39ecdc7aa901286295ad01}{\index{susan.\-c@{susan.\-c}!main@{main}}
+\index{main@{main}!susan.c@{susan.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a0708a0954f39ecdc7aa901286295ad01}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{susan_8c_a0708a0954f39ecdc7aa901286295ad01_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_ad0fbbdc15578079079e1b2c46f0fb153}{\index{susan.\-c@{susan.\-c}!median@{median}}
+\index{median@{median}!susan.c@{susan.\-c}}
+\subsubsection[{median}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uchar} median (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{int}]{i, }
+\item[{int}]{j, }
+\item[{int}]{x\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_ad0fbbdc15578079079e1b2c46f0fb153}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{susan_8c_ad0fbbdc15578079079e1b2c46f0fb153_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_ab972f8bb970947bf6ac43a89a221c572}{\index{susan.\-c@{susan.\-c}!put\-\_\-image@{put\-\_\-image}}
+\index{put\-\_\-image@{put\-\_\-image}!susan.c@{susan.\-c}}
+\subsubsection[{put\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}put\-\_\-image (
+\begin{DoxyParamCaption}
+\item[{filename}]{, }
+\item[{$\ast$}]{in, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_ab972f8bb970947bf6ac43a89a221c572}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{susan_8c_ab972f8bb970947bf6ac43a89a221c572_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a9fc6a478772e01bdc50a48d8cd94d481}{\index{susan.\-c@{susan.\-c}!setup\-\_\-brightness\-\_\-lut@{setup\-\_\-brightness\-\_\-lut}}
+\index{setup\-\_\-brightness\-\_\-lut@{setup\-\_\-brightness\-\_\-lut}!susan.c@{susan.\-c}}
+\subsubsection[{setup\-\_\-brightness\-\_\-lut}]{\setlength{\rightskip}{0pt plus 5cm}void setup\-\_\-brightness\-\_\-lut (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$$\ast$}]{bp, }
+\item[{int}]{thresh, }
+\item[{int}]{form}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a9fc6a478772e01bdc50a48d8cd94d481}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{susan_8c_a9fc6a478772e01bdc50a48d8cd94d481_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_aca54cf00c3fc816aae6978907fd91588}{\index{susan.\-c@{susan.\-c}!susan\-\_\-corners@{susan\-\_\-corners}}
+\index{susan\-\_\-corners@{susan\-\_\-corners}!susan.c@{susan.\-c}}
+\subsubsection[{susan\-\_\-corners}]{\setlength{\rightskip}{0pt plus 5cm}susan\-\_\-corners (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar}       $\ast$}]{in, }
+\item[{int         $\ast$}]{r, }
+\item[{{\bf uchar} $\ast$}]{bp, }
+\item[{int}]{max\-\_\-no, }
+\item[{{\bf C\-O\-R\-N\-E\-R\-\_\-\-L\-I\-S\-T}}]{corner\-\_\-list, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_aca54cf00c3fc816aae6978907fd91588}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{susan_8c_aca54cf00c3fc816aae6978907fd91588_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a7470d48a549324cf33e6f4286115739c}{\index{susan.\-c@{susan.\-c}!susan\-\_\-corners\-\_\-quick@{susan\-\_\-corners\-\_\-quick}}
+\index{susan\-\_\-corners\-\_\-quick@{susan\-\_\-corners\-\_\-quick}!susan.c@{susan.\-c}}
+\subsubsection[{susan\-\_\-corners\-\_\-quick}]{\setlength{\rightskip}{0pt plus 5cm}susan\-\_\-corners\-\_\-quick (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar}       $\ast$}]{in, }
+\item[{int         $\ast$}]{r, }
+\item[{{\bf uchar} $\ast$}]{bp, }
+\item[{int}]{max\-\_\-no, }
+\item[{{\bf C\-O\-R\-N\-E\-R\-\_\-\-L\-I\-S\-T}}]{corner\-\_\-list, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a7470d48a549324cf33e6f4286115739c}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{susan_8c_a7470d48a549324cf33e6f4286115739c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_aa135c7b9e22a013135de19aa3e659479}{\index{susan.\-c@{susan.\-c}!susan\-\_\-edges@{susan\-\_\-edges}}
+\index{susan\-\_\-edges@{susan\-\_\-edges}!susan.c@{susan.\-c}}
+\subsubsection[{susan\-\_\-edges}]{\setlength{\rightskip}{0pt plus 5cm}susan\-\_\-edges (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{int   $\ast$}]{r, }
+\item[{{\bf uchar} $\ast$}]{mid, }
+\item[{{\bf uchar} $\ast$}]{bp, }
+\item[{int}]{max\-\_\-no, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_aa135c7b9e22a013135de19aa3e659479}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{susan_8c_aa135c7b9e22a013135de19aa3e659479_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a9cfc1d9eeb72244600208da4a8b365ce}{\index{susan.\-c@{susan.\-c}!susan\-\_\-edges\-\_\-small@{susan\-\_\-edges\-\_\-small}}
+\index{susan\-\_\-edges\-\_\-small@{susan\-\_\-edges\-\_\-small}!susan.c@{susan.\-c}}
+\subsubsection[{susan\-\_\-edges\-\_\-small}]{\setlength{\rightskip}{0pt plus 5cm}susan\-\_\-edges\-\_\-small (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{int   $\ast$}]{r, }
+\item[{{\bf uchar} $\ast$}]{mid, }
+\item[{{\bf uchar} $\ast$}]{bp, }
+\item[{int}]{max\-\_\-no, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a9cfc1d9eeb72244600208da4a8b365ce}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{susan_8c_a9cfc1d9eeb72244600208da4a8b365ce_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_a685459f90ee6b454c8747e94ee88d4fc}{\index{susan.\-c@{susan.\-c}!susan\-\_\-principle@{susan\-\_\-principle}}
+\index{susan\-\_\-principle@{susan\-\_\-principle}!susan.c@{susan.\-c}}
+\subsubsection[{susan\-\_\-principle}]{\setlength{\rightskip}{0pt plus 5cm}susan\-\_\-principle (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{int   $\ast$}]{r, }
+\item[{{\bf uchar} $\ast$}]{bp, }
+\item[{int}]{max\-\_\-no, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_a685459f90ee6b454c8747e94ee88d4fc}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{susan_8c_a685459f90ee6b454c8747e94ee88d4fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_abf8ca7ddd110bc6f926dcf3ed02ff869}{\index{susan.\-c@{susan.\-c}!susan\-\_\-principle\-\_\-small@{susan\-\_\-principle\-\_\-small}}
+\index{susan\-\_\-principle\-\_\-small@{susan\-\_\-principle\-\_\-small}!susan.c@{susan.\-c}}
+\subsubsection[{susan\-\_\-principle\-\_\-small}]{\setlength{\rightskip}{0pt plus 5cm}susan\-\_\-principle\-\_\-small (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{int   $\ast$}]{r, }
+\item[{{\bf uchar} $\ast$}]{bp, }
+\item[{int}]{max\-\_\-no, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_abf8ca7ddd110bc6f926dcf3ed02ff869}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{susan_8c_abf8ca7ddd110bc6f926dcf3ed02ff869_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_ad95c6fc8fd8a731485b5cfd60fda987a}{\index{susan.\-c@{susan.\-c}!susan\-\_\-smoothing@{susan\-\_\-smoothing}}
+\index{susan\-\_\-smoothing@{susan\-\_\-smoothing}!susan.c@{susan.\-c}}
+\subsubsection[{susan\-\_\-smoothing}]{\setlength{\rightskip}{0pt plus 5cm}void susan\-\_\-smoothing (
+\begin{DoxyParamCaption}
+\item[{int}]{three\-\_\-by\-\_\-three, }
+\item[{{\bf uchar} $\ast$}]{in, }
+\item[{float}]{dt, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size, }
+\item[{{\bf uchar} $\ast$}]{bp}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_ad95c6fc8fd8a731485b5cfd60fda987a}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{susan_8c_ad95c6fc8fd8a731485b5cfd60fda987a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{susan_8c_ad95c6fc8fd8a731485b5cfd60fda987a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_aa88fd8fca3fef9d0efa8c5378f78e34c}{\index{susan.\-c@{susan.\-c}!susan\-\_\-thin@{susan\-\_\-thin}}
+\index{susan\-\_\-thin@{susan\-\_\-thin}!susan.c@{susan.\-c}}
+\subsubsection[{susan\-\_\-thin}]{\setlength{\rightskip}{0pt plus 5cm}susan\-\_\-thin (
+\begin{DoxyParamCaption}
+\item[{int   $\ast$}]{r, }
+\item[{{\bf uchar} $\ast$}]{mid, }
+\item[{int}]{x\-\_\-size, }
+\item[{int}]{y\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_aa88fd8fca3fef9d0efa8c5378f78e34c}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{susan_8c_aa88fd8fca3fef9d0efa8c5378f78e34c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{susan_8c_afe55eae96aed06d16232a3b56fcf1ad3}{\index{susan.\-c@{susan.\-c}!usage@{usage}}
+\index{usage@{usage}!susan.c@{susan.\-c}}
+\subsubsection[{usage}]{\setlength{\rightskip}{0pt plus 5cm}usage (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{susan_8c_afe55eae96aed06d16232a3b56fcf1ad3}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{susan_8c_afe55eae96aed06d16232a3b56fcf1ad3_icgraph}
+\end{center}
+\end{figure}
+
+
