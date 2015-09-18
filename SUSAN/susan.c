@@ -1969,10 +1969,12 @@ main(argc, argv)
 FILE   *ofp;
 char   filename [80],
        *tcp;
-uchar  *in, *bp, *mid;
+//uchar  *in, *bp, *mid;
+//##
+uchar in[X_SIZE_CONST * Y_SIZE_CONST],bp[BP_CONST],mid[[X_SIZE_CONST * Y_SIZE_CONST];  
 float  dt=4.0;
-int    *r,
-       argindex=3,
+int    //*r,
+	   argindex=3,
        bt=20,
        principle=0,
        thin_post_proc=1,
@@ -1989,8 +1991,11 @@ CORNER_LIST corner_list;
 
   if (argc<3)
     usage();
+x_size = X_SIZE_CONST;
+y_size = Y_SIZE_CONST;
+int r[X_SIZE_CONST * Y_SIZE_CONST];
 
-  get_image(argv[1],&in,&x_size,&y_size);
+  get_image(argv[1],&in,&x_size,&y_size); //##change
 
   /* {{{ look at options */
 
@@ -2062,20 +2067,20 @@ CORNER_LIST corner_list;
     case 1:
       /* {{{ edges */
 
-      r   = (int *) malloc(x_size * y_size * sizeof(int));
-      setup_brightness_lut(&bp,bt,6);
+      //r   = (int *) malloc(x_size * y_size * sizeof(int));  //##initialized earlier
+      setup_brightness_lut(&bp,bt,6); //## change
 
       if (principle)
       {
         if (three_by_three)
-          susan_principle_small(in,r,bp,max_no_edges,x_size,y_size);
+          susan_principle_small(in,r,bp,max_no_edges,x_size,y_size); //## change
         else
-          susan_principle(in,r,bp,max_no_edges,x_size,y_size);
+          susan_principle(in,r,bp,max_no_edges,x_size,y_size); //## change
         int_to_uchar(r,in,x_size*y_size);
       }
       else
       {
-        mid = (uchar *)malloc(x_size*y_size);
+        //mid = (uchar *)malloc(x_size*y_size); //Already set earlier; 
         memset (mid,100,x_size * y_size); /* note not set to zero */
 
         if (three_by_three)
