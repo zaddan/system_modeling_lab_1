@@ -284,7 +284,7 @@
 /* {{{ defines, includes and typedefs */
 
 /* ********** Optional settings */
-
+//starting point
 #ifndef PPC
 typedef int        TOTAL_TYPE; /* this is faster for "int" but should be "float" for large d masks */
 #else
@@ -296,6 +296,9 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #define MAX_CORNERS   15000  /* max corners per frame */
 
 /* ********** Leave the rest - but you may need to remove one or both of sys/file.h and malloc.h lines */
+//#ifdef CPP
+//    #include <iostream>
+//#endif
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -472,9 +475,14 @@ void setup_brightness_lut(bp,thresh,form)
 int   k;
 float temp;
 
+//  cout << *bp;
+//  cout<< **bp;
+  
   *bp=(unsigned char *)malloc(516);
   *bp=*bp+258;
-
+  printf("%c\n", *bp);
+  printf("%c\n", **bp);
+  exit(1);  
   for(k=-256;k<257;k++)
   {
     temp=((float)k)/((float)thresh);
