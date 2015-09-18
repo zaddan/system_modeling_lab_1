@@ -1,17 +1,17 @@
 CC = gcc
-CPP = g++
+#CPP = g++
 CMP = diff -s
 RM  = rm -rf
 
 GOLDFILE = golden.pgm
-INFILE =   input_small.pgm    
-OUTFILE =  output_edge.pgm
+INFILE = input_small.pgm    
+OUTFILE = output_edge.pgm
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # ---- for compiling
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # ---- the original make command
-susan: susan.c Makefile
+susan: susan.c
 	$(CC) -static -O4 -o susan susan.c -lm  -g 
 
 # ---- compiling the intact original file
@@ -38,7 +38,7 @@ run_debug:
 
 # ---- running the code with edth dietction simply
 run:
-	./susan $(INFILE) $(OUTFILE) -e 
+	./susan $(INFILE) $(OUTFILE) -e
 	$(CMP) $(OUTFILE) $(GOLDFILE)
 
 # ---- copy of the run:

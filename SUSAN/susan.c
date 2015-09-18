@@ -465,16 +465,20 @@ int i,
 /* }}} */
 /* {{{ setup_brightness_lut(bp,thresh,form) */
 
-void setup_brightness_lut(bp_global,thresh,form)
-  uchar *bp_global;
+
+
+void setup_brightness_lut(bp,thresh,form)
+  uchar **bp;
   int   thresh, form;
 {
 int   k;
 float temp;
-uchar **bp = &bp_global;
-  //*bp=(unsigned char *)malloc(516);
-  *bp=*bp+258;
 
+//  cout << *bp;
+//  cout<< **bp;
+  
+  *bp=(unsigned char *)malloc(516);
+  *bp=*bp+258;
   for(k=-256;k<257;k++)
   {
     temp=((float)k)/((float)thresh);
@@ -1970,8 +1974,11 @@ FILE   *ofp;
 char   filename [80],
        *tcp;
 //uchar  *in, *bp, *mid;
+char *bp;
 //##
-uchar in[X_SIZE_CONST * Y_SIZE_CONST],bp[BP_CONST],mid[X_SIZE_CONST * Y_SIZE_CONST];  
+uchar in[X_SIZE_CONST * Y_SIZE_CONST],
+      mid[X_SIZE_CONST * Y_SIZE_CONST];  
+// bp[BP_CONST],
 float  dt=4.0;
 int    //*r,
 	   argindex=3,
@@ -2059,8 +2066,8 @@ int r[X_SIZE_CONST * Y_SIZE_CONST];
     case 0:
       /* {{{ smoothing */
 
-      //setup_brightness_lut(&bp,bt,2);
-      setup_brightness_lut(bp,bt,2);
+      setup_brightness_lut(&bp,bt,2);
+//       setup_brightness_lut(bp,bt,2);
       susan_smoothing(three_by_three,in,dt,x_size,y_size,bp);
       break;
 
@@ -2069,8 +2076,8 @@ int r[X_SIZE_CONST * Y_SIZE_CONST];
       /* {{{ edges */
 
       //r   = (int *) malloc(x_size * y_size * sizeof(int));  //##initialized earlier
-      //setup_brightness_lut(&bp,bt,6); //## change
-      setup_brightness_lut(bp,bt,6); //## change
+      setup_brightness_lut(&bp,bt,6); //## change
+//       setup_brightness_lut(bp,bt,6); //## change
 	  
 
       if (principle)
@@ -2102,8 +2109,8 @@ int r[X_SIZE_CONST * Y_SIZE_CONST];
       /* {{{ corners */
 
       //r   = (int *) malloc(x_size * y_size * sizeof(int));
-      //setup_brightness_lut(&bp,bt,6);
-      setup_brightness_lut(bp,bt,6); //## change
+      setup_brightness_lut(&bp,bt,6);
+      //setup_brightness_lut(bp,bt,6); //## change
 
       if (principle)
       {
