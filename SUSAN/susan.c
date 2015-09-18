@@ -370,15 +370,15 @@ int getint(fd)
 
 /* }}} */
 
-void get_image(filename,in,x_size,y_size)
+void get_image(filename,in_global,x_size,y_size)
   char           filename[200];
-  unsigned char  **in;
+  unsigned char  *in_global;
   int            *x_size, *y_size;
 {
 FILE  *fd;
 char header [100];
 int  tmp;
-
+unsigned char **in = &in_global;
 #ifdef FOPENB
   if ((fd=fopen(filename,"rb")) == NULL)
 #else
@@ -399,7 +399,7 @@ int  tmp;
 
 /* }}} */
 
-  *in = (uchar *) malloc(*x_size * *y_size);
+  //*in = (uchar *) malloc(*x_size * *y_size);
 
   if (fread(*in,1,*x_size * *y_size,fd) == 0)
     exit_error("Image %s is wrong size.\n",filename);
@@ -465,13 +465,13 @@ int i,
 /* }}} */
 /* {{{ setup_brightness_lut(bp,thresh,form) */
 
-void setup_brightness_lut(bp,thresh,form)
-  uchar **bp;
+void setup_brightness_lut(bp_global,thresh,form)
+  uchar *bp_global;
   int   thresh, form;
 {
 int   k;
 float temp;
-
+uchar **bp = &bp_global;
   //*bp=(unsigned char *)malloc(516);
   *bp=*bp+258;
 
@@ -2059,7 +2059,8 @@ int r[X_SIZE_CONST * Y_SIZE_CONST];
     case 0:
       /* {{{ smoothing */
 
-      setup_brightness_lut(&bp,bt,2);
+      //setup_brightness_lut(&bp,bt,2);
+      setup_brightness_lut(bp,bt,2);
       susan_smoothing(three_by_three,in,dt,x_size,y_size,bp);
       break;
 
@@ -2068,7 +2069,9 @@ int r[X_SIZE_CONST * Y_SIZE_CONST];
       /* {{{ edges */
 
       //r   = (int *) malloc(x_size * y_size * sizeof(int));  //##initialized earlier
-      setup_brightness_lut(&bp,bt,6); //## change
+      //setup_brightness_lut(&bp,bt,6); //## change
+      setup_brightness_lut(bp,bt,6); //## change
+	  
 
       if (principle)
       {
@@ -2099,7 +2102,8 @@ int r[X_SIZE_CONST * Y_SIZE_CONST];
       /* {{{ corners */
 
       //r   = (int *) malloc(x_size * y_size * sizeof(int));
-      setup_brightness_lut(&bp,bt,6);
+      //setup_brightness_lut(&bp,bt,6);
+      setup_brightness_lut(bp,bt,6); //## change
 
       if (principle)
       {
