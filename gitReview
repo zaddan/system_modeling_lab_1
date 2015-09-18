@@ -2,3 +2,17 @@ git add $namefile1 $namefile2
 git commit -m $message
 git push 
 
+
+to delete a file
+git rm
+git commit
+git push
+
+
+to pull:
+git pull
+
+Note:
+every time you add, commit, push or any other command make sure that git respondes 
+with no error
+

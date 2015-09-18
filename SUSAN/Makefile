@@ -1,4 +1,5 @@
 CC = gcc
+CPP = g++
 CMP = diff -s
 RM  = rm -rf
 
@@ -13,11 +14,20 @@ OUTFILE =  output_edge.pgm
 susan: susan.c Makefile
 	$(CC) -static -O4 -o susan susan.c -lm  -g 
 
+# ---- compiling the intact original file
+susan_original: susan_original.c Makefile
+	$(CC) -static -O4 -o susan_original  susan_original.c -lm  -g 
+
+# ---- right now it is not working
+susan_original_cpp: susan_original.c Makefile
+	$(CPP) -o susan_original  susan_original.c -lm  -g 
+
 # ---- allows for debugging 
 susan_debug: susan.c Makefile
 	$(CC) -static -O4 -o susan susan.c -lm  -g  -v -da -Q
 
-
+debug_helpers:
+	$(CC) debug_helpers.c debug_helpers_test.c -o debug_helpers -g
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # ---- for running
@@ -35,6 +45,14 @@ run:
 test:
 	./susan $(INFILE) $(OUTFILE) -e 
 	$(CMP) $(OUTFILE) $(GOLDFILE)
+
+# ---- running the orignal one
+run_original:
+	./susan_original  $(INFILE) $(OUTFILE) -e 
+	$(CMP) $(OUTFILE) $(GOLDFILE)
+
+
+#debug_helpers:
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
