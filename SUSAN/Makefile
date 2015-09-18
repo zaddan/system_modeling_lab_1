@@ -9,11 +9,18 @@ OUTFILE =  output_edge.pgm
 
 
 susan: susan.c Makefile
-	$(CC) -static -O4 -o susan susan.c -lm 
+	$(CC) -static -O4 -o susan susan.c -lm  -g 
 
-test:
-	./susan $(INFILE) $(OUTFILE) -e
+susan_debug: susan.c Makefile
+	$(CC) -static -O4 -o susan susan.c -lm  -g  -v -da -Q
+
+run_debug:
+	gdb --args ./susan $(INFILE) $(OUTFILE) -e 
+
+run:
+	./susan $(INFILE) $(OUTFILE) -e 
 	$(CMP) $(OUTFILE) $(GOLDFILE)
+
 
 clean:
 	$(RM) susan $(OUTFILE)

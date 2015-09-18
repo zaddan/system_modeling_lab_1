@@ -284,7 +284,7 @@
 /* {{{ defines, includes and typedefs */
 
 /* ********** Optional settings */
-
+//starting point
 #ifndef PPC
 typedef int        TOTAL_TYPE; /* this is faster for "int" but should be "float" for large d masks */
 #else
@@ -296,13 +296,13 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #define MAX_CORNERS   15000  /* max corners per frame */
 
 /* ********** Leave the rest - but you may need to remove one or both of sys/file.h and malloc.h lines */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <sys/file.h>    /* may want to remove this line */
 #include <malloc.h>      /* may want to remove this line */
+#include "config.h"
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 #define  FTOI(a) ( (a) < 0 ? ((int)(a-0.5)) : ((int)(a+0.5)) )
 typedef  unsigned char uchar;
@@ -472,7 +472,7 @@ void setup_brightness_lut(bp,thresh,form)
 int   k;
 float temp;
 
-  *bp=(unsigned char *)malloc(516);
+  //*bp=(unsigned char *)malloc(516);
   *bp=*bp+258;
 
   for(k=-256;k<257;k++)
@@ -1971,7 +1971,7 @@ char   filename [80],
        *tcp;
 //uchar  *in, *bp, *mid;
 //##
-uchar in[X_SIZE_CONST * Y_SIZE_CONST],bp[BP_CONST],mid[[X_SIZE_CONST * Y_SIZE_CONST];  
+uchar in[X_SIZE_CONST * Y_SIZE_CONST],bp[BP_CONST],mid[X_SIZE_CONST * Y_SIZE_CONST];  
 float  dt=4.0;
 int    //*r,
 	   argindex=3,
@@ -2098,7 +2098,7 @@ int r[X_SIZE_CONST * Y_SIZE_CONST];
     case 2:
       /* {{{ corners */
 
-      r   = (int *) malloc(x_size * y_size * sizeof(int));
+      //r   = (int *) malloc(x_size * y_size * sizeof(int));
       setup_brightness_lut(&bp,bt,6);
 
       if (principle)
