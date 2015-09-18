@@ -1,6 +1,6 @@
-toalpool:  setup_brightness_lut , susan_principle_small, int_to_uchar, susan_edges_small, susan_edges, susan_thin, edge_draw
-behzad: int_to_char susan_edgs_small susan_thin
+toalpool:  setup_brightness_lut , int_to_uchar,  susan_edges, susan_thin, edge_draw
+behzad:  susan_edgs_small, susan_thin
 kishore: setup_brightness_lut, edge_draw
-keum: susan_principle_small, susan_edges
+keum:  susan_edges int_to_uchar
 
 
