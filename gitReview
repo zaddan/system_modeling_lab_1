@@ -1,0 +1,4 @@
+git add $namefile1 $namefile2
+git commit -m $message
+git push 
+
