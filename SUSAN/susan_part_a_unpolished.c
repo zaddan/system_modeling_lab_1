@@ -296,16 +296,13 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #define MAX_CORNERS   15000  /* max corners per frame */
 
 /* ********** Leave the rest - but you may need to remove one or both of sys/file.h and malloc.h lines */
-//#ifdef CPP
-//    #include <iostream>
-//#endif
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <sys/file.h>    /* may want to remove this line */
 #include <malloc.h>      /* may want to remove this line */
+#include "config.h"
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 #define  FTOI(a) ( (a) < 0 ? ((int)(a-0.5)) : ((int)(a+0.5)) )
 typedef  unsigned char uchar;
@@ -373,15 +370,15 @@ int getint(fd)
 
 /* }}} */
 
-void get_image(filename,in,x_size,y_size)
+void get_image(filename,in_global,x_size,y_size)
   char           filename[200];
-  unsigned char  **in;
+  unsigned char  *in_global;
   int            *x_size, *y_size;
 {
 FILE  *fd;
 char header [100];
 int  tmp;
-
+unsigned char **in = &in_global;
 #ifdef FOPENB
   if ((fd=fopen(filename,"rb")) == NULL)
 #else
@@ -402,7 +399,7 @@ int  tmp;
 
 /* }}} */
 
-  *in = (uchar *) malloc(*x_size * *y_size);
+  //*in = (uchar *) malloc(*x_size * *y_size);
 
   if (fread(*in,1,*x_size * *y_size,fd) == 0)
     exit_error("Image %s is wrong size.\n",filename);
@@ -468,6 +465,8 @@ int i,
 /* }}} */
 /* {{{ setup_brightness_lut(bp,thresh,form) */
 
+
+
 void setup_brightness_lut(bp,thresh,form)
   uchar **bp;
   int   thresh, form;
@@ -478,7 +477,8 @@ float temp;
 //  cout << *bp;
 //  cout<< **bp;
   
-  *bp=(unsigned char *)malloc(516);
+//       (unsigned char *)malloc(516);
+  //*bp = bpArray;
   *bp=*bp+258;
   for(k=-256;k<257;k++)
   {
@@ -1974,10 +1974,17 @@ main(argc, argv)
 FILE   *ofp;
 char   filename [80],
        *tcp;
-uchar  *in, *bp, *mid;
+//uchar  *in, *bp, *mid;
+uchar *bp;
+//##
+uchar in[X_SIZE_CONST * Y_SIZE_CONST],
+      mid[X_SIZE_CONST * Y_SIZE_CONST];  
+
+uchar bpArray [BP_CONST];
+bp = bpArray;
 float  dt=4.0;
-int    *r,
-       argindex=3,
+int    //*r,
+	   argindex=3,
        bt=20,
        principle=0,
        thin_post_proc=1,
@@ -1994,8 +2001,11 @@ CORNER_LIST corner_list;
 
   if (argc<3)
     usage();
+x_size = X_SIZE_CONST;
+y_size = Y_SIZE_CONST;
+int r[X_SIZE_CONST * Y_SIZE_CONST];
 
-  get_image(argv[1],&in,&x_size,&y_size);
+  get_image(argv[1],&in,&x_size,&y_size); //##change
 
   /* {{{ look at options */
 
@@ -2060,6 +2070,7 @@ CORNER_LIST corner_list;
       /* {{{ smoothing */
 
       setup_brightness_lut(&bp,bt,2);
+//       setup_brightness_lut(bp,bt,2);
       susan_smoothing(three_by_three,in,dt,x_size,y_size,bp);
       break;
 
@@ -2067,20 +2078,23 @@ CORNER_LIST corner_list;
     case 1:
       /* {{{ edges */
 
-      r   = (int *) malloc(x_size * y_size * sizeof(int));
-      setup_brightness_lut(&bp,bt,6);
+      //r   = (int *) malloc(x_size * y_size * sizeof(int));  //##initialized earlier
+      
+      setup_brightness_lut(&bp,bt,6); //## change
+//       setup_brightness_lut(bp,bt,6); //## change
+	  
 
       if (principle)
       {
         if (three_by_three)
-          susan_principle_small(in,r,bp,max_no_edges,x_size,y_size);
+          susan_principle_small(in,r,bp,max_no_edges,x_size,y_size); //## change
         else
-          susan_principle(in,r,bp,max_no_edges,x_size,y_size);
+          susan_principle(in,r,bp,max_no_edges,x_size,y_size); //## change
         int_to_uchar(r,in,x_size*y_size);
       }
       else
       {
-        mid = (uchar *)malloc(x_size*y_size);
+        //mid = (uchar *)malloc(x_size*y_size); //Already set earlier; 
         memset (mid,100,x_size * y_size); /* note not set to zero */
 
         if (three_by_three)
@@ -2098,8 +2112,9 @@ CORNER_LIST corner_list;
     case 2:
       /* {{{ corners */
 
-      r   = (int *) malloc(x_size * y_size * sizeof(int));
+      //r   = (int *) malloc(x_size * y_size * sizeof(int));
       setup_brightness_lut(&bp,bt,6);
+      //setup_brightness_lut(bp,bt,6); //## change
 
       if (principle)
       {
