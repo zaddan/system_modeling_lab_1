@@ -12,19 +12,15 @@ OUTFILE = output_edge.pgm
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # ---- the original make command
 susan: susan.c
-	$(CC) -static -O4 -o susan susan.c susan_thin.c edge_draw.c -lm  -g 
+	$(CC) -static -O4 -o susan *.c -lm  -g 
 
 # ---- compiling the intact original file
 susan_original: susan_original.c Makefile
-	$(CC) -static -O4 -o susan_original  susan_original.c -lm  -g 
-
-# ---- right now it is not working
-susan_original_cpp: susan_original.c Makefile
-	$(CPP) -o susan_original  susan_original.c -lm  -g 
+	$(CC) -static -O4 -o susan_original  /checkpoint/susan_original.c -lm  -g 
 
 # ---- allows for debugging 
 susan_debug: susan.c Makefile
-	$(CC) -static -O4 -o susan susan.c -lm  -g  -v -da -Q
+	$(CC) -static -O4 -o susan *.c -lm  -g  -v -da -Q
 
 debug_helpers:
 	$(CC) debug_helpers.c debug_helpers_test.c -o debug_helpers -g
