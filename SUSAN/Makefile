@@ -12,7 +12,7 @@ OUTFILE = output_edge.pgm
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # ---- the original make command
 susan: susan.c
-	$(CC) -static -O4 -o susan susan.c -lm  -g 
+	$(CC) -static -O4 -o susan susan.c susan_thin.c edge_draw.c -lm  -g 
 
 # ---- compiling the intact original file
 susan_original: susan_original.c Makefile
