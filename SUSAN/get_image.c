@@ -1,4 +1,4 @@
-#include <congfig.h>
+#include "congfig.h"
 
 void get_image(filename,in_global,x_size,y_size)
   char           filename[200];
