@@ -1,4 +1,4 @@
-#include <config.h>
+#include "config.h"
 
 
 put_image(filename,in,x_size,y_size)
