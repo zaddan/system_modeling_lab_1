@@ -11,7 +11,7 @@ OUTFILE = output_edge.pgm
 # ---- for compiling
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # ---- the original make command
-susan: susan.c
+susan: *.c
 	$(CC) -static -O4 -o susan *.c -lm  -g 
 
 # ---- compiling the intact original file
