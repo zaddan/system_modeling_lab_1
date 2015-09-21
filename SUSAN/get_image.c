@@ -1,8 +1,7 @@
 #include "config.h"
-void get_image(filename,in_global,x_size,y_size)
+void get_image(filename,in_global)
   char           filename[200];
   unsigned char  *in_global;
-  int            *x_size, *y_size;
 {
 FILE  *fd;
 char header [100];
@@ -22,15 +21,18 @@ unsigned char **in = &in_global;
   if(!(header[0]=='P' && header[1]=='5'))
     exit_error("Image %s does not have binary PGM header.\n",filename);
 
-  *x_size = getint(fd);
-  *y_size = getint(fd);
+  int x_size =  X_SIZE_CONST;
+  int y_size =  Y_SIZE_CONST;
+  
+  int dummy = getint(fd); //necessary cause it calls fgetc
+  dummy = getint(fd);
   tmp = getint(fd);
 
 /* }}} */
 
   //*in = (uchar *) malloc(*x_size * *y_size);
 
-  if (fread(*in,1,*x_size * *y_size,fd) == 0)
+  if (fread(*in,1,x_size * y_size,fd) == 0)
     exit_error("Image %s is wrong size.\n",filename);
 
   fclose(fd);

@@ -1,12 +1,12 @@
 #include "config.h"
-void put_image(filename,in,x_size,y_size)
+void put_image(filename,in)
   char filename [100],
        *in;
-  int  x_size,
-       y_size;
 {
 FILE  *fd;
-
+int x_size =  X_SIZE_CONST;
+int y_size =  Y_SIZE_CONST;
+  
 #ifdef FOPENB
   if ((fd=fopen(filename,"wb")) == NULL) 
 #else

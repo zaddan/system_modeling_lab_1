@@ -419,13 +419,13 @@ CORNER_LIST corner_list;
     x_size = X_SIZE_CONST;
     y_size = Y_SIZE_CONST;
     int r[X_SIZE_CONST * Y_SIZE_CONST];
-    get_image(argv[1],&in,&x_size,&y_size); //##change
+    get_image(argv[1],in); //##change
     setup_brightness_lut(&bp,bt,6); //## change
     memset (mid,100,x_size * y_size); /* note not set to zero */
     susan_edges(in,r,mid,bp,max_no_edges,x_size,y_size);
     susan_thin(r,mid,x_size,y_size);
     edge_draw(in,mid,x_size,y_size,drawing_mode);
-    put_image(argv[2],in,x_size,y_size);
+    put_image(argv[2],in);
 }
 
 /* }}} */
