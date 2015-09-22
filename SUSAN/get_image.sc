@@ -1,4 +1,4 @@
-#include "config.h"
+#include "constant.h"
 //void get_image(filename,in_global)
 //  char           filename[200];
 //  unsigned char  *in_global;
@@ -7,8 +7,8 @@ behavior get_image(i_receiver inPort, i_sender outPort) {
     void main(void) { 
     char           filename[FILE_NAME_SIZE];
     inPort.receive(filename, FILE_NAME_SIZE);
-    unsigned char  in_global[IMAGE_SIZE_CONST]; 
-//     inPort.receive(in_global, IMAGE_SIZE_CONST);
+    unsigned char  in_global[IMAGE_SIZE]; 
+//     inPort.receive(in_global, IMAGE_SIZE);
      
     FILE  *fd;
     char header [100];
@@ -46,6 +46,6 @@ behavior get_image(i_receiver inPort, i_sender outPort) {
     fclose(fd);
 
 
-    outPort.send(in, IMAGE_SIZE_CONST);
+    outPort.send(in, IMAGE_SIZE);
 }
 };

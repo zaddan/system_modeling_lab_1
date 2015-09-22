@@ -1,4 +1,4 @@
-#include "config.h"
+#include "constant.h"
 //need this one
 behavior edge_draw(i_receiver inPort_in, i_sender outPort):
 {
@@ -8,8 +8,8 @@ behavior edge_draw(i_receiver inPort_in, i_sender outPort):
     void main(void) { 
     uchar in [IMSGE_SIZE_CONST];
     uchar mid [IMSGE_SIZE_CONST];
-    inPort.receive(in, IMAGE_SIZE_CONST);
-    inPort.receive(mid, IMAGE_SIZE_CONST);
+    inPort.receive(in, IMAGE_SIZE);
+    inPort.receive(mid, IMAGE_SIZE);
     
     int   i;
     uchar *inp, *midp;
@@ -40,7 +40,7 @@ behavior edge_draw(i_receiver inPort_in, i_sender outPort):
     midp++;
   }
 
-  outPort.send(in, IMAGE_SIZE_CONST);
+  outPort.send(in, IMAGE_SIZE);
 
 }
 };

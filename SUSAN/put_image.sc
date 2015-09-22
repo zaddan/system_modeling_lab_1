@@ -1,14 +1,14 @@
-#include "config.h"
+#include "constant.h"
 //void put_image(filename,in)
 //    char filename [100],
 //    *in;
 //{
 behavior put_image(ireceiver inPort){
     void main(void){ 
-    char in[IMAGE_SIZE_CONST];
+    char in[IMAGE_SIZE];
     char           filename[FILE_NAME_SIZE];
     inPort.receive(filename, FILE_NAME_SIZE);
-    inPort.receive(in, IMAGE_SIZE_CONST);
+    inPort.receive(in, IMAGE_SIZE);
     FILE  *fd;
     int x_size =  X_SIZE_CONST;
     int y_size =  Y_SIZE_CONST;

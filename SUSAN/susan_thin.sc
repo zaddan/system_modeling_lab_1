@@ -11,8 +11,8 @@ behavior susan_thin( i_receiver inPort, i_sender outPort){
     int mid[IMSGE_SIZE_CONST];
     
     //populating r
-    inPort.receive(r, IMAGE_SIZE_CONST);
-    inPort.receive(mid, IMAGE_SIZE_CONST);
+    inPort.receive(r, IMAGE_SIZE);
+    inPort.receive(mid, IMAGE_SIZE);
     
     int   l[9], centre, nlinks, npieces,
           b01, b12, b21, b10,
@@ -202,7 +202,7 @@ O O O              0 2 3     */
 
             }
 
-	outPort.send(mid, IMAGE_SIZE_CONST);
+	outPort.send(mid, IMAGE_SIZE);
 
 }
 };

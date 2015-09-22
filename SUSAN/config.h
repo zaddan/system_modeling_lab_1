@@ -1,7 +1,7 @@
 #define BP_CONST 516 //migh have to modify later
 #define X_SIZE_CONST 76
 #define Y_SIZE_CONST 95
-#define IMAGE_SIZE_CONST 7220 
+#define IMAGE_SIZE 7220 
 #define FILE_NAME_SIZE 100 
 
 #include <stdlib.h>
