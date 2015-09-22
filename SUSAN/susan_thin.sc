@@ -1,26 +1,27 @@
 import "c_queue"; 
 import "c_double_handshake";
+#include "constant.h"
+
 behavior susan_thin( i_receiver inPort, i_sender outPort){
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;
     
     void main(void)
     { 
-    int r[IMSGE_SIZE_CONST];
-    int mid[IMSGE_SIZE_CONST];
-    
-    //populating r
-    inPort.receive(r, IMAGE_SIZE);
-    inPort.receive(mid, IMAGE_SIZE);
-    
+    unsigned char *mp;
+    int r[IMAGE_SIZE];
+    int mid[IMAGE_SIZE];
     int   l[9], centre, nlinks, npieces,
           b01, b12, b21, b10,
           p1, p2, p3, p4,
           b00, b02, b20, b22,
           m, n, a, b, x, y, i, j;
     
-   
-    uchar *mp;
+    //populating r
+    inPort.receive(r, IMAGE_SIZE);
+    inPort.receive(mid, IMAGE_SIZE);
+    
+    
     for (i=4;i<y_size-4;i++)
         for (j=4;j<x_size-4;j++)
             if (mid[i*x_size+j]<8)

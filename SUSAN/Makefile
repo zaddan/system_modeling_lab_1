@@ -17,8 +17,8 @@
 
 # --- macros -------------------------------------------------------------
 
-ALL	=  get_int stimulus setupbrightness susanedges detect_edges susan_thin edge_draw monitor main 
-  
+#ALL	=  stimulus setupbrightness susanedges detect_edges susan_thin edge_draw monitor main 
+ALL	=  main stimulus setupbrightness susanedges detect_edges susan_thin edge_draw monitor 
 SCC	= scc
 SCCOPT	= -vv -w -g -d
 RM	= rm -f

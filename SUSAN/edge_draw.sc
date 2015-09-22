@@ -3,19 +3,22 @@ import "c_double_handshake";
 import "c_queue";
 
 //need this one
-behavior edge_draw(i_receiver inPort, i_reciever image, i_sender outPort ):
-{
 
+behavior edge_draw(i_receiver inPort, i_receiver image, i_sender outPort )
+{
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;
-    void main(void) { 
-    uchar in [IMSGE_SIZE_CONST];
-    uchar mid [IMSGE_SIZE_CONST];
-    inPort.receive(mid, IMAGE_SIZE);
-    image.receive(in, IMAGE_SIZE);
     
-    int   i;
-    uchar *inp, *midp;
+    void main(void) { 
+    int i;
+    int drawing_mode = 0; 
+    unsigned char imageData[IMAGE_SIZE];
+    unsigned char mid[IMAGE_SIZE];
+    unsigned char *inp;
+    unsigned char *midp;
+    inPort.receive(mid, IMAGE_SIZE);
+    image.receive(imageData, IMAGE_SIZE);
+    
 
   if (drawing_mode==0)
   {
@@ -25,7 +28,7 @@ behavior edge_draw(i_receiver inPort, i_reciever image, i_sender outPort ):
     {
       if (*midp<8) 
       {
-        inp = in + (midp - mid) - x_size - 1;
+        inp = imageData + (midp - mid) - x_size - 1;
         *inp++=255; *inp++=255; *inp=255; inp+=x_size-2;
         *inp++=255; *inp++;     *inp=255; inp+=x_size-2;
         *inp++=255; *inp++=255; *inp=255;
@@ -39,11 +42,11 @@ behavior edge_draw(i_receiver inPort, i_reciever image, i_sender outPort ):
   for (i=0; i<x_size*y_size; i++)
   {
     if (*midp<8) 
-      *(in + (midp - mid)) = 0;
+      *(imageData + (midp - mid)) = 0;
     midp++;
   }
-
-  outPort.send(in, IMAGE_SIZE);
+  
+  outPort.send(imageData, IMAGE_SIZE);
 
 }
 };

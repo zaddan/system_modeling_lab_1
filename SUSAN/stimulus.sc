@@ -3,7 +3,6 @@
 #include <stdio.h>    /* may want to remove this line */
 import "c_double_handshake";
 import "c_queue";
-#include "get_int.h"
 behavior stimulus(i_sender outPort, i_sender startSignal) {
     void main(void) { 
 //     unsigned char  in_global[IMAGE_SIZE]; 
@@ -12,19 +11,21 @@ behavior stimulus(i_sender outPort, i_sender startSignal) {
     char header [100];
     FILE  *fd;
     int  tmp;
-    int dummy;
     int start; 
+    int c, i;
+    char dummy[10000];
+    int x = 0;
+ 
     //unsigned char in = in_global;
     unsigned char imageArray[IMAGE_SIZE];
 
-//#ifdef FOPENB
-//    if ((fd=fopen(filename,"rb")) == NULL)
-//#else
-//        if ((fd=fopen(filename,"r")) == NULL)
-//#endif
-//            exit_error("Can't input image %s.\n",filename);
+#ifdef FOPENB
+    if ((fd=fopen(filename,"rb")) == NULL)
+#else
+        if ((fd=fopen(filename,"r")) == NULL)
+#endif
+       {};//     exit_error("Can't input image %s.\n",filename);
 //
-//    /* {{{ read header */
 
     header[0]=fgetc(fd);
     header[1]=fgetc(fd);
@@ -39,6 +40,67 @@ behavior stimulus(i_sender outPort, i_sender startSignal) {
 //    dummy = getint(fd);
 //    tmp = getint(fd);
 //    
+    
+   
+ /**right here*/
+ 
+  c = getc(fd);
+  x +=1; 
+  while (1) /* find next integer */
+  {
+      x+=1; 
+      if (c=='#') {   /* if we're at a comment, read to end of line */
+      fgets(dummy,9000,fd);
+       printf("righthere\n"); 
+      }
+    if (c==EOF);
+    if (c>='0' && c<='9')
+      break;   /* found what we were looking for */
+    c = getc(fd);
+  }
+
+  /* we're at the start of a number, continue until we hit a non-number */
+  i = 0;
+  while (1) {
+   x+=1; 
+    i = (i*10) + (c - '0');
+    c = getc(fd);
+    if (c==EOF) ;
+    if (c<'0' || c>'9') break;
+  }c = getc(fd);
+  x +=1; 
+  while (1) /* find next integer */
+  {
+      x+=1; 
+      if (c=='#') {   /* if we're at a comment, read to end of line */
+      fgets(dummy,9000,fd);
+       printf("righthere\n"); 
+      }
+    if (c==EOF);
+    if (c>='0' && c<='9')
+      break;   /* found what we were looking for */
+    c = getc(fd);
+  }
+
+  /* we're at the start of a number, continue until we hit a non-number */
+  i = 0;
+  while (1) {
+   x+=1; 
+    i = (i*10) + (c - '0');
+    c = getc(fd);
+    if (c==EOF) ;
+    if (c<'0' || c>'9') break;
+  }
+ 
+
+ /**till here*/
+
+
+
+
+
+
+
     if (fread(imageArray,1,X_SIZE_CONST* Y_SIZE_CONST,fd) == 0) ;
 
      

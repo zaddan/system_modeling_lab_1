@@ -2,46 +2,41 @@
 #include <stdlib.h>
 #include "sim.sh"
 #include <string.h>
+#include <math.h>
 import "c_queue"; 
-include "constant.h"
+#include "constant.h";
 import "c_double_handshake";
 
-//void susan_edges(in,r,mid,bp,max_no,x_size,y_size)
-//  uchar *in, *bp, *mid;
-//  int   *r, max_no, x_size, y_size;
-
-behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i sender out_port)	 // max_no, x_size, y_size - > all constants  
-															 // in,bp are inputs
-															 // r,mid is output	
+behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port)	 
 {
     void main(void)
     {	
         float z,max_no;
+        int x_size, y_size; 
         // assign x_size and y_size values if required
-
+        unsigned char inData[X_SIZE_CONST*Y_SIZE_CONST];
+        unsigned char bp[BP_CONST];
+        int r[(X_SIZE_CONST*Y_SIZE_CONST)];
+        int   do_symmetry, i, j, m, n, a, b, x, y, w;
+        unsigned char mid[X_SIZE_CONST*Y_SIZE_CONST]; //TODO find mid's size
+        unsigned char c,*p,*cp;
         max_no = MAX_NO_EDGES;
         x_size = X_SIZE_CONST;
         y_size = Y_SIZE_CONST;
-        uchar in[X_SIZE_CONST*Y_SIZE_CONST];
-        uchar bp[BP_CONST];
-        int r[(X_SIZE_CONST*Y_SIZE_CONST)];
-        uchar mid[#size]; //TODO find mid's size
-        in_port1.receive(in,(X_SIZE_CONST*Y_SIZE_CONST)); // receive the "in"
+        in_port1.receive(inData,(X_SIZE_CONST*Y_SIZE_CONST)); // receive the "in"
         in_port2.receive(bp,BP_CONST); // receive the "bp"
         //in_port.receive(r,(X_SIZE_CONST*Y_SIZE_CONST));  //receive "r"
         //TODO memset mid to 100
 
 
-        int   do_symmetry, i, j, m, n, a, b, x, y, w;
-        uchar c,*p,*cp;
 
         memset (r,0,x_size * y_size * sizeof(int));
         for (i=3;i<y_size-3;i++)
             for (j=3;j<x_size-3;j++)
             {
                 n=100;
-                p=in + (i-3)*x_size + j - 1;
-                cp=bp + in[i*x_size+j];
+                p=inData + (i-3)*x_size + j - 1;
+                cp=bp + inData[i*x_size+j];
                 n+=*(cp-*p++);
                 n+=*(cp-*p++);
                 n+=*(cp-*p);
@@ -103,11 +98,11 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i sender out_port
                 {
                     m=r[i*x_size+j];
                     n=max_no - m;
-                    cp=bp + in[i*x_size+j];
+                    cp=bp + inData[i*x_size+j];
 
                     if (n>600)
                     {
-                        p=in + (i-3)*x_size + j - 1;
+                        p=inData + (i-3)*x_size + j - 1;
                         x=0;y=0;
 
                         c=*(cp-*p++);x-=c;y-=3*c;
@@ -186,7 +181,7 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i sender out_port
 
                     if (do_symmetry==1)
                     { 
-                        p=in + (i-3)*x_size + j - 1;
+                        p=inData + (i-3)*x_size + j - 1;
                         x=0; y=0; w=0;
 
                         /*   |      \
