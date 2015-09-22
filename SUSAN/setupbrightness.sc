@@ -10,7 +10,8 @@ behavior setup_brightness_lut(i_sender out_port)
 {
 	void main(void)
 	{	
-			int k, thresh,form;
+		 int oy;	
+            int k, thresh,form;
 			float temp;
 			unsigned char bpArray[BP_SIZE];
             
@@ -33,11 +34,15 @@ behavior setup_brightness_lut(i_sender out_port)
 					if (form==6)
 							temp=temp*temp*temp;
 					temp=100.0*exp(-temp);
-					//*(*bp+k)= (uchar)temp;
+					//*(*bp+k)= (unsigned char)temp;
 					*(bp+k)= (unsigned char)temp;
 
 			}
-			out_port.send(bp2, BP_SIZE);
+			
+            for (oy = 0; oy < 516; oy++){
+                printf("%d\n", bpArray[oy]);
+            }
+            out_port.send(bpArray, BP_SIZE);
 	}
 };
 

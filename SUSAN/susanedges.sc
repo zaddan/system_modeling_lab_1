@@ -10,22 +10,36 @@ import "c_double_handshake";
 
 behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port)	 
 {
+    
     void main(void)
     {	
+        
+        
         int max_no;
-	float z;	
+    	float z;	
         int x_size, y_size; 
         // assign x_size and y_size values if required
         unsigned char inData[X_SIZE_CONST*Y_SIZE_CONST];
         unsigned char bp[BP_CONST];
         int r[(X_SIZE_CONST*Y_SIZE_CONST)];
         int   do_symmetry, i, j, m, n, a, b, x, y, w;
+        
+        int oy;  
         unsigned char mid[X_SIZE_CONST*Y_SIZE_CONST]; //TODO find mid's size
+        int l; 
         unsigned char c,*p,*cp;
-        max_no = MAX_NO_EDGES;
+        for (l =0; l < IMAGE_SIZE; l++){
+          mid[l] = 100; 
+        }
+       max_no = MAX_NO_EDGES;
         x_size = X_SIZE_CONST;
         y_size = Y_SIZE_CONST;
         in_port1.receive(inData,(X_SIZE_CONST*Y_SIZE_CONST)); // receive the "in"
+        
+//        for (oy = 0; oy < IMAGE_SIZE ; oy++){
+//            printf("%d\n", inData[oy]);
+//        }
+        
         in_port2.receive(bp, BP_CONST); // receive the "bp"
         //in_port.receive(r,(X_SIZE_CONST*Y_SIZE_CONST));  //receive "r"
         //TODO memset mid to 100

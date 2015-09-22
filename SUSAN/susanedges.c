@@ -6,7 +6,10 @@ void susan_edges(in,r,mid,bp,max_no,x_size,y_size)
 float z;
 int   do_symmetry, i, j, m, n, a, b, x, y, w;
 uchar c,*p,*cp;
-
+ int l;  
+//  for (l = 0; l < IMAGE_SIZE ; l++){
+//      printf("%d\n", in[l]);
+//  }
   memset (r,0,x_size * y_size * sizeof(int));
 
   for (i=3;i<y_size-3;i++)

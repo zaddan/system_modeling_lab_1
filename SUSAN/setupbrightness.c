@@ -7,7 +7,7 @@ void setup_brightness_lut(bp,thresh,form)
 {
 int   k;
 float temp;
-
+int l;
 //  cout << *bp;
 //  cout<< **bp;
   
@@ -23,8 +23,7 @@ float temp;
     temp=100.0*exp(-temp);
     *(*bp+k)= (uchar)temp;
   }
-  
-}
+  }
 
 
 

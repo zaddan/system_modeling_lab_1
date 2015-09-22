@@ -15,7 +15,7 @@ behavior stimulus(i_sender outPort1, i_sender startSignal, i_sender outPort2) {
     int c, i;
     char dummy[10000];
     int x = 0;
- 
+    int forLoppStuff;
     //unsigned char in = in_global;
     unsigned char imageArray[IMAGE_SIZE];
 
@@ -44,57 +44,30 @@ behavior stimulus(i_sender outPort1, i_sender startSignal, i_sender outPort2) {
    
  /**right here*/
  
-  c = getc(fd);
-  x +=1; 
-  while (1) /* find next integer */
-  {
-      x+=1; 
-      if (c=='#') {   /* if we're at a comment, read to end of line */
-      fgets(dummy,9000,fd);
-       printf("righthere\n"); 
-      }
-    if (c==EOF);
-    if (c>='0' && c<='9')
-      break;   /* found what we were looking for */
-    c = getc(fd);
-  }
-
-  /* we're at the start of a number, continue until we hit a non-number */
-  i = 0;
-  while (1) {
-   x+=1; 
-    i = (i*10) + (c - '0');
-    c = getc(fd);
-    if (c==EOF) ;
-    if (c<'0' || c>'9') break;
-  }c = getc(fd);
-  x +=1; 
-  while (1) /* find next integer */
-  {
-      x+=1; 
-      if (c=='#') {   /* if we're at a comment, read to end of line */
-      fgets(dummy,9000,fd);
-       printf("righthere\n"); 
-      }
-    if (c==EOF);
-    if (c>='0' && c<='9')
-      break;   /* found what we were looking for */
-    c = getc(fd);
-  }
-
-  /* we're at the start of a number, continue until we hit a non-number */
-  i = 0;
-  while (1) {
-   x+=1; 
-    i = (i*10) + (c - '0');
-    c = getc(fd);
-    if (c==EOF) ;
-    if (c<'0' || c>'9') break;
-  }
- 
-
  /**till here*/
+ for (forLoppStuff=0;forLoppStuff< 3; forLoppStuff++) {
+  c = getc(fd);
+  while (1) /* find next integer */
+  {
+    if (c=='#')    /* if we're at a comment, read to end of line */
+      fgets(dummy,9000,fd);
+    if (c==EOF)
+      ; 
+      //exit_error("Image %s not binary PGM.\n","is");
+    if (c>='0' && c<='9')
+      break;   /* found what we were looking for */
+    c = getc(fd);
+  }
 
+  /* we're at the start of a number, continue until we hit a non-number */
+  i = 0;
+  while (1) {
+    i = (i*10) + (c - '0');
+    c = getc(fd);
+    if (c==EOF);
+    if (c<'0' || c>'9') break;
+  }
+ }  
 
 
 

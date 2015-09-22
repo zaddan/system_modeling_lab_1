@@ -421,6 +421,11 @@ CORNER_LIST corner_list;
     int r[X_SIZE_CONST * Y_SIZE_CONST];
     get_image(argv[1],in); //##change
     setup_brightness_lut(&bp,bt,6); //## change
+    int l; 
+    for (l = 0; l < 516; l++){
+      printf("%d\n", bp[l]);
+    }
+    
     memset (mid,100,x_size * y_size); /* note not set to zero */
     susan_edges(in,r,mid,bp,max_no_edges,x_size,y_size);
     susan_thin(r,mid,x_size,y_size);
