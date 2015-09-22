@@ -37,7 +37,7 @@ behavior setup_brightness_lut(i_sender out_port)
 					*(bp+k)= (unsigned char)temp;
 
 			}
-			out_port.send(bp2,BP_SIZE);
+			out_port.send(bp2, BP_SIZE);
 	}
 };
 

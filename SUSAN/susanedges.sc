@@ -3,8 +3,9 @@
 #include "sim.sh"
 #include <string.h>
 #include <math.h>
-import "c_queue"; 
 #include "constant.h";
+
+import "c_queue"; 
 import "c_double_handshake";
 
 behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port)	 
@@ -24,7 +25,7 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port
         x_size = X_SIZE_CONST;
         y_size = Y_SIZE_CONST;
         in_port1.receive(inData,(X_SIZE_CONST*Y_SIZE_CONST)); // receive the "in"
-        in_port2.receive(bp,BP_CONST); // receive the "bp"
+        in_port2.receive(bp, BP_CONST); // receive the "bp"
         //in_port.receive(r,(X_SIZE_CONST*Y_SIZE_CONST));  //receive "r"
         //TODO memset mid to 100
 

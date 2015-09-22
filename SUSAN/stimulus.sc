@@ -3,7 +3,7 @@
 #include <stdio.h>    /* may want to remove this line */
 import "c_double_handshake";
 import "c_queue";
-behavior stimulus(i_sender outPort, i_sender startSignal) {
+behavior stimulus(i_sender outPort1, i_sender startSignal, i_sender outPort2) {
     void main(void) { 
 //     unsigned char  in_global[IMAGE_SIZE]; 
      
@@ -108,8 +108,8 @@ behavior stimulus(i_sender outPort, i_sender startSignal) {
 
     fclose(fd);
     start = 1;
-    outPort.send(imageArray, IMAGE_SIZE);
-    outPort.send(imageArray, IMAGE_SIZE);
+    outPort1.send(imageArray, IMAGE_SIZE);
+    outPort2.send(imageArray, IMAGE_SIZE);
     startSignal.send((void *)&start, 1);
 }
 };
