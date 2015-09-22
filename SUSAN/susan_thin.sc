@@ -2,7 +2,7 @@ import "c_queue";
 import "c_double_handshake";
 #include "constant.h"
 
-behavior susan_thin( i_receiver inPort, i_sender outPort){
+behavior susan_thin(i_receiver inPort, i_sender outPort){
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;
     
