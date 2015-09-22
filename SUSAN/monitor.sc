@@ -1,4 +1,7 @@
 #include "constant.h"
+import "c_double_handshake";
+import "c_queue";
+
 //void put_image(filename,in)
 //    char filename [100],
 //    *in;

@@ -3,7 +3,8 @@
 #include <stdlib.h>
 ##include "sim.sh"
 #include <string.h>
-#import "c_queue"; 
+import "c_queue"; 
+import "c_double_handshake";
 
 #define BP_SIZE 516
 //need this one
@@ -39,7 +40,7 @@ behavior setup_brightness_lut( i_sender out_port)  //out_port -> send bp, in_por
 			}
 			out_port.send(bp2,BP_SIZE);
 	}
-}
+};
 
 
 

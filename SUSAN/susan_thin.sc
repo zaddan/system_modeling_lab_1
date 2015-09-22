@@ -1,6 +1,5 @@
-#include "config.h"
-#import "c_queue"; 
-
+import "c_queue"; 
+import "c_double_handshake";
 behavior susan_thin( i_receiver inPort, i_sender outPort){
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;

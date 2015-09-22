@@ -1,11 +1,14 @@
 #include "constant.h"
+import "c_double_handshare"
+import "c_queue"
 //void get_image(filename,in_global)
 //  char           filename[200];
 //  unsigned char  *in_global;
 //{
-behavior get_image(i_receiver inPort, i_sender outPort) {
+behavior get_image(i_sender outPort, i_sender startSignal) {
     void main(void) { 
     char           filename[FILE_NAME_SIZE];
+    filename  = "input_small.pgm"    
     inPort.receive(filename, FILE_NAME_SIZE);
     unsigned char  in_global[IMAGE_SIZE]; 
 //     inPort.receive(in_global, IMAGE_SIZE);
@@ -45,7 +48,9 @@ behavior get_image(i_receiver inPort, i_sender outPort) {
 
     fclose(fd);
 
-
+    int start = 1;
     outPort.send(in, IMAGE_SIZE);
+    startSignal.send((void *)&start, 1);
+
 }
 };

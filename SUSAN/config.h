@@ -20,6 +20,5 @@ void edge_draw(uchar *in, uchar *mid,int x_size,int y_size,int drawing_mode);
 void setup_brightness_lut(uchar **bp,int thresh, int form);
 void susan_edges(uchar *in,int *r,uchar *mid,uchar *bp,int max_no,int x_size,int y_size);
 void get_image(char filename[],unsigned char *in_global);
-int getint(FILE *fd);
 void put_image(char filename[],char *in);
 

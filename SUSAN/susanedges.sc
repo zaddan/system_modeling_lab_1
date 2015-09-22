@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include "sim.sh"
 #include <string.h>
-#import "c_queue"; 
-#include "constant.h"
+import "c_queue"; 
+include "constant.h"
+import "c_double_handshake";
 
 //void susan_edges(in,r,mid,bp,max_no,x_size,y_size)
 //  uchar *in, *bp, *mid;
@@ -259,4 +260,4 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i sender out_port
         out_port.send(r,IMAGE_SIZE); //TODO figure out the size
         out_port.send(mid,IMAGE_SIZE); //TODO figure out the size	
     }
-}
+};

@@ -1,6 +1,9 @@
 #include "constant.h"
+import "c_double_handshake";
+import "c_queue";
+
 //need this one
-behavior edge_draw(i_receiver inPort_in, i_sender outPort):
+behavior edge_draw(i_receiver inPort, i_reciever image, i_sender outPort ):
 {
 
     int x_size = X_SIZE_CONST;
@@ -8,8 +11,8 @@ behavior edge_draw(i_receiver inPort_in, i_sender outPort):
     void main(void) { 
     uchar in [IMSGE_SIZE_CONST];
     uchar mid [IMSGE_SIZE_CONST];
-    inPort.receive(in, IMAGE_SIZE);
     inPort.receive(mid, IMAGE_SIZE);
+    image.receive(in, IMAGE_SIZE);
     
     int   i;
     uchar *inp, *midp;

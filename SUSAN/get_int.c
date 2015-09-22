@@ -1,7 +1,7 @@
 #include "config.h"
+#include <stdio.h>
 
-int getint(fd)
-  FILE *fd;
+int getint(FILE *fd)
 {
   int c, i;
   char dummy[10000];
