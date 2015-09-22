@@ -84,5 +84,5 @@ behavior stimulus(i_sender outPort1, i_sender startSignal, i_sender outPort2) {
     outPort1.send(imageArray, IMAGE_SIZE);
     outPort2.send(imageArray, IMAGE_SIZE);
     startSignal.send((void *)&start, 1);
-}
+ }
 };

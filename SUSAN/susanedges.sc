@@ -8,51 +8,47 @@
 import "c_queue"; 
 import "c_double_handshake";
 
-behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port)	 
+behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_portR, i_sender out_portMid)	 
 {
     
     void main(void)
     {	
-        
-        
+         
         int max_no;
     	float z;	
         int x_size, y_size; 
         // assign x_size and y_size values if required
         unsigned char inData[X_SIZE_CONST*Y_SIZE_CONST];
         unsigned char bp[BP_CONST];
-        int r[(X_SIZE_CONST*Y_SIZE_CONST)];
+        int r[X_SIZE_CONST*Y_SIZE_CONST];
         int   do_symmetry, i, j, m, n, a, b, x, y, w;
         
         int oy;  
         unsigned char mid[X_SIZE_CONST*Y_SIZE_CONST]; //TODO find mid's size
         int l; 
         unsigned char c,*p,*cp;
-        for (l =0; l < IMAGE_SIZE; l++){
-          mid[l] = 100; 
-        }
+//        for (l =0; l < IMAGE_SIZE; l++){
+//          mid[l] = 100; 
+//        }
        max_no = MAX_NO_EDGES;
         x_size = X_SIZE_CONST;
         y_size = Y_SIZE_CONST;
         in_port1.receive(inData,(X_SIZE_CONST*Y_SIZE_CONST)); // receive the "in"
-        
-//        for (oy = 0; oy < IMAGE_SIZE ; oy++){
-//            printf("%d\n", inData[oy]);
-//        }
-        
+
         in_port2.receive(bp, BP_CONST); // receive the "bp"
+        
+        
         //in_port.receive(r,(X_SIZE_CONST*Y_SIZE_CONST));  //receive "r"
         //TODO memset mid to 100
 
-
-
+        memset (mid,100,x_size * y_size * sizeof(int));
         memset (r,0,x_size * y_size * sizeof(int));
         for (i=3;i<y_size-3;i++)
             for (j=3;j<x_size-3;j++)
             {
                 n=100;
                 p=inData + (i-3)*x_size + j - 1;
-                cp=bp + inData[i*x_size+j];
+                cp=bp + inData[i*x_size+j] + 258;
                 n+=*(cp-*p++);
                 n+=*(cp-*p++);
                 n+=*(cp-*p);
@@ -114,7 +110,7 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port
                 {
                     m=r[i*x_size+j];
                     n=max_no - m;
-                    cp=bp + inData[i*x_size+j];
+                    cp=bp + inData[i*x_size+j] + 258;
 
                     if (n>600)
                     {
@@ -267,8 +263,16 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port
                                     mid[i*x_size+j] = 2;	
                     }
                 }
-            }
-        out_port.send(r,IMAGE_SIZE); //TODO figure out the size
-        out_port.send(mid,IMAGE_SIZE); //TODO figure out the size	
+        
+
+    
+    }
+//        for (x = 0; x < IMAGE_SIZE; x++) {
+//            printf("%d\n", r[x]);
+//        }
+//        
+        out_portR.send((void*)r,4*IMAGE_SIZE); //TODO figure out the size
+        out_portMid.send(mid,IMAGE_SIZE); //TODO figure out the size	
+      
     }
 };

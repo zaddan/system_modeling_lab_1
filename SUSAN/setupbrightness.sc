@@ -30,20 +30,23 @@ behavior setup_brightness_lut(i_sender out_port)
 			for(k=-256;k<257;k++)
 			{
 					temp=((float)k)/((float)thresh);
-					temp=temp*temp;
-					if (form==6)
+                    temp=temp*temp;
+                    //printf(":%f\n", temp); 
+                    if (form==6)
 							temp=temp*temp*temp;
 					temp=100.0*exp(-temp);
 					//*(*bp+k)= (unsigned char)temp;
-					*(bp+k)= (unsigned char)temp;
-
+                    //printf(":%f\n", temp); 
+                    *(bp+k)= (unsigned char)temp;
+                    //printf(":%c\n", (unsigned char)temp); 
 			}
 			
-            for (oy = 0; oy < 516; oy++){
-                printf("%d\n", bpArray[oy]);
-            }
+//            for (oy = 0; oy < 516; oy++){
+//                printf("%d\n", bpArray[oy]);
+//            }
             out_port.send(bpArray, BP_SIZE);
-	}
+	
+    }
 };
 
 

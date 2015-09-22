@@ -1,9 +1,9 @@
 import "c_queue"; 
 #include "constant.hh"
 import "c_double_handshake";
+#include <stdio.h>
 
-
-behavior susan_thin(i_receiver inPort, i_sender outPort){
+behavior susan_thin(i_receiver inPortR, i_receiver inPortMid, i_sender outPort){
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;
     
@@ -19,9 +19,18 @@ behavior susan_thin(i_receiver inPort, i_sender outPort){
           m, n, a, b, x, y, i, j;
     
     //populating r
-    inPort.receive(r, IMAGE_SIZE);
-    inPort.receive(mid, IMAGE_SIZE);
-    
+    inPortR.receive(r, 4*IMAGE_SIZE);
+    inPortMid.receive(mid, IMAGE_SIZE);
+        //printf("here is imageSize%d\n", IMAGE_SIZE); 
+//    for (x = 0; x < IMAGE_SIZE; x++) {
+//      printf("%d\n", mid[x]);
+//    }
+//   
+    //printf("&&&&&&&&&\n");
+//    for (x = 0; x < IMAGE_SIZE; x++) {
+//      printf("%d\n", r[x]);
+//   }
+//    printf("&&&&&&&&&\n");
     
     for (i=4;i<y_size-4;i++)
         for (j=4;j<x_size-4;j++)
@@ -203,6 +212,7 @@ O O O              0 2 3     */
 
             }
 
+    
 	outPort.send(mid, IMAGE_SIZE);
 
 }
