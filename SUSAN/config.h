@@ -1,6 +1,8 @@
 #define BP_CONST 516 //migh have to modify later
 #define X_SIZE_CONST 76
 #define Y_SIZE_CONST 95
+#define IMAGE_SIZE_CONST 7220 
+#define FILE_NAME_SIZE 100 
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,7 +19,7 @@ void susan_thin(int r[],uchar mid[],int x_size,int y_size);
 void edge_draw(uchar *in, uchar *mid,int x_size,int y_size,int drawing_mode);
 void setup_brightness_lut(uchar **bp,int thresh, int form);
 void susan_edges(uchar *in,int *r,uchar *mid,uchar *bp,int max_no,int x_size,int y_size);
-void get_image(char filename[],unsigned char *in_global,int *x_size,int *y_size);
+void get_image(char filename[],unsigned char *in_global);
 int getint(FILE *fd);
-void put_image(char filename[],char *in,int x_size,int y_size);
+void put_image(char filename[],char *in);
 
