@@ -1,4 +1,4 @@
-#include "constant.h"
+#include "constant.hh"
 import "c_double_handshake";
 import "c_queue";
 

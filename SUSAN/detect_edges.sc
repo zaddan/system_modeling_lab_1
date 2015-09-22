@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "sim.sh"
 #include <string.h>
-#include "constant.h";
+#include "constant.hh"
 
 import "c_queue";
 import "susanedges";

@@ -3,7 +3,7 @@
 #include "sim.sh"
 #include <string.h>
 #include <math.h>
-#include "constant.h";
+#include "constant.hh"
 
 import "c_queue"; 
 import "c_double_handshake";
@@ -12,7 +12,8 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port
 {
     void main(void)
     {	
-        float z,max_no;
+        int max_no;
+	float z;	
         int x_size, y_size; 
         // assign x_size and y_size values if required
         unsigned char inData[X_SIZE_CONST*Y_SIZE_CONST];

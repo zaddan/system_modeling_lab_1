@@ -1,6 +1,7 @@
 import "c_queue"; 
+#include "constant.hh"
 import "c_double_handshake";
-#include "constant.h"
+
 
 behavior susan_thin(i_receiver inPort, i_sender outPort){
     int x_size = X_SIZE_CONST;
@@ -10,7 +11,7 @@ behavior susan_thin(i_receiver inPort, i_sender outPort){
     { 
     unsigned char *mp;
     int r[IMAGE_SIZE];
-    int mid[IMAGE_SIZE];
+    unsigned char  mid[IMAGE_SIZE];
     int   l[9], centre, nlinks, npieces,
           b01, b12, b21, b10,
           p1, p2, p3, p4,

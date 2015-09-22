@@ -18,12 +18,14 @@
 # --- macros -------------------------------------------------------------
 
 #ALL	=  stimulus setupbrightness susanedges detect_edges susan_thin edge_draw monitor main 
-ALL	=  main stimulus setupbrightness susanedges detect_edges susan_thin edge_draw monitor 
+ALL	=  main #stimulus setupbrightness susanedges detect_edges susan_thin edge_draw monitor 
 SCC	= scc
 SCCOPT	= -vv -w -g -d
 RM	= rm -f
-
-
+INFILE  = input_small.pgm
+OUTFILE = output_edge.pgm
+GOLDFILE = golden.pgm 
+CMP = diff -s
 # --- SpecC rules --------------------------------------------------------
 
 .SUFFIXES:
@@ -58,12 +60,10 @@ susan:	$(ALL)
 	set -e;					\
 	for file in $(ALL); do ./$$file ; done
 
-#run_test:
-#	./susan_original  $(INFILE) $(OUTFILE) -e 
-#	$(CMP) $(OUTFILE) $(GOLDFILE)
-#
+run_test:
+	./main  $(INFILE) $(OUTFILE) -e 
+	$(CMP) $(OUTFILE) $(GOLDFILE)
 
 
-clean:
-	$(RM) susan $(OUTFILE)
+
 # --- EOF ----------------------------------------------------------------

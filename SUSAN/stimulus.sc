@@ -1,4 +1,4 @@
-#include "constant.h"
+#include "constant.hh"
 #include <sys/file.h>    /* may want to remove this line */
 #include <stdio.h>    /* may want to remove this line */
 import "c_double_handshake";
