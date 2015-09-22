@@ -3,15 +3,17 @@
 //  char           filename[200];
 //  unsigned char  *in_global;
 //{
-behavior get_image(i_receiver inPort) {
+behavior get_image(i_receiver inPort, i_sender outPort) {
+    void main(void) { 
     char           filename[FILE_NAME_SIZE];
     inPort.receive(filename, FILE_NAME_SIZE);
     unsigned char  in_global[IMAGE_SIZE_CONST]; 
-    inPort.receive(in_global, IMAGE_SIZE_CONST);
+//     inPort.receive(in_global, IMAGE_SIZE_CONST);
      
     FILE  *fd;
     char header [100];
     int  tmp;
+    
     unsigned char **in = &in_global;
 #ifdef FOPENB
     if ((fd=fopen(filename,"rb")) == NULL)
@@ -46,3 +48,4 @@ behavior get_image(i_receiver inPort) {
 
     outPort.send(in, IMAGE_SIZE_CONST);
 }
+};

@@ -4,6 +4,7 @@
 //    *in;
 //{
 behavior put_image(ireceiver inPort){
+    void main(void){ 
     char in[IMAGE_SIZE_CONST];
     char           filename[FILE_NAME_SIZE];
     inPort.receive(filename, FILE_NAME_SIZE);
@@ -30,3 +31,4 @@ behavior put_image(ireceiver inPort){
 
     fclose(fd);
 }
+};

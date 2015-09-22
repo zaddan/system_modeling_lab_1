@@ -5,6 +5,7 @@ behavior edge_draw(i_receiver inPort_in, i_sender outPort):
 
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;
+    void main(void) { 
     uchar in [IMSGE_SIZE_CONST];
     uchar mid [IMSGE_SIZE_CONST];
     inPort.receive(in, IMAGE_SIZE_CONST);
@@ -39,7 +40,7 @@ behavior edge_draw(i_receiver inPort_in, i_sender outPort):
     midp++;
   }
 
-  outPort.send(mid, IMAGE_SIZE_CONST);
-
+  outPort.send(in, IMAGE_SIZE_CONST);
 
 }
+};

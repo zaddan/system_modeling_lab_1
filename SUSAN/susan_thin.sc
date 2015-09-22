@@ -4,9 +4,12 @@
 behavior susan_thin( i_receiver inPort, i_sender outPort){
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;
+    
+    void main(void)
+    { 
     int r[IMSGE_SIZE_CONST];
     int mid[IMSGE_SIZE_CONST];
-
+    
     //populating r
     inPort.receive(r, IMAGE_SIZE_CONST);
     inPort.receive(mid, IMAGE_SIZE_CONST);
@@ -16,8 +19,9 @@ behavior susan_thin( i_receiver inPort, i_sender outPort){
           p1, p2, p3, p4,
           b00, b02, b20, b22,
           m, n, a, b, x, y, i, j;
+    
+   
     uchar *mp;
-
     for (i=4;i<y_size-4;i++)
         for (j=4;j<x_size-4;j++)
             if (mid[i*x_size+j]<8)
@@ -199,4 +203,6 @@ O O O              0 2 3     */
             }
 
 	outPort.send(mid, IMAGE_SIZE_CONST);
+
 }
+};

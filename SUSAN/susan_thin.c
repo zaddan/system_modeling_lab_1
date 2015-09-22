@@ -9,9 +9,9 @@ void susan_thin(int r[],uchar mid[],int x_size,int y_size)
           b00, b02, b20, b22,
           m, n, a, b, x, y, i, j;
     uchar *mp;
-
     for (i=4;i<y_size-4;i++)
         for (j=4;j<x_size-4;j++)
+            
             if (mid[i*x_size+j]<8)
             {
                 centre = r[i*x_size+j];
