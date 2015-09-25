@@ -1,11 +1,13 @@
-//toalpool:  setup_brightness_lut , int_to_uchar,  susan_edges, susan_thin, edge_draw
-//behzad:  susan_edgs_small, susan_thin, put_image
-//kishore: setup_brightness_lut, edge_draw
-//keum:  susan_edges int_to_uchar get_image
+0. make trigger (start signal) a double handshake , right now it is queue of size 1
+1. modify stimulus.sc 
+2. create read_image.sc
+3. create put image.sc
 
-//make the following functions: DetectEdges, susan_core
-Kishore: susanEdges, susanBrightnessLut 
-San: getImage, put_image 
-Behzad: susanThin, EdgeDraw
+//group, each can be individually tested 
+1 - task 0,1
+2 - task 2,
+3 - task 3
+
+
 
 
