@@ -18,7 +18,7 @@ behavior stimulus(i_sender outPort1, i_sender startSignal){
     int forLoppStuff;
     //unsigned char in = in_global;
     unsigned char imageArray[IMAGE_SIZE];
-
+    int ii;
 #ifdef FOPENB
     if ((fd=fopen(filename,"rb")) == NULL)
 #else
@@ -81,7 +81,15 @@ behavior stimulus(i_sender outPort1, i_sender startSignal){
 
     fclose(fd);
     start = 1;
-    outPort1.send(imageArray, IMAGE_SIZE);
+    waitfor(1000);
     startSignal.send((void *)&start, 1);
+    
+    for (ii = 0; ii < 2; ii ++)
+    {
+    waitfor(10);
+    outPort1.send(imageArray, IMAGE_SIZE);
+    }
+
+    
  }
 };
