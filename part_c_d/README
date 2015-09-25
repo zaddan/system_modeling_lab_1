@@ -1,0 +1,9 @@
+We have two folders:
+1.SUSAN_C: which contains all the .c files
+2. SUSAN_SC: which contains allthe .sc files
+
+to compile and run each versions please follow the instructions bellow:
+1. cd to the folder
+2. make clean
+3. make 
+4. make run_test

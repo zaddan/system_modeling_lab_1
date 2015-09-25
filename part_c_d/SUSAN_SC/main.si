@@ -1,0 +1,46 @@
+# 1 "main.sc"
+# 1 "/home/ecelrc/students/bboroujerdian/system_modeling_lab_1/part_a_b/SUSAN_SC//"
+# 1 "<built-in>"
+# 1 "<command line>"
+# 1 "main.sc"
+import "c_double_handshake";
+import "c_queue";
+import "susan_thin";
+import "stimulus";
+import "edge_draw";
+import "monitor";
+import "detect_edges";
+# 1 "constant.hh" 1
+# 9 "main.sc" 2
+
+behavior Main(void)
+{
+  const unsigned long trigger_size = 1;
+  const unsigned long img_size = 76*95;
+  const unsigned long img_size4 = 4*76*95;
+  c_double_handshake Trigger;
+  c_queue imageBuffer(img_size);
+  c_queue imageBuffer2(img_size);
+  c_queue detectEdgeOutputR(img_size4);
+  c_queue detectEdgeOutputMid (img_size);
+
+  c_queue susanThinOutput(img_size);
+  c_queue edgeDrawOutput(img_size);
+  stimulus myStimulus(imageBuffer, Trigger, imageBuffer2);
+  detectedges mydetectEdges(imageBuffer, Trigger, detectEdgeOutputR, detectEdgeOutputMid);
+  susan_thin mySusanThin(detectEdgeOutputR, detectEdgeOutputMid,susanThinOutput);
+  edge_draw myEdgeDraw(susanThinOutput, imageBuffer2, edgeDrawOutput);
+  monitor myMonitor(edgeDrawOutput);
+
+  int main(void) {
+      printf("start getting the image\n");
+      par {
+          myStimulus;
+          mydetectEdges;
+          mySusanThin;
+          myEdgeDraw;
+          myMonitor;
+      }
+      return(0);
+  }
+};
