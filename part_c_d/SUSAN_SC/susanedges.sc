@@ -5,10 +5,13 @@
 #include <math.h>
 #include "constant.hh"
 
-import "c_queue"; 
+//import "c_queue"; 
+import "c_image_queue";
 import "c_double_handshake";
+import "c_BP_queue";
+import "c_intR_queue";
 
-behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_portR, i_sender out_portMid)	 
+behavior susan_edges(i_image_receiver in_port1, i_BP_receiver in_port2, i_intR_sender out_portR, i_image_sender out_portMid)	 
 {
     
     void main(void)
@@ -24,7 +27,8 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port
         int   do_symmetry, i, j, m, n, a, b, x, y, w;
         
         int oy;  
-        unsigned char mid[X_SIZE_CONST*Y_SIZE_CONST]; //TODO find mid's size
+        unsigned char mid[IMAGE_SIZE]; //TODO find mid's size
+        
         int l; 
         unsigned char c,*p,*cp;
 //        for (l =0; l < IMAGE_SIZE; l++){
@@ -33,9 +37,9 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port
        max_no = MAX_NO_EDGES;
         x_size = X_SIZE_CONST;
         y_size = Y_SIZE_CONST;
-        in_port1.receive(inData,(X_SIZE_CONST*Y_SIZE_CONST)); // receive the "in"
+        in_port1.receive(&inData); // receive the "in"
 
-        in_port2.receive(bp, BP_CONST); // receive the "bp"
+        in_port2.receive(&bp); // receive the "bp"
         
         
         //in_port.receive(r,(X_SIZE_CONST*Y_SIZE_CONST));  //receive "r"
@@ -271,8 +275,8 @@ behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_port
 //            printf("%d\n", r[x]);
 //        }
 //        
-        out_portR.send((void*)r,4*IMAGE_SIZE); //TODO figure out the size
-        out_portMid.send(mid,IMAGE_SIZE); //TODO figure out the size	
-      
+        out_portMid.send(mid); //TODO figure out the size	
+        out_portR.send(r); //TODO figure out the size
+ 
     }
 };

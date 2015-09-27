@@ -1,17 +1,26 @@
-import "c_queue"; 
-#include "constant.hh"
+//import "c_queue"; 
+import "c_image_queue";
+import "c_intR_queue";
 import "c_double_handshake";
 #include <stdio.h>
+#include "constant.hh"
 
-behavior susan_thin(i_receiver inPortR, i_receiver inPortMid, i_sender outPort){
-    int x_size = X_SIZE_CONST;
-    int y_size = Y_SIZE_CONST;
-    
+
+
+behavior susan_thin(i_intR_receiver inPortR, i_image_receiver inPortMid, i_image_sender outPort){
+   
     void main(void)
     { 
+   
+    int x_size = X_SIZE_CONST;
+    int y_size = Y_SIZE_CONST;
+   
     unsigned char *mp;
+  
+    
     int r[IMAGE_SIZE];
     unsigned char  mid[IMAGE_SIZE];
+    
     int   l[9], centre, nlinks, npieces,
           b01, b12, b21, b10,
           p1, p2, p3, p4,
@@ -19,8 +28,11 @@ behavior susan_thin(i_receiver inPortR, i_receiver inPortMid, i_sender outPort){
           m, n, a, b, x, y, i, j;
     
     //populating r
-    inPortR.receive(r, 4*IMAGE_SIZE);
-    inPortMid.receive(mid, IMAGE_SIZE);
+//    inPortR.receive(r, 4*IMAGE_SIZE);
+//    inPortMid.receive(mid, IMAGE_SIZE);
+      inPortR.receive(&r);
+      inPortMid.receive(&mid);
+
         //printf("here is imageSize%d\n", IMAGE_SIZE); 
 //    for (x = 0; x < IMAGE_SIZE; x++) {
 //      printf("%d\n", mid[x]);
@@ -213,7 +225,7 @@ O O O              0 2 3     */
             }
 
     
-	outPort.send(mid, IMAGE_SIZE);
+	outPort.send(mid);
 
 }
 };

@@ -3,10 +3,10 @@
 #include "sim.sh"
 #include <string.h>
 #include <math.h>
-import "c_queue"; 
+import "c_BP_queue"; 
 import "c_double_handshake";
 #define BP_SIZE 516
-behavior setup_brightness_lut(i_sender out_port)
+behavior setup_brightness_lut(i_BP_sender out_port)
 {
 	void main(void)
 	{	
@@ -44,7 +44,7 @@ behavior setup_brightness_lut(i_sender out_port)
 //            for (oy = 0; oy < 516; oy++){
 //                printf("%d\n", bpArray[oy]);
 //            }
-            out_port.send(bpArray, BP_SIZE);
+            out_port.send(bpArray);
 	
     }
 };

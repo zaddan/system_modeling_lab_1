@@ -6,23 +6,28 @@
 import "read_image";
 import "write_image";
 import "c_double_handshake";
-import "c_queue";
+//import "c_queue";
+import "c_image_queue";
 import "susanedges";
 import "detect_edges";
 import "susan";
 
 // IN = "in" array
 // OUT = "r" and "mid" array
-behavior design(i_receiver stimulusStart, i_receiver imageIn, i_sender finalOutput) 
+behavior design(i_receiver stimulusStart, i_image_receiver imageIn, i_image_sender finalOutput) 
 {
     
     //channels 
     const unsigned long Image_SIZE =  IMAGE_SIZE*4;
     c_double_handshake Trigger;
-    c_queue imageReadOut1(Image_SIZE); 
-    c_queue imageReadOut2(Image_SIZE); 
-    c_queue imageSusanOut(Image_SIZE); 
+    //c_queue imageReadOut1(Image_SIZE); 
+    //c_queue imageReadOut2(Image_SIZE); 
+    //c_queue imageSusanOut(Image_SIZE); 
     
+    c_image_queue imageReadOut1(Image_SIZE); 
+    c_image_queue imageReadOut2(Image_SIZE); 
+    c_image_queue imageSusanOut(Image_SIZE); 
+ 
     //behaviour instantiation 
     readImage myReadImage(imageIn, stimulusStart, Trigger, imageReadOut1, imageReadOut2);
     susan mySusan(Trigger, imageReadOut1, imageReadOut2, imageSusanOut);
@@ -30,11 +35,14 @@ behavior design(i_receiver stimulusStart, i_receiver imageIn, i_sender finalOutp
     
     void main(void)
     {
-        par{ 
+ 
+     par{ 
             myReadImage.main();
             mySusan.main();
             myWriteImage.main();
-        } 
+        }
+
+     
    }
 };
 

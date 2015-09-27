@@ -1,5 +1,7 @@
+
 import "c_double_handshake";
-import "c_queue";
+//import "c_queue";
+import "c_image_queue";
 import "susan_thin";
 import "stimulus";
 import "edge_draw";
@@ -15,10 +17,13 @@ behavior Main(void)
   const unsigned long  img_size4 = 4*IMAGE_SIZE;
   c_double_handshake Trigger;
   
-  c_queue imageBuffer(img_size);
+//  c_queue imageBuffer(img_size4);
+//  c_queue finalOutput(img_size);
+ 
+  c_image_queue imageBuffer(img_size4); 
+  c_image_queue finalOutput(img_size4);
   c_double_handshake stimulusStart;
-  c_queue finalOutput(img_size);
-  
+ 
   stimulus myStimulus(imageBuffer, stimulusStart);
   design myDesign(stimulusStart, imageBuffer, finalOutput) ;
   monitor myMonitor(finalOutput);  

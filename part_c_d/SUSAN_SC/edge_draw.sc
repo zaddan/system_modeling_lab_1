@@ -1,10 +1,12 @@
 #include "constant.hh"
 import "c_double_handshake";
-import "c_queue";
+//import "c_queue";
+import "c_image_queue";
+
 
 //need this one
 
-behavior edge_draw(i_receiver inPort, i_receiver image, i_sender outPort )
+behavior edge_draw(i_image_receiver inPort, i_image_receiver image, i_image_sender outPort )
 {
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;
@@ -16,8 +18,8 @@ behavior edge_draw(i_receiver inPort, i_receiver image, i_sender outPort )
     unsigned char mid[IMAGE_SIZE];
     unsigned char *inp;
     unsigned char *midp;
-    inPort.receive(mid, IMAGE_SIZE);
-    image.receive(imageData, IMAGE_SIZE);
+    inPort.receive(&mid);
+    image.receive(&imageData);
     
 
   if (drawing_mode==0)
@@ -46,7 +48,7 @@ behavior edge_draw(i_receiver inPort, i_receiver image, i_sender outPort )
     midp++;
   }
   
-  outPort.send(imageData, IMAGE_SIZE);
+  outPort.send(imageData);
 
 }
 };
