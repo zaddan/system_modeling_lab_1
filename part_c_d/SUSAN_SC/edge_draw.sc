@@ -3,10 +3,11 @@
 import "wait_behav";
 import "c_double_handshake";
 import "c_queue";
+import "c_image_queue";
 
 //need this one
 
-behavior edge_draw(i_receiver inPort, i_receiver image, i_sender outPort)
+behavior edge_draw(i_receiver inPort, i_receiver image, i_splitImage_sender outPort)
 {
     int x_size = X_SIZE_CONST;
     int y_size = Y_SIZE_CONST;
@@ -46,12 +47,13 @@ behavior edge_draw(i_receiver inPort, i_receiver image, i_sender outPort)
                 *(imageData + (midp - mid)) = 0;
             midp++;
         }
-        outPort.send(imageData, splitSize);
+        outPort.send(imageData);
+    
     }
 };
 
 
-behavior edge_draw_fsm(i_receiver susanThinOutput1, i_receiver susanThinOutput2, i_receiver half_imageReadOut2_1, i_receiver half_imageReadOut2_2, i_sender imageSusanOut1, i_sender imageSusanOut2)
+behavior edge_draw_fsm(i_receiver susanThinOutput1, i_receiver susanThinOutput2, i_receiver half_imageReadOut2_1, i_receiver half_imageReadOut2_2, i_splitImage_sender imageSusanOut1, i_splitImage_sender imageSusanOut2)
 {
    edge_draw myEdgeDraw1(susanThinOutput1, half_imageReadOut2_1,imageSusanOut1);
    edge_draw myEdgeDraw2(susanThinOutput2, half_imageReadOut2_2,imageSusanOut2);

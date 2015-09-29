@@ -25,8 +25,8 @@ behavior susan(i_receiver Trigger, i_receiver imageReadOut1, i_receiver imageRea
     c_queue susanThinOutput(img_size);
     c_queue half_imageReadOut2_1(splitSizeValue);
     c_queue half_imageReadOut2_2(splitSizeValue);
-    c_queue imageSusanOut1(splitSizeValue);
-    c_queue imageSusanOut2(splitSizeValue);
+    c_splitImage_queue imageSusanOut1(splitSizeValue);
+    c_splitImage_queue imageSusanOut2(splitSizeValue);
     c_queue susanThinOutput_1(splitSizeValue); 
     c_queue susanThinOutput_2(splitSizeValue);
     
@@ -40,9 +40,6 @@ behavior susan(i_receiver Trigger, i_receiver imageReadOut1, i_receiver imageRea
     splitting_fsm mySplitting(imageReadOut2, half_imageReadOut2_1, half_imageReadOut2_2, susanThinOutput, susanThinOutput_1, susanThinOutput_2);
     //edge_draw_fsm myEdgeDraw(susanThinOutput, imageReadOut2, imageSusanOut);
     edge_draw_fsm myEdgeDraw(susanThinOutput_1, susanThinOutput_2, half_imageReadOut2_1, half_imageReadOut2_2, imageSusanOut1, imageSusanOut2);
-    
-    edge_draw myEdgeDraw1(susanThinOutput_1, half_imageReadOut2_1, imageSusanOut1);
-    edge_draw myEdgeDraw2(susanThinOutput_2, half_imageReadOut2_2, imageSusanOut2);
     gathering_fsm myGathering(imageSusanOut1, imageSusanOut2, imageSusanOut);
     
     int flagValue;

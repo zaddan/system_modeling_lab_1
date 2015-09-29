@@ -2,7 +2,9 @@ import "c_queue";
 #include <string.h>
 #include "constant.hh"
 #include <stdio.h>
-behavior gathering(i_receiver imageSusanOut1, i_receiver imageSusanOut2, i_sender imageSusanOut){
+import "c_image_queue";
+
+behavior gathering(i_splitImage_receiver imageSusanOut1, i_splitImage_receiver imageSusanOut2, i_sender imageSusanOut){
     unsigned char imageSusanOutArray1[splitSize];
     unsigned char imageSusanOutArray2[splitSize];
     unsigned char combinedArray[IMAGE_SIZE];
@@ -10,8 +12,8 @@ behavior gathering(i_receiver imageSusanOut1, i_receiver imageSusanOut2, i_sende
     int i; 
     void main(void) {
         
-        imageSusanOut1.receive(imageSusanOutArray1, splitSize);
-        imageSusanOut2.receive(imageSusanOutArray2, splitSize);
+        imageSusanOut1.receive(&imageSusanOutArray1);
+        imageSusanOut2.receive(&imageSusanOutArray2);
         
 //        strcpy(combinedArray, imageSusanOutArray1);
 //        strcat(combinedArray, imageSusanOutArray2);
@@ -26,7 +28,7 @@ behavior gathering(i_receiver imageSusanOut1, i_receiver imageSusanOut2, i_sende
 };
 
 
-behavior gathering_fsm(i_receiver imageSusanOut1, i_receiver imageSusanOut2, i_sender imageSusanOut)
+behavior gathering_fsm(i_splitImage_receiver imageSusanOut1, i_splitImage_receiver imageSusanOut2, i_sender imageSusanOut)
 {
     gathering myGathering(imageSusanOut1, imageSusanOut2, imageSusanOut);
     void main(void) {
