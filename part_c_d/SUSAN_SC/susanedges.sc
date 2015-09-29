@@ -5,43 +5,42 @@
 #include <math.h>
 #include "constant.hh"
 
-//import "c_queue"; 
-import "c_image_queue";
+import "wait_behav";
+import "c_queue"; 
 import "c_double_handshake";
-import "c_BP_queue";
-import "c_intR_queue";
 
-behavior susan_edges(i_image_receiver in_port1, i_BP_receiver in_port2, i_intR_sender out_portR, i_image_sender out_portMid)	 
+
+
+
+
+behavior susan_edges(i_receiver in_port1, i_receiver in_port2, i_sender out_portR, i_sender out_portMid)	 
 {
-    
+
     void main(void)
     {	
-         
+        
         int max_no;
-    	float z;	
+        float z;	
         int x_size, y_size; 
         // assign x_size and y_size values if required
         unsigned char inData[X_SIZE_CONST*Y_SIZE_CONST];
         unsigned char bp[BP_CONST];
         int r[X_SIZE_CONST*Y_SIZE_CONST];
         int   do_symmetry, i, j, m, n, a, b, x, y, w;
-        
+
         int oy;  
-        unsigned char mid[IMAGE_SIZE]; //TODO find mid's size
-        
+        unsigned char mid[X_SIZE_CONST*Y_SIZE_CONST]; //TODO find mid's size
         int l; 
         unsigned char c,*p,*cp;
-//        for (l =0; l < IMAGE_SIZE; l++){
-//          mid[l] = 100; 
-//        }
-       max_no = MAX_NO_EDGES;
+        //        for (l =0; l < IMAGE_SIZE; l++){
+        //          mid[l] = 100; 
+        //        }
+        max_no = MAX_NO_EDGES;
         x_size = X_SIZE_CONST;
         y_size = Y_SIZE_CONST;
-        in_port1.receive(&inData); // receive the "in"
+        in_port1.receive(inData,(X_SIZE_CONST*Y_SIZE_CONST)); // receive the "in"
+        in_port2.receive(bp, BP_CONST); // receive the "bp"
 
-        in_port2.receive(&bp); // receive the "bp"
-        
-        
         //in_port.receive(r,(X_SIZE_CONST*Y_SIZE_CONST));  //receive "r"
         //TODO memset mid to 100
 
@@ -267,16 +266,28 @@ behavior susan_edges(i_image_receiver in_port1, i_BP_receiver in_port2, i_intR_s
                                     mid[i*x_size+j] = 2;	
                     }
                 }
-        
 
+
+
+            }
+        //        for (x = 0; x < IMAGE_SIZE; x++) {
+        //            printf("%d\n", r[x]);
+        //        }
+        //        
+        out_portR.send((void*)r,4*IMAGE_SIZE); //TODO figure out the size
+        out_portMid.send(mid,IMAGE_SIZE); //TODO figure out the size	
     
-    }
-//        for (x = 0; x < IMAGE_SIZE; x++) {
-//            printf("%d\n", r[x]);
-//        }
-//        
-        out_portMid.send(mid); //TODO figure out the size	
-        out_portR.send(r); //TODO figure out the size
- 
+    }      
+};
+
+
+behavior susan_edges_fsm(i_receiver in_port1, i_receiver in_port2, i_sender out_portR, i_sender out_portMid)	 
+{
+    susan_edges sedge(in_port1, in_port2, out_portR, out_portMid);//find how are they connected
+    void main(void) {
+        fsm {   sedge: {  
+            goto sedge;
+        }
+        } 
     }
 };

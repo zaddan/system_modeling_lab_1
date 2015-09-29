@@ -32,19 +32,19 @@ CMP = diff -s
 .SUFFIXES:	.sc .cc .o
 
 .sc.cc:
-	$(SCC) $* -sc2cch $(SCCOPT)
+	$(scc) $* -sc2cch $(sccopt) 
 
 .cc.o:
-	$(SCC) $* -cc2o $(SCCOPT)
+	$(scc) $* -cc2o $(sccopt) 
 
 .o:
-	$(SCC) $* -o2out $(SCCOPT)
+	$(scc) $* -o2out $(sccopt) 
 
 .cc:
-	$(SCC) $* -cc2out $(SCCOPT)
+	$(scc) $* -cc2out $(sccopt) 
 
 .sc:
-	$(SCC) $* -sc2out $(SCCOPT)
+	$(SCC) $* -sc2out $(SCCOPT) 
 
 
 # --- targets ------------------------------------------------------------
@@ -60,7 +60,7 @@ susan:	$(ALL)
 	set -e;					\
 	for file in $(ALL); do ./$$file ; done
 
-run_test:
+run_test: main
 	./main  $(INFILE) $(OUTFILE) -e 
 	$(CMP) $(OUTFILE) $(GOLDFILE)
 

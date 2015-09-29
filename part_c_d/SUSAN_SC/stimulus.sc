@@ -2,9 +2,8 @@
 #include <sys/file.h>    /* may want to remove this line */
 #include <stdio.h>    /* may want to remove this line */
 import "c_double_handshake";
-//import "c_queue";
-import "c_image_queue.sc";
-behavior stimulus(i_image_sender imgOut, i_sender startSignal){
+import "c_queue";
+behavior stimulus(i_sender outPort1, i_sender startSignal){
     void main(void) { 
 //     unsigned char  in_global[IMAGE_SIZE]; 
      
@@ -19,8 +18,7 @@ behavior stimulus(i_image_sender imgOut, i_sender startSignal){
     int forLoppStuff;
     //unsigned char in = in_global;
     unsigned char imageArray[IMAGE_SIZE];
-  
-     int ii;
+
 #ifdef FOPENB
     if ((fd=fopen(filename,"rb")) == NULL)
 #else
@@ -71,11 +69,6 @@ behavior stimulus(i_image_sender imgOut, i_sender startSignal){
   }
  }  
 
-
-
-
-
-
     if (fread(imageArray,1,X_SIZE_CONST* Y_SIZE_CONST,fd) == 0) ;
 
      
@@ -83,15 +76,10 @@ behavior stimulus(i_image_sender imgOut, i_sender startSignal){
 
     fclose(fd);
     start = 1;
-    waitfor(1000);
+    
+ for (forLoppStuff=0;forLoppStuff< TERMINATE_COUNTER_MAX; forLoppStuff++) {
+    outPort1.send(imageArray, IMAGE_SIZE);
     startSignal.send((void *)&start, 1);
-    
-    for (ii = 0; ii < 2; ii ++)
-    {
-    waitfor(10);
-    imgOut.send(imageArray);
-    }
-
-    
+  } 
  }
 };
