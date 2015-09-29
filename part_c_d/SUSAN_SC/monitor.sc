@@ -1,11 +1,16 @@
 #include "constant.hh"
 #include "string.h"
-
+#include <sim.sh>
 import "c_double_handshake";
 import "c_queue";
 
 #include <sys/file.h>    /* may want to remove this line */
 #include <stdio.h>    /* may want to remove this line */
+
+sim_time t;
+sim_delta d;
+sim_time_string buffer;
+
 behavior monitor(i_receiver inPort){
     void main(void){ 
         int terminateCounter; 
@@ -19,6 +24,9 @@ behavior monitor(i_receiver inPort){
             int y_size =  Y_SIZE_CONST;
             inPort.receive(imageIn, IMAGE_SIZE);
             filename[terminateCounter] =  myArray[terminateCounter];
+	    
+	    t = now(); d = delta();
+	    printf("Time is now %s pico seconds.\n", time2str(buffer,t));
            // strcat(filename, myChar);
             printf("%s \n", filename);
 

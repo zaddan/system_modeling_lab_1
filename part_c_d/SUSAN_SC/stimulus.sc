@@ -79,7 +79,12 @@ behavior stimulus(i_sender outPort1, i_sender startSignal){
     
  for (forLoppStuff=0;forLoppStuff< TERMINATE_COUNTER_MAX; forLoppStuff++) {
     outPort1.send(imageArray, IMAGE_SIZE);
+    if ( forLoppStuff == 0)
+    {
+	waitfor(1000); // adding 1000 time units before the first start signal
+    }
     startSignal.send((void *)&start, 1);
+    waitfor(10); // fixed delays between images
   } 
  }
 };
