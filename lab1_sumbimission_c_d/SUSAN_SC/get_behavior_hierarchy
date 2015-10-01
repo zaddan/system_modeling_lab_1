@@ -1,0 +1,31 @@
+#!/bin/bash
+sir_folder="sir_folder"
+#mkdir $sir_folder 
+#for i in $( ls *.sc); do
+#    suffix=".sc" 
+#    i=${i%$suffix}
+#    echo $i 
+#    scc $i -sc2sir -vv -d -w 
+#    i=$i.sir
+#    mv $i $sir_folder 
+#done
+#
+#cd $sir_folder
+#echo "blah"
+#suffix=".sir"
+#for i in $( ls *.sir); do
+#    j=${i%$suffix}
+#    sir_tree -blt $i > $j.txt
+#done
+#
+#cd ..
+#
+
+cd $sir_folder
+for i in $( ls *.sir); do
+    suffix=".sir" 
+    i=${i%$suffix}
+    scchart $i 
+done
+
+

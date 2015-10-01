@@ -1,0 +1,5 @@
+#!/bin/bash
+rm output_edge.pgm
+make clean
+make
+make run_test

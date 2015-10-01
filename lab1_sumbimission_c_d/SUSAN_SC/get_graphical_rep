@@ -1,0 +1,11 @@
+#!/bin/bash
+sir_folder="sir_folder"
+
+cd $sir_folder
+for i in $( ls *.sir); do
+    suffix=".sir" 
+    i=${i%$suffix}
+    scchart $i &
+done
+
+

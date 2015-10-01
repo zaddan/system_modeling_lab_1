@@ -1,0 +1,6 @@
+B i f  	behavior splitting_fsm
+B i l  	|------	splitting split_image
+B i l  	\------	splitting split_mid
+
+C i l  	channel c_queue
+

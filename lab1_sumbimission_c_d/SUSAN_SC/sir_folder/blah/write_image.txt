@@ -1,0 +1,13 @@
+B i l  	behavior wait_behav
+
+B i l  	behavior wait_print
+
+B i l  	behavior wait_recv
+
+B i f  	behavior writeImage_fsm
+B i l  	\------	writeImage myWriteImage
+
+C i l  	channel c_double_handshake
+
+C i l  	channel c_queue
+

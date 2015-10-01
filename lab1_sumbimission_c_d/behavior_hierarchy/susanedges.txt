@@ -1,0 +1,13 @@
+B i f  	behavior susan_edges_fsm
+B i l  	\------	susan_edges sedge
+
+B i l  	behavior wait_behav
+
+B i l  	behavior wait_print
+
+B i l  	behavior wait_recv
+
+C i l  	channel c_double_handshake
+
+C i l  	channel c_queue
+

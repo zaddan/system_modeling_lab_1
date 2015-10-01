@@ -1,0 +1,8 @@
+B i l  	behavior wait_behav
+
+B i l  	behavior wait_print
+
+B i l  	behavior wait_recv
+
+C i l  	channel c_double_handshake
+

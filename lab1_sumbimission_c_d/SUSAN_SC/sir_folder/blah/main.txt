@@ -1,0 +1,52 @@
+B i o  	behavior Main
+B i c  	|------	design myDesign
+B i f  	|	|------	read_image_fsm myReadImage
+B i l  	|	|	\------	readImage myReadImage
+B i o  	|	|------	susan mySusan
+B i f  	|	|	|------	edge_draw_fsm myEdgeDraw
+B i l  	|	|	|	|------	edge_draw myEdgeDraw1
+B i l  	|	|	|	\------	edge_draw myEdgeDraw2
+B i f  	|	|	|------	gathering_fsm myGathering
+B i l  	|	|	|	\------	gathering myGathering
+B i f  	|	|	|------	splitting_fsm mySplitting
+B i l  	|	|	|	|------	splitting split_image
+B i l  	|	|	|	\------	splitting split_mid
+B i f  	|	|	|------	susan_thin_fsm mySusanThin
+B i l  	|	|	|	\------	susan_thin mySusanThin
+B i c  	|	|	|------	detectedges mydetectEdges
+B i f  	|	|	|	|------	susan_edges_fsm sedge
+B i l  	|	|	|	|	\------	susan_edges sedge
+B i f  	|	|	|	|------	setup_brightness_lut_fsm setbrightness
+B i l  	|	|	|	|	\------	setup_brightness_lut setbrightness
+C i l  	|	|	|	\------	c_queue local_port
+C i l  	|	|	|------	c_queue detectEdgeOutputMid
+C i l  	|	|	|------	c_queue detectEdgeOutputR
+C i l  	|	|	|------	c_queue half_imageReadOut2_1
+C i l  	|	|	|------	c_queue half_imageReadOut2_2
+C i l  	|	|	|------	c_splitImage_queue imageSusanOut1
+C i l  	|	|	|------	c_splitImage_queue imageSusanOut2
+C i l  	|	|	|------	c_queue susanThinOutput
+C i l  	|	|	|------	c_queue susanThinOutput_1
+C i l  	|	|	\------	c_queue susanThinOutput_2
+B i f  	|	|------	writeImage_fsm myWriteImage
+B i l  	|	|	\------	writeImage myWriteImage
+C i l  	|	|------	c_double_handshake Trigger
+C i l  	|	|------	c_queue imageReadOut1
+C i l  	|	|------	c_queue imageReadOut2
+C i l  	|	|------	c_queue imageSusanOut
+C i l  	|	\------	c_double_handshake susanOutHandShake
+B i l  	|------	monitor myMonitor
+B i l  	|------	stimulus myStimulus
+C i l  	|------	c_double_handshake Trigger
+C i l  	|------	c_queue finalOutput
+C i l  	|------	c_queue imageBuffer
+C i l  	\------	c_double_handshake stimulusStart
+
+B i l  	behavior wait_behav
+
+B i l  	behavior wait_print
+
+B i l  	behavior wait_recv
+
+C i l  	channel c_image_queue
+

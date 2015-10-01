@@ -1,0 +1,276 @@
+$date
+	Sun Sep 27 16:48:15 2015
+$end
+$version
+	UCI SpecC VCD Writer v0.001
+$end
+$timescale
+	1ps
+$end
+
+$var real 0 ! anonymous $end
+$var event 1 " Main.Trigger.ack $end
+$var event 1 # Main.Trigger.req $end
+$var event 1 $ Main.finalOutput.r $end
+$var event 1 % Main.finalOutput.s $end
+$var event 1 & Main.imageBuffer.r $end
+$var event 1 ' Main.imageBuffer.s $end
+$var event 1 ( Main.myDesign.Trigger.ack $end
+$var event 1 ) Main.myDesign.Trigger.req $end
+$var event 1 * Main.myDesign.imageReadOut1.r $end
+$var event 1 + Main.myDesign.imageReadOut1.s $end
+$var event 1 , Main.myDesign.imageReadOut2.r $end
+$var event 1 - Main.myDesign.imageReadOut2.s $end
+$var event 1 . Main.myDesign.imageSusanOut.r $end
+$var event 1 / Main.myDesign.imageSusanOut.s $end
+$var real 1 0 Main.myDesign.myReadImage.myReadImage $end
+$var event 1 1 Main.myDesign.mySusan.detectEdgeOutputMid.r $end
+$var event 1 2 Main.myDesign.mySusan.detectEdgeOutputMid.s $end
+$var event 1 3 Main.myDesign.mySusan.detectEdgeOutputR.r $end
+$var event 1 4 Main.myDesign.mySusan.detectEdgeOutputR.s $end
+$var real 1 5 Main.myDesign.mySusan.myEdgeDraw.myEdgeDraw $end
+$var real 1 6 Main.myDesign.mySusan.mySusanThin.mySusanThin $end
+$var event 1 7 Main.myDesign.mySusan.mydetectEdges.local_port.r $end
+$var event 1 8 Main.myDesign.mySusan.mydetectEdges.local_port.s $end
+$var real 1 9 Main.myDesign.mySusan.mydetectEdges.sedge.sedge $end
+$var real 1 : Main.myDesign.mySusan.mydetectEdges.setbrightness.setbrightness $end
+$var real 1 ; Main.myDesign.mySusan.mydetectEdges.local_port $end
+$var real 1 < Main.myDesign.mySusan.mydetectEdges.sedge $end
+$var real 1 = Main.myDesign.mySusan.mydetectEdges.setbrightness $end
+$var event 1 > Main.myDesign.mySusan.susanThinOutput.r $end
+$var event 1 ? Main.myDesign.mySusan.susanThinOutput.s $end
+$var real 1 @ Main.myDesign.mySusan.detectEdgeOutputMid $end
+$var real 1 A Main.myDesign.mySusan.detectEdgeOutputR $end
+$var wire 32 B Main.myDesign.mySusan.flag $end
+$var real 1 C Main.myDesign.mySusan.myEdgeDraw $end
+$var real 1 D Main.myDesign.mySusan.mySusanThin $end
+$var real 1 E Main.myDesign.mySusan.mydetectEdges $end
+$var real 1 F Main.myDesign.mySusan.susanThinOutput $end
+$var real 1 G Main.myDesign.myWriteImage.myWriteImage $end
+$var event 1 H Main.myDesign.susanOutHandShake.ack $end
+$var event 1 I Main.myDesign.susanOutHandShake.req $end
+$var real 1 J Main.myDesign.Trigger $end
+$var real 1 K Main.myDesign.imageReadOut1 $end
+$var real 1 L Main.myDesign.imageReadOut2 $end
+$var real 1 M Main.myDesign.imageSusanOut $end
+$var real 1 N Main.myDesign.myReadImage $end
+$var real 1 O Main.myDesign.mySusan $end
+$var real 1 P Main.myDesign.myWriteImage $end
+$var real 1 Q Main.myDesign.susanOutHandShake $end
+$var event 1 R Main.stimulusStart.ack $end
+$var event 1 S Main.stimulusStart.req $end
+$var real 1 T Main.Trigger $end
+$var real 1 U Main.finalOutput $end
+$var real 1 V Main.imageBuffer $end
+$var real 1 W Main.myDesign $end
+$var real 1 X Main.myMonitor $end
+$var real 1 Y Main.myStimulus $end
+$var real 1 Z Main.stimulusStart $end
+$var real 1 [ Main $end
+$var real 1 \ _gl_string0 $end
+$var real 1 ] _gl_string1 $end
+$var real 1 ^ _gl_string2 $end
+$var real 1 _ _gl_string3 $end
+$var real 1 ` _gl_string4 $end
+$enddefinitions $end
+
+#0
+$dumpvars
+0"
+0#
+0$
+0%
+0&
+0'
+0(
+0)
+0*
+0+
+0,
+0-
+0.
+0/
+01
+02
+03
+04
+07
+08
+0>
+0?
+b0 B
+0H
+0I
+0R
+0S
+$end
+srunning [
+sparent [
+sparent [
+sparent [
+srunning Y
+swaiting Y
+srunning W
+sparent W
+sparent W
+sparent W
+srunning X
+swaiting X
+srunning N
+srunning 0
+swaiting 0
+srunning O
+sparent O
+sparent O
+sparent O
+srunning P
+srunning G
+swaiting G
+srunning E
+sparent E
+sparent E
+srunning D
+srunning 6
+swaiting 6
+srunning C
+srunning 5
+swaiting 5
+srunning =
+srunning :
+sinactive :
+srunning :
+swaiting :
+srunning <
+srunning 9
+swaiting 9
+#0
+b0 B
+0R
+srunning Y
+srunning 0
+b0 B
+swaiting Y
+sinactive 0
+srunning 0
+swaiting 0
+#0
+0*
+0'
+srunning 9
+srunning Y
+sinactive 9
+srunning 9
+swaiting 9
+swaiting Y
+#0
+0S
+03
+08
+srunning 6
+srunning :
+srunning 0
+sinactive 6
+srunning 6
+swaiting 6
+sinactive :
+srunning :
+swaiting :
+swaiting 0
+#0
+0R
+0>
+srunning 5
+srunning Y
+srunning 0
+sinactive 5
+srunning 5
+swaiting 5
+swaiting Y
+sinactive 0
+srunning 0
+swaiting 0
+#0
+0*
+0'
+0.
+srunning G
+srunning 9
+srunning Y
+sinactive G
+srunning G
+swaiting G
+sinactive 9
+srunning 9
+swaiting 9
+swaiting Y
+#0
+0S
+03
+08
+0$
+srunning X
+srunning 6
+srunning :
+srunning 0
+swaiting X
+sinactive 6
+srunning 6
+swaiting 6
+sinactive :
+srunning :
+swaiting :
+swaiting 0
+#0
+0R
+0>
+srunning 5
+srunning Y
+srunning 0
+sinactive 5
+srunning 5
+swaiting 5
+sinactive Y
+sinactive 0
+srunning 0
+swaiting 0
+#0
+0*
+0.
+srunning G
+srunning 9
+sinactive G
+srunning G
+swaiting G
+sinactive 9
+srunning 9
+swaiting 9
+#0
+03
+08
+0$
+srunning X
+srunning 6
+srunning :
+swaiting X
+sinactive 6
+srunning 6
+swaiting 6
+sinactive :
+srunning :
+swaiting :
+#0
+0>
+srunning 5
+sinactive 5
+srunning 5
+swaiting 5
+#0
+0.
+srunning G
+sinactive G
+srunning G
+swaiting G
+#0
+0$
+srunning X
+sinactive X
