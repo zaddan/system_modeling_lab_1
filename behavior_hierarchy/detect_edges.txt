@@ -1,0 +1,15 @@
+B i c  	behavior detectedges
+B i f  	|------	susan_edges_fsm sedge
+B i l  	|	\------	susan_edges sedge
+B i f  	|------	setup_brightness_lut_fsm setbrightness
+B i l  	|	\------	setup_brightness_lut setbrightness
+C i l  	\------	c_queue local_port
+
+B i l  	behavior wait_behav
+
+B i l  	behavior wait_print
+
+B i l  	behavior wait_recv
+
+C i l  	channel c_double_handshake
+
