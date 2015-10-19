@@ -1,0 +1,18 @@
+./susan_edge_detector
+Starting process 1...
+now
+readImage
+done readImage all
+in detect edges
+Starting process 2...
+readImage
+done readImage all
+Starting process 3...
+readImage
+done readImage all
+Starting process 4...
+readImage
+done readImage all
+Starting process 5...
+diff -s out.pgm golden.pgm
+Binary files out.pgm and golden.pgm differ

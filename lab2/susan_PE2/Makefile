@@ -46,7 +46,7 @@ clean:
 	$(RM) $(SIRFILES) 
 	$(RM) $(EXEFILE) $(EXEFILE_PAR)
 
-test:	$(EXEFILE)
+test: $(EXEFILE)
 	./$(EXEFILE)
 	$(CMP) $(TESTFILE) $(GOLDFILE)
 

@@ -27,14 +27,12 @@ behavior SetupBrightnessLutThread(uchar bp[516], in int thID)
 behavior SetupBrightnessLut(uchar bp[516])
 {
        
+     
     SetupBrightnessLutThread setup_brightness_thread_0(bp, 0);
     SetupBrightnessLutThread setup_brightness_thread_1(bp, 1);
-       
     void main(void) {
-        par {
-            setup_brightness_thread_0;
-            setup_brightness_thread_1;
-        }
+        setup_brightness_thread_0;
+        setup_brightness_thread_1;
     }
 
 };

@@ -1,5 +1,4 @@
 #include "susan.sh"
-
 import "c_uchar7220_queue";
 import "c_int7220_queue";
 
@@ -214,6 +213,7 @@ behavior SusanThin_WriteOutput(i_uchar7220_sender out_mid, uchar mid[IMAGE_SIZE]
 {
     void main(void) {
         out_mid.send(mid);      
+        waitfor(6400000); 
     }
 };
 
@@ -224,10 +224,11 @@ behavior SusanThin(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE])
     SusanThinThread susan_thin_thread_1(r, mid, 1);
     
     void main(void) {        
-       par {
+//             printf("**before of susanThin\n");
             susan_thin_thread_0;
+            //printf("**middle of susanThin\n");
             susan_thin_thread_1;
-        }                   
+            //printf("at the end of susanThin\n");
     }
 
 };
@@ -244,9 +245,9 @@ behavior Thin(i_int7220_receiver in_r, i_uchar7220_receiver in_mid, i_uchar7220_
     
     void main(void) {
         fsm {
-            susan_thin_read_input: goto susan_thin;
+            susan_thin_read_input: {goto susan_thin;}
             susan_thin: { goto susan_thin_write_output;}
-            susan_thin_write_output: goto susan_thin_read_input;
+            susan_thin_write_output: {}
         }
     }
     

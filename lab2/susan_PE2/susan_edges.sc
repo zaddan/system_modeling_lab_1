@@ -289,10 +289,9 @@ behavior SusanEdges_PartA (uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], u
     SusanEdgesThread_PartA susan_edges_a_thread_1(image_buffer, r, bp, 1);
     
     void main(void) {
-        par {
-            susan_edges_a_thread_0;
-            susan_edges_a_thread_1;
-        }
+        susan_edges_a_thread_0;
+        susan_edges_a_thread_1;
+        waitfor(19000000);
     }
 };
 
@@ -302,10 +301,9 @@ behavior SusanEdges_PartB(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], uc
     SusanEdgesThread_PartB susan_edges_b_thread_1(image_buffer, r, mid, bp, 1);
     
     void main(void) {                 
-        par {
-            susan_edges_b_thread_0;
-            susan_edges_b_thread_1;
-        }  
+        susan_edges_b_thread_0;
+        susan_edges_b_thread_1;
+        waitfor(20000000); 
     }
 };
 

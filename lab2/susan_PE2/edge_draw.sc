@@ -79,10 +79,9 @@ behavior EdgeDraw_PartA(uchar image_buffer[7220], uchar mid[7220])
     EdgeDrawThread_PartA edge_draw_a_thread_1(image_buffer, mid, 1);
     
     void main(void) {
-      par {
-            edge_draw_a_thread_0;
-            edge_draw_a_thread_1;
-        }    
+        edge_draw_a_thread_0;
+        edge_draw_a_thread_1;
+        waitfor(12000000); 
     }     
 };
 
@@ -93,10 +92,9 @@ behavior EdgeDraw_PartB(uchar image_buffer[7220], uchar mid[7220])
     EdgeDrawThread_PartB edge_draw_b_thread_1(image_buffer, mid, 1);
     
     void main(void) {
-      par {
-            edge_draw_b_thread_0;
-            edge_draw_b_thread_1;
-        }    
+        edge_draw_b_thread_0;
+        edge_draw_b_thread_1;
+        waitfor(12000000); 
     }     
 };
 
@@ -115,7 +113,7 @@ behavior EdgeDraw(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid,  i
 
     
     void main(void) {
-    
+        //printf("in edge draw\n");
         fsm{
             edge_draw_read_input: goto edge_draw_a;
             edge_draw_a: goto edge_draw_b;
@@ -133,7 +131,7 @@ behavior Draw(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid,  i_uch
     
     void main(void) {
         fsm {
-            edge_draw: {goto edge_draw;}
+            edge_draw: {}
         }
     }
     

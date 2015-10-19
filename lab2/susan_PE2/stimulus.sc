@@ -8,7 +8,7 @@ import "i_sender";
 
 behavior Stimulus(i_send start, inout uchar  image_buffer[IMAGE_SIZE], i_sender start_time_channel)
 {
-
+ 
     int getint(FILE *fd)
     {
         int c, i;
@@ -78,10 +78,10 @@ behavior Stimulus(i_send start, inout uchar  image_buffer[IMAGE_SIZE], i_sender 
 
     void main(void) 
     {
+        
         unsigned int n;
         char filename[100];
         sim_time start_time;
-
         sprintf(filename, "%s", "input_small.pgm");
         get_image(filename, image_buffer);
 	for(n = 0; n < NR_IMGS; n++) {
