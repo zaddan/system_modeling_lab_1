@@ -1,15 +1,14 @@
 interface OSAPI
 {
 void init();
-void start(int sched_alg);
-void interrupt_return();
-Task task_create(char *name, int type,
-sim_time period);
-void task_terminate();
-void task_sleep();
+//void start(int sched_alg);
+//void interrupt_return();
+//Task task_create(char *name, int type,sim_time period);
+//void task_terminate();
+//void task_sleep();
 void task_activate(Task t);
-void task_endcycle();
-void task_kill(Task t);
+//void task_endcycle();
+//void task_kill(Task t);
 Task par_start();
 void par_end(Task t);
 Task pre_wait();
@@ -31,6 +30,11 @@ channel OS implements OSAPI {
     event e2;
     event e3;
     event e4;
+    TASK readQueue[NUM_OF_PROC];
+    int head = tail = -1;
+    QueueFull = 0;
+    QueueEmpty = 1;
+    
     //Queue
     bool push(TASK taskID) {
         if (tail == -1) {
@@ -112,13 +116,16 @@ channel OS implements OSAPI {
             break;
     }
 
-
-    TASK readQueue[NUM_OF_PROC];
-    int head = tail = -1;
-    QueueFull = 0;
-    QueueEmpty = 1;
-
-    void task_activate(Task t) {
+   TASK par_start() {
+     return current;
+   }
+   
+   par_end(Task t) {
+      push(t); 
+      dispatch();
+   }
+    
+   void task_activate(Task t) {
         if(t != Task1) {
             push(t);
             wait_event(t);
