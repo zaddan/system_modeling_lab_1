@@ -30,7 +30,7 @@ behavior Edges(i_uchar7220_receiver in_image,  i_int7220_sender out_r, i_uchar72
     
     void main(void) {
         fsm{
-            detect_edges: {goto detect_edges;}
+            detect_edges: {}
         }
     }
 };

@@ -19,15 +19,17 @@ behavior Design(i_receive start, in uchar image_buffer[IMAGE_SIZE], i_sender out
 
 
     ReadImage read_image(start, image_buffer, in_image);
-    Edges PE1(in_image, r, mid, image_edge_draw);
-    Susan PE2(r, mid, image_edge_draw, out_image);
+    //Edges PE1(in_image, r, mid, image_edge_draw);
+    //Susan PE2(r, mid, image_edge_draw, out_image);
+    Susan susan(in_image, out_image);
     WriteImage write_image(out_image, out_image_susan);
 
     void main(void) {
        par {
             read_image.main();
-            PE1.main(); 
-            PE2.main();
+            susan.main();
+//            PE1.main(); 
+//            PE2.main();
             write_image.main();
         }
     }
