@@ -23,8 +23,8 @@ behavior SetupBrightnessLutThread(uchar bp[516], in int thID, OSAPI myOS)
                 temp=temp*temp*temp;
             temp=100.0*exp(-temp);
             bp[(k+258)] = (uchar) temp;
+            myOS.time_wait(2700);
         }
-        myOS.time_wait(2700/2);
         myOS.task_terminate();
     }
 };
