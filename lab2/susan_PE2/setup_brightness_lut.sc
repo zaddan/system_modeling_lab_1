@@ -1,16 +1,20 @@
 #include "susan.sh"
-
-behavior SetupBrightnessLutThread(uchar bp[516], in int thID)
+import "OS.sc";
+behavior SetupBrightnessLutThread(uchar bp[516], in int thID, OSAPI myOS)
 {
        
     void main(void) {
-        int   k;
+        int taskID;
+        int k;
         float temp;
         int thresh, form;
         
+        taskID = thID;
         thresh = BT;
         form = 6;
 
+        myOS.task_activate(taskID);
+        printf("insided main is %d\n", thID); 
         //for(k=-256;k<257;k++)
        for(k=(-256)+512/PROCESSORS*thID; k<(-256)+512/PROCESSORS*thID+512/PROCESSORS+1; k++){
             temp=((float)k)/((float)thresh);
@@ -20,19 +24,27 @@ behavior SetupBrightnessLutThread(uchar bp[516], in int thID)
             temp=100.0*exp(-temp);
             bp[(k+258)] = (uchar) temp;
         }
+        myOS.time_wait(2700/2);
+        myOS.task_terminate();
     }
-
 };
  
 behavior SetupBrightnessLut(uchar bp[516])
 {
        
-     
-    SetupBrightnessLutThread setup_brightness_thread_0(bp, 0);
-    SetupBrightnessLutThread setup_brightness_thread_1(bp, 1);
+    OS myOS;
+    SetupBrightnessLutThread setup_brightness_thread_0(bp, 0, myOS);
+    SetupBrightnessLutThread setup_brightness_thread_1(bp, 1, myOS);
     void main(void) {
-        setup_brightness_thread_0;
-        setup_brightness_thread_1;
+        TASK master;
+        master = 3; 
+        myOS.start(master);
+        master = myOS.par_start();
+        par { 
+            setup_brightness_thread_0;
+            setup_brightness_thread_1;
+        } 
+        myOS.par_end(master); 
     }
 
 };

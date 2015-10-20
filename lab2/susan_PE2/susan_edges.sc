@@ -289,6 +289,7 @@ behavior SusanEdges_PartA (uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], u
     SusanEdgesThread_PartA susan_edges_a_thread_1(image_buffer, r, bp, 1);
     
     void main(void) {
+        
         susan_edges_a_thread_0;
         susan_edges_a_thread_1;
         waitfor(19000000);

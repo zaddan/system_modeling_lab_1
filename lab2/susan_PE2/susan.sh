@@ -5,6 +5,7 @@
 #include <sim.sh>
 
 #ifndef PPC
+typedef int TASK;
 typedef int        TOTAL_TYPE; /* this is faster for "int" but should be "float" for large d masks */
 #else
 typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */

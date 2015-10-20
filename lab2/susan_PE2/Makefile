@@ -9,10 +9,10 @@ CMP = diff -s
 RM  = rm -f
 
 SCFILES = 	c_uchar7220_queue.sc c_int7220_queue.sc\
-        setup_brightness_lut.sc susan_edges.sc detect_edges.sc susan_thin.sc edge_draw.sc read_image.sc\
+        setup_brightness_lut.sc susan_edges.sc detect_edges.sc susan_thin.sc edge_draw.sc read_image.sc OS.sc\
 		write_image.sc susan.sc design.sc stimulus.sc monitor.sc design.sc susan_edge_detector.sc
 
-SIRFILES=	c_uchar7220_queue.sir c_int7220_queue.sir\
+SIRFILES=	OS.sir c_uchar7220_queue.sir c_int7220_queue.sir\
         setup_brightness_lut.sir susan_edges.sir detect_edges.sir susan_thin.sir edge_draw.sir read_image.sir\
 		write_image.sir susan.sir design.sir stimulus.sir monitor.sir susan_edge_detector.sir
 
