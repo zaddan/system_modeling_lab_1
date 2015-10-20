@@ -29,10 +29,9 @@ behavior SetupBrightnessLutThread(uchar bp[516], in int thID, OSAPI myOS)
     }
 };
  
-behavior SetupBrightnessLut(uchar bp[516])
+behavior SetupBrightnessLut(uchar bp[516], OSAPI myOS)
 {
        
-    OS myOS;
     SetupBrightnessLutThread setup_brightness_thread_0(bp, 0, myOS);
     SetupBrightnessLutThread setup_brightness_thread_1(bp, 1, myOS);
     void main(void) {

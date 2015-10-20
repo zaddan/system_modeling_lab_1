@@ -9,9 +9,10 @@ behavior DetectEdges(i_uchar7220_receiver in_image,  i_int7220_sender out_r, i_u
 {
 
     uchar bp[516];
+    OS myOS;
         
-    SetupBrightnessLut setup_brightness_lut(bp);
-    SusanEdges susan_edges(in_image, out_r, out_mid, bp, out_image);
+    SetupBrightnessLut setup_brightness_lut(bp, myOS);
+    SusanEdges susan_edges(in_image, out_r, out_mid, bp, out_image, myOS);
     
     void main(void) {
         //printf("________________");      
