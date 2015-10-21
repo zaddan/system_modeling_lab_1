@@ -3,8 +3,8 @@
 #include <string.h>
 #include <math.h>
 #include <sim.sh>
-
 #ifndef PPC
+import "OS";
 typedef int        TOTAL_TYPE; /* this is faster for "int" but should be "float" for large d masks */
 #else
 typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
@@ -19,7 +19,7 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 #define  FTOI(a) ( (a) < 0 ? ((int)(a-0.5)) : ((int)(a+0.5)) )
 typedef  unsigned char uchar;
-
+//import "type_defs";
 #define X_SIZE 76
 #define Y_SIZE 95
 #define IMAGE_SIZE 7220 /*(76*95)*/

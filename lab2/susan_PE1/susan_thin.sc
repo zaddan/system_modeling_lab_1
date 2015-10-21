@@ -1,8 +1,8 @@
 #include "susan.sh"
-import "c_uchar7220_queue";
-import "c_int7220_queue";
-
-behavior SusanThinThread(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], in int thID)
+//import "c_uchar7220_queue";
+import "c_uchar7220_queue_both_SR";
+import "c_int7220_queue_both_SR";
+behavior SusanThinThread(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], in int thID, OSAPI myOS)
 {
 
     void main (void) {
@@ -15,6 +15,7 @@ behavior SusanThinThread(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], in int thID)
 
 
 	    for (i=4+(Y_SIZE-4-4)/PROCESSORS*thID; i<4+(Y_SIZE-4-4)/PROCESSORS*(thID+1) + (thID+1==PROCESSORS && (Y_SIZE-4-4)%PROCESSORS!=0 ? (Y_SIZE-4-4)%PROCESSORS : 0); i++)         		          
+        { 
         //for (i=4;i<Y_SIZE-4;i++)
             for (j=4;j<X_SIZE-4;j++)
                 if (mid[i*X_SIZE+j]<8)
@@ -197,6 +198,8 @@ behavior SusanThinThread(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], in int thID)
                         }
                     }
                 } 
+                        myOS.time_wait(6400000); 
+      } 
     }                
 };
 
@@ -213,27 +216,28 @@ behavior SusanThin_WriteOutput(i_uchar7220_sender out_mid, uchar mid[IMAGE_SIZE]
 {
     void main(void) {
         out_mid.send(mid);      
-        waitfor(6400000); 
+         printf("susanThin end\n"); 
+        //waitfor(6400000); 
     }
 };
 
-behavior SusanThin(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE])
+behavior SusanThin(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], OSAPI myOS)
 {
  
-    SusanThinThread susan_thin_thread_0(r, mid, 0);
-    SusanThinThread susan_thin_thread_1(r, mid, 1);
+    SusanThinThread susan_thin_thread_0(r, mid, 0, myOS);
+    SusanThinThread susan_thin_thread_1(r, mid, 1, myOS);
     
     void main(void) {        
 //             printf("**before of susanThin\n");
             susan_thin_thread_0;
-            //printf("**middle of susanThin\n");
+//             printf("**middle of susanThin\n");
             susan_thin_thread_1;
-            //printf("at the end of susanThin\n");
+//             printf("at the end of susanThin\n");
     }
 
 };
 
-behavior Thin(i_int7220_receiver in_r, i_uchar7220_receiver in_mid, i_uchar7220_sender out_mid)
+behavior Thin(i_int7220_receiver in_r, i_uchar7220_receiver in_mid, i_uchar7220_sender out_mid, OSAPI myOS)
 {
 
     int r[IMAGE_SIZE];
@@ -241,14 +245,18 @@ behavior Thin(i_int7220_receiver in_r, i_uchar7220_receiver in_mid, i_uchar7220_
  
     SusanThin_ReadInput susan_thin_read_input(in_r, in_mid, r, mid);
     SusanThin_WriteOutput susan_thin_write_output(out_mid, mid);   
-    SusanThin susan_thin(r, mid);
+    SusanThin susan_thin(r, mid, myOS);
     
     void main(void) {
+        TASK task_id = 1;
+        myOS.task_activate(task_id);
+
         fsm {
             susan_thin_read_input: {goto susan_thin;}
             susan_thin: { goto susan_thin_write_output;}
-            susan_thin_write_output: {}
+            susan_thin_write_output: {goto susan_thin_read_input;}
         }
+        //myOS.task_terminate();
     }
     
 };

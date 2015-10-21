@@ -2728,7 +2728,7 @@ extern const int _SPECC_VERSION_MAJOR;
 extern const int _SPECC_VERSION_MINOR;
 # 6 "susan.sh" 2
 
-
+import "OS";
 typedef int TOTAL_TYPE;
 # 21 "susan.sh"
 typedef unsigned char uchar;

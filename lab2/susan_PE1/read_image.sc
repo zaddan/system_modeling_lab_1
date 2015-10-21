@@ -1,7 +1,7 @@
 #include "susan.sh"
 
 import "i_receive";
-import "c_uchar7220_queue";
+import "c_uchar7220_queue_both_SR";
 
 behavior ReadImage(i_receive start, in uchar image_buffer[IMAGE_SIZE], i_uchar7220_sender out_image)
 {
@@ -17,6 +17,7 @@ behavior ReadImage(i_receive start, in uchar image_buffer[IMAGE_SIZE], i_uchar72
                 image_buffer_out[i] = image_buffer[i];
             } 
             printf("done readImage all\n"); 
+            printf("right before sending in read\n"); 
             out_image.send(image_buffer_out);       
         }
     }

@@ -1,8 +1,8 @@
 #include "susan.sh"
 
-import "c_uchar7220_queue";
-
-behavior EdgeDrawThread_PartA(uchar image_buffer[7220], uchar mid[7220], in int thID)
+//import "c_uchar7220_queue_both_SR";
+import "c_uchar7220_queue_both_SR";
+behavior EdgeDrawThread_PartA(uchar image_buffer[7220], uchar mid[7220], in int thID, OSAPI myOS)
 {
 
     void main(void) {
@@ -26,6 +26,7 @@ behavior EdgeDrawThread_PartA(uchar image_buffer[7220], uchar mid[7220], in int 
                     *inp++=255; *inp++=255; *inp=255;
                 }
                 midp++;
+                myOS.time_wait(12000000); 
             }
         }
      }   
@@ -33,7 +34,7 @@ behavior EdgeDrawThread_PartA(uchar image_buffer[7220], uchar mid[7220], in int 
 };    
 
 
-behavior EdgeDrawThread_PartB(uchar image_buffer[7220], uchar mid[7220], in int thID)
+behavior EdgeDrawThread_PartB(uchar image_buffer[7220], uchar mid[7220], in int thID, OSAPI myOS)
 {
 
     void main(void) {
@@ -52,12 +53,14 @@ behavior EdgeDrawThread_PartB(uchar image_buffer[7220], uchar mid[7220], in int 
             if (*midp<8) 
                 *(image_buffer+ (midp - mid)) = 0;
             midp++;
+        myOS.time_wait(12000000); 
         }
+     
     }
     
 };    
 
-behavior EdgeDraw_ReadInput(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid, uchar image_buffer[IMAGE_SIZE], uchar mid[IMAGE_SIZE])
+behavior EdgeDraw_ReadInput(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid, uchar image_buffer[IMAGE_SIZE], uchar mid[IMAGE_SIZE], OSAPI myOS)
 {
     void main(void) {
         in_image.receive(&image_buffer);
@@ -69,69 +72,74 @@ behavior EdgeDraw_WriteOutput(uchar image_buffer[IMAGE_SIZE],  i_uchar7220_sende
 {
     void main(void) {
         out_image.send(image_buffer);
+        printf("edgeDraw ended\n");
     }
 };
 
-behavior EdgeDraw_PartA(uchar image_buffer[7220], uchar mid[7220])
+behavior EdgeDraw_PartA(uchar image_buffer[7220], uchar mid[7220], OSAPI myOS)
 {
 
-    EdgeDrawThread_PartA edge_draw_a_thread_0(image_buffer, mid, 0);
-    EdgeDrawThread_PartA edge_draw_a_thread_1(image_buffer, mid, 1);
+    EdgeDrawThread_PartA edge_draw_a_thread_0(image_buffer, mid, 0, myOS);
+    EdgeDrawThread_PartA edge_draw_a_thread_1(image_buffer, mid, 1, myOS);
     
     void main(void) {
         edge_draw_a_thread_0;
         edge_draw_a_thread_1;
-        waitfor(12000000); 
+        //waitfor(12000000); 
     }     
 };
 
-behavior EdgeDraw_PartB(uchar image_buffer[7220], uchar mid[7220])
+behavior EdgeDraw_PartB(uchar image_buffer[7220], uchar mid[7220], OSAPI myOS)
 {
 
-    EdgeDrawThread_PartB edge_draw_b_thread_0(image_buffer, mid, 0);
-    EdgeDrawThread_PartB edge_draw_b_thread_1(image_buffer, mid, 1);
+    EdgeDrawThread_PartB edge_draw_b_thread_0(image_buffer, mid, 0, myOS);
+    EdgeDrawThread_PartB edge_draw_b_thread_1(image_buffer, mid, 1, myOS);
     
     void main(void) {
         edge_draw_b_thread_0;
         edge_draw_b_thread_1;
-        waitfor(12000000); 
+        //waitfor(12000000); 
     }     
 };
 
 
-behavior EdgeDraw(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid,  i_uchar7220_sender out_image)
+behavior EdgeDraw(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid,  i_uchar7220_sender out_image, OSAPI myOS)
 {
 
     
     uchar image_buffer[IMAGE_SIZE];
     uchar mid[IMAGE_SIZE];         
     
-    EdgeDraw_ReadInput edge_draw_read_input(in_image, in_mid, image_buffer, mid);
+    EdgeDraw_ReadInput edge_draw_read_input(in_image, in_mid, image_buffer, mid, myOS);
     EdgeDraw_WriteOutput edge_draw_write_output(image_buffer, out_image);
-    EdgeDraw_PartA edge_draw_a(image_buffer, mid);
-    EdgeDraw_PartB edge_draw_b(image_buffer, mid);
+    EdgeDraw_PartA edge_draw_a(image_buffer, mid, myOS);
+    EdgeDraw_PartB edge_draw_b(image_buffer, mid, myOS);
 
     
     void main(void) {
-        //printf("in edge draw\n");
+        printf("edgeDraw Started\n"); 
+        myOS.printQueue(); 
         fsm{
             edge_draw_read_input: goto edge_draw_a;
             edge_draw_a: goto edge_draw_b;
             edge_draw_b: goto edge_draw_write_output;
             edge_draw_write_output: {}
         }
+        //myOS.task_terminate();
     }     
     
 };    
 
-behavior Draw(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid,  i_uchar7220_sender out_image)
+behavior Draw(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid,  i_uchar7220_sender out_image, OSAPI myOS)
 {
 
-    EdgeDraw edge_draw(in_image, in_mid,  out_image);
+    EdgeDraw edge_draw(in_image, in_mid,  out_image, myOS);
     
     void main(void) {
+        TASK task_id = 2;
+        myOS.task_activate(task_id);
         fsm {
-            edge_draw: {}
+            edge_draw: {goto edge_draw;}
         }
     }
     

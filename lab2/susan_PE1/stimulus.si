@@ -2732,7 +2732,7 @@ extern const int _SPECC_VERSION_MAJOR;
 extern const int _SPECC_VERSION_MINOR;
 # 6 "susan.sh" 2
 
-
+import "OS";
 typedef int TOTAL_TYPE;
 # 21 "susan.sh"
 typedef unsigned char uchar;
@@ -2822,7 +2822,8 @@ behavior Stimulus(i_send start, inout uchar image_buffer[7220], i_sender start_t
         sprintf(filename, "%s", "input_small.pgm");
         get_image(filename, image_buffer);
  for(n = 0; n < 5; n++) {
-         printf("Starting process %d...\n", n+1);
+
+     printf("Starting process %d...\n", n+1);
                 start.send();
          start_time = now();
   start_time_channel.send(&start_time, sizeof(sim_time));

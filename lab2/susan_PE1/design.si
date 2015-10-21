@@ -2728,7 +2728,7 @@ extern const int _SPECC_VERSION_MAJOR;
 extern const int _SPECC_VERSION_MINOR;
 # 6 "susan.sh" 2
 
-
+import "OS";
 typedef int TOTAL_TYPE;
 # 21 "susan.sh"
 typedef unsigned char uchar;
@@ -2738,30 +2738,28 @@ import "detect_edges";
 import "susan";
 import "read_image";
 import "write_image";
-import "c_uchar7220_queue";
+import "c_uchar7220_queue_both_SR";
+
 
 
 behavior Design(i_receive start, in uchar image_buffer[7220], i_sender out_image_susan)
 {
 
-    c_uchar7220_queue in_image(1ul);
-    c_uchar7220_queue out_image(1ul);
 
-    c_int7220_queue r(1ul);
-    c_uchar7220_queue mid(1ul);
-    c_uchar7220_queue image_edge_draw(1ul);
-
+    OS myOS;
+    c_uchar7220_queue_R in_image(1ul, myOS);
+    c_uchar7220_queue_S out_image(1ul, myOS);
 
     ReadImage read_image(start, image_buffer, in_image);
-    Edges PE1(in_image, r, mid, image_edge_draw);
-    Susan PE2(r, mid, image_edge_draw, out_image);
+    Susan TASK_PE1(in_image, out_image, myOS);
     WriteImage write_image(out_image, out_image_susan);
 
     void main(void) {
        par {
             read_image.main();
-            PE1.main();
-            PE2.main();
+            TASK_PE1.main();
+
+
             write_image.main();
         }
     }

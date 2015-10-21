@@ -1,6 +1,6 @@
 #include "susan.sh"
 
-behavior SetupBrightnessLutThread(uchar bp[516], in int thID)
+behavior SetupBrightnessLutThread(uchar bp[516], in int thID, OSAPI myOS)
 {
        
     void main(void) {
@@ -19,16 +19,17 @@ behavior SetupBrightnessLutThread(uchar bp[516], in int thID)
                 temp=temp*temp*temp;
             temp=100.0*exp(-temp);
             bp[(k+258)] = (uchar) temp;
+            myOS.time_wait(2700);
         }
+      printf("-------------done with set upbrightness\n") ;
     }
-
 };
  
-behavior SetupBrightnessLut(uchar bp[516])
+behavior SetupBrightnessLut(uchar bp[516], OSAPI myOS)
 {
        
-    SetupBrightnessLutThread setup_brightness_thread_0(bp, 0);
-    SetupBrightnessLutThread setup_brightness_thread_1(bp, 1);
+    SetupBrightnessLutThread setup_brightness_thread_0(bp, 0, myOS);
+    SetupBrightnessLutThread setup_brightness_thread_1(bp, 1, myOS);
        
     void main(void) {
         setup_brightness_thread_0;
