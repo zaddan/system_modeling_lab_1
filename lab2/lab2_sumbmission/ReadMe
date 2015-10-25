@@ -1,0 +1,2 @@
+we have 4 folders. 2 per partition. Each one considers whether we used static scheduling or 
+dynamic scheduling (using OS). 
