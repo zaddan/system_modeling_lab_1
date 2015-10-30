@@ -70,11 +70,14 @@ behavior EdgeDraw_ReadInput(i_uchar7220_receiver in_image, i_uchar7220_receiver 
     }      
 };
 
-behavior EdgeDraw_WriteOutput(uchar image_buffer[IMAGE_SIZE],  i_uchar7220_sender out_image)
+behavior EdgeDraw_WriteOutput(uchar image_buffer[IMAGE_SIZE],  i_uchar7220_sender out_image, OSAPI myOS)
 {
     void main(void) {
+        int myTask; 
+        myTask = myOS.pre_wait(); 
         out_image.send(image_buffer);
-        //printf("edgeDraw ended\n");
+        myOS.post_wait(myTask); 
+        printf("edgeDraw_Ended\n");
     }
 };
 
@@ -113,7 +116,7 @@ behavior EdgeDraw(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid,  i
     uchar mid[IMAGE_SIZE];         
     
     EdgeDraw_ReadInput edge_draw_read_input(in_image, in_mid, image_buffer, mid, myOS);
-    EdgeDraw_WriteOutput edge_draw_write_output(image_buffer, out_image);
+    EdgeDraw_WriteOutput edge_draw_write_output(image_buffer, out_image, myOS);
     EdgeDraw_PartA edge_draw_a(image_buffer, mid, myOS);
     EdgeDraw_PartB edge_draw_b(image_buffer, mid, myOS);
 

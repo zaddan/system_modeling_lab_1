@@ -9,9 +9,11 @@ behavior ReadImage(i_receive start, in uchar image_buffer[IMAGE_SIZE], i_uchar72
     void main(void) {
         int i;
         uchar image_buffer_out[IMAGE_SIZE];
-        
+        //printf("in read image"); 
         while (true) {
+            //printf("in read image\n"); 
             start.receive();
+            printf("after start recvie image\n"); 
             for (i=0; i<IMAGE_SIZE; i++){
                 image_buffer_out[i] = image_buffer[i];
             } 

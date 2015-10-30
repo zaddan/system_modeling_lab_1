@@ -7,11 +7,11 @@ import "write_image";
 channel slave_send_driver(ISlaveHardwareBus myHardwareBus, unsigned bit[ADDR_WIDTH-1:0] addr) implements i_uchar7220_sender {
     unsigned long mySize =  IMAGE_SIZE;
     void send(uchar7220 outImage){
-        //printf("--+++-----\n");
+        printf("--+++-----\n");
         myHardwareBus.SlaveSyncSend();
         //printf("done with syncing in slave\n");
         myHardwareBus.SlaveSyncSend();
-        //printf("++00111111\n");
+        printf("++00111111\n");
         myHardwareBus.SlaveWrite(addr, outImage, mySize);
     }
 };
@@ -34,6 +34,7 @@ behavior readImage_driver_wrapper(ISlaveHardwareBus myHardwareBus, in uchar imag
     ReadImage myRead_image(start, image_buffer, mySlave_send_driver);
     
     void main (void) {
+           //printf(" in readimage wrapper\n"); 
            //fsm{ 
            // myRead_image: goto myRead_image;
             

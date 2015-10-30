@@ -1,5 +1,5 @@
 # 1 "edge_draw.sc"
-# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/susan_partition_I_dynamically_scheduled//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "edge_draw.sc"
@@ -2804,11 +2804,14 @@ behavior EdgeDraw_ReadInput(i_uchar7220_receiver in_image, i_uchar7220_receiver 
     }
 };
 
-behavior EdgeDraw_WriteOutput(uchar image_buffer[7220], i_uchar7220_sender out_image)
+behavior EdgeDraw_WriteOutput(uchar image_buffer[7220], i_uchar7220_sender out_image, OSAPI myOS)
 {
     void main(void) {
+        int myTask;
+        myTask = myOS.pre_wait();
         out_image.send(image_buffer);
-
+        myOS.post_wait(myTask);
+        printf("edgeDraw_Ended\n");
     }
 };
 
@@ -2847,7 +2850,7 @@ behavior EdgeDraw(i_uchar7220_receiver in_image, i_uchar7220_receiver in_mid, i_
     uchar mid[7220];
 
     EdgeDraw_ReadInput edge_draw_read_input(in_image, in_mid, image_buffer, mid, myOS);
-    EdgeDraw_WriteOutput edge_draw_write_output(image_buffer, out_image);
+    EdgeDraw_WriteOutput edge_draw_write_output(image_buffer, out_image, myOS);
     EdgeDraw_PartA edge_draw_a(image_buffer, mid, myOS);
     EdgeDraw_PartB edge_draw_b(image_buffer, mid, myOS);
 

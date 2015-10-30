@@ -32,6 +32,7 @@ interface IMasterHardwareBusProtocol
   void masterRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d);
 };
 
+
 interface ISlaveHardwareBusProtocol
 {
   void slaveWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d);
@@ -43,6 +44,7 @@ channel MasterHardwareBus(out signal unsigned bit[ADDR_WIDTH-1:0] A,
                               signal unsigned bit[DATA_WIDTH-1:0] D,
                           out signal unsigned bit[1]    ready,
                           in  signal unsigned bit[1]    ack)
+  
   implements IMasterHardwareBusProtocol
 {
   void masterWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
@@ -81,6 +83,49 @@ channel MasterHardwareBus(out signal unsigned bit[ADDR_WIDTH-1:0] A,
     }
   }
 
+};
+
+
+channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,
+                              signal unsigned bit[DATA_WIDTH-1:0] D,
+                              event TLMEvent1, event TLMEvent2)
+  implements IMasterHardwareBusProtocol, ISlaveHardwareBusProtocol
+{
+  void masterWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
+  {
+      A = a;
+      D = d;
+      waitfor(20000); 
+      notify(TLMEvent1);
+   
+   }
+   
+  void masterRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
+  {
+    wait(TLMEvent2);
+    A = a;
+    *d = D;
+    waitfor(20000); 
+  }
+
+  void slaveWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
+  {
+      
+      //printf("in slvaeWriet"); 
+      while(A!=a){}
+      //printf("in slaveWrite A = %d, a = %d",A,a); 
+      D = d;
+      waitfor(20000); 
+      notify(TLMEvent2); 
+  } 
+  void slaveRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
+  {
+      while(a!=A);
+      //printf("in slaveRead A = %d, a = %d",A,a); 
+      wait(TLMEvent1); 
+      *d = D;
+      waitfor(20000); 
+  }
 };
 
 
@@ -191,8 +236,8 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
       word = (word<<8) + *p;
       
       if(!((i+1)%DATA_BYTES)) {
-	protocol.masterWrite(addr, word);
-	word = 0;
+	 protocol.masterWrite(addr, word);
+	 word = 0;
       }
     }
     
@@ -303,7 +348,8 @@ channel HardwareBus()
   signal unsigned bit[DATA_WIDTH-1:0] D;
   signal unsigned bit[1]    ready = 0;
   signal unsigned bit[1]    ack = 0;
-
+  event TLMEvent1;
+  event TLMEvent2;
   // interrupts
   signal unsigned bit[1]    int0 = 0;
   signal unsigned bit[1]    int1 = 0;
@@ -343,11 +389,15 @@ channel HardwareBus()
 
 
 
-  MasterHardwareBus Master(A, D, ready, ack);
-  SlaveHardwareBus  Slave(A, D, ready, ack);
+//  MasterHardwareBus Master(A, D, ready, ack);
+//  SlaveHardwareBus  Slave(A, D, ready, ack);
+//
 
-  MasterHardwareBusLinkAccess MasterLink(Master);
-  SlaveHardwareBusLinkAccess SlaveLink(Slave);
+  HardwareBusProtocolTLM myHardwareBusProtocolTLM(A, D, TLMEvent1, TLMEvent2);
+
+//
+  MasterHardwareBusLinkAccess MasterLink(myHardwareBusProtocolTLM);
+  SlaveHardwareBusLinkAccess SlaveLink(myHardwareBusProtocolTLM);
 
   
   void MasterRead(unsigned bit[ADDR_WIDTH-1:0] addr, void *data, unsigned long len) {

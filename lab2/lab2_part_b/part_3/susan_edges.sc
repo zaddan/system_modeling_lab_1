@@ -289,7 +289,7 @@ behavior SusanEdges_WriteOutput(i_int7220_sender out_r, i_uchar7220_sender out_m
         out_mid.send(mid);
         //printf("done sending mid in susan_edges_writeOutput\n");  
         out_image.send(out_image_buffer);
-        //printf("done sending all in susan_edges_writeOutput\n");  
+        printf("susan_edges_writeOutput_done\n");  
     
     }
 };
