@@ -1,0 +1,80 @@
+./susan_edge_detector
+Starting process 1...
+________________start send
+after start recvie image
+Starting process 2...
+MID detect edges
+in master recieve 
+after slaveSYnc1 after send 1387800 
+done with syncing in slave 1387800 
+MASTER_sync_receive 1387800
+done with sync master recieve 1387800 
+in MasterRead_before _Read
+in masterRead_after_wait
+start send
+after start recvie image
+Starting process 3...
+susan_edges_writeOutput_done
+detect_edges_end
+________________susan_THIN_done
+MID detect edges
+in master recieve 
+after slaveSYnc1 after send 9127475600 
+done with syncing in slave 9127475600 
+MASTER_sync_receive 9127475600
+done with sync master recieve 9127475600 
+in MasterRead_before _Read
+in masterRead_after_wait
+start send
+after start recvie image
+Starting process 4...
+susan_edges_writeOutput_done
+detect_edges_end
+________________susan_THIN_done
+MID detect edges
+in master recieve 
+after slaveSYnc1 after send 21457463400 
+done with syncing in slave 21457463400 
+MASTER_sync_receive 21457463400
+done with sync master recieve 21457463400 
+in MasterRead_before _Read
+in masterRead_after_wait
+start send
+after start recvie image
+Starting process 5...
+edgeDraw_Ended
+susan_edges_writeOutput_done
+detect_edges_end
+________________susan_THIN_done
+MID detect edges
+in master recieve 
+after slaveSYnc1 after send 191539551200 
+done with syncing in slave 191539551200 
+MASTER_sync_receive 191539551200
+done with sync master recieve 191539551200 
+in MasterRead_before _Read
+in masterRead_after_wait
+start send
+after start recvie image
+edgeDraw_Ended
+susan_edges_writeOutput_done
+detect_edges_end
+________________susan_THIN_done
+MID detect edges
+in master recieve 
+after slaveSYnc1 after send 368857639000 
+done with syncing in slave 368857639000 
+MASTER_sync_receive 368857639000
+done with sync master recieve 368857639000 
+in MasterRead_before _Read
+in masterRead_after_wait
+edgeDraw_Ended
+susan_edges_writeOutput_done
+detect_edges_end
+________________susan_THIN_done
+MID detect edges
+in master recieve 
+edgeDraw_Ended
+edgeDraw_Ended
+diff -s out.pgm golden.pgm
+Binary files out.pgm and golden.pgm differ

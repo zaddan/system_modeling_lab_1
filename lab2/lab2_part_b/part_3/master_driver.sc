@@ -7,10 +7,8 @@ import "susan";
 channel master_send_driver(IMasterHardwareBus myHardwareBus, unsigned bit[ADDR_WIDTH-1:0] addr) implements i_uchar7220_sender{
     unsigned long mySize =  IMAGE_SIZE;
     void send(uchar7220 outImage){
-        //printf("777777777777777\n"); 
         //myHardwareBus.MasterSyncSend();
         myHardwareBus.MasterSyncReceive2();
-        //printf("777777777777777\n"); 
         myHardwareBus.MasterWrite(addr, outImage, mySize);
     }
 };
@@ -18,9 +16,9 @@ channel master_send_driver(IMasterHardwareBus myHardwareBus, unsigned bit[ADDR_W
 channel master_receive_driver (IMasterHardwareBus myHardwareBus, unsigned bit[ADDR_WIDTH-1:0] addr) implements i_uchar7220_receiver {
     unsigned long mySize =  IMAGE_SIZE;
     void receive(uchar7220 *inImage){
-        //printf("in master recieve \n"); 
+        printf("in master recieve \n"); 
         myHardwareBus.MasterSyncReceive();
-        //printf("done with sync master recieve \n"); 
+        printf("done with sync master recieve %llu \n",now()); 
         myHardwareBus.MasterRead(addr, inImage, mySize);
     }
 };

@@ -216,7 +216,7 @@ behavior SusanThin_WriteOutput(i_uchar7220_sender out_mid, uchar mid[IMAGE_SIZE]
 {
     void main(void) {
         out_mid.send(mid);      
-        printf("susan_THIN\n"); 
+        printf("susan_THIN_done\n"); 
         //waitfor(6400000); 
     }
 };

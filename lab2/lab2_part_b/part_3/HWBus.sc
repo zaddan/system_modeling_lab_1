@@ -2,9 +2,11 @@
 // File:   	HWBus.sc
 //////////////////////////////////////////////////////////////////////
 
-import "i_send";
-import "i_receive";
-//import "c_double_handshake";
+//import "i_send";
+//import "i_receive";
+//import "i_transceive";
+
+import "c_double_handshake";
 import "c_handshake";
 
 #include "susan.sh"
@@ -86,23 +88,27 @@ channel MasterHardwareBus(out signal unsigned bit[ADDR_WIDTH-1:0] A,
 };
 
 
-channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,
-                              signal unsigned bit[DATA_WIDTH-1:0] D,
-                              event TLMEvent1, event TLMEvent2)
+channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,signal unsigned bit[DATA_WIDTH-1:0] D,event TLMEvent1, event TLMEvent2)
+//channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,signal unsigned bit[DATA_WIDTH-1:0] D)
   implements IMasterHardwareBusProtocol, ISlaveHardwareBusProtocol
 {
+  
+//  c_handshake TLMEvent1;
+//  c_handshake TLMEvent2;
   void masterWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
   {
       A = a;
       D = d;
-      waitfor(20000); 
       notify(TLMEvent1);
+      waitfor(20000); 
    
    }
    
   void masterRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
   {
+    //printf("before_masterReadprotocol %llu \n",now()); 
     wait(TLMEvent2);
+    //printf("masterReadprotocol_after_wait\n"); 
     A = a;
     *d = D;
     waitfor(20000); 
@@ -110,18 +116,15 @@ channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,
 
   void slaveWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
   {
-      
-      //printf("in slvaeWriet"); 
-      while(A!=a){}
-      //printf("in slaveWrite A = %d, a = %d",A,a); 
+      //while(A!=a){}
       D = d;
-      waitfor(20000); 
       notify(TLMEvent2); 
+      //printf("slavewriteprotocol_after_notify %llu\n",now()); 
+      waitfor(20000); 
   } 
   void slaveRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
   {
-      while(a!=A);
-      //printf("in slaveRead A = %d, a = %d",A,a); 
+     // while(a!=A);
       wait(TLMEvent1); 
       *d = D;
       waitfor(20000); 
@@ -256,6 +259,7 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
     unsigned char* p;
     unsigned bit[DATA_WIDTH-1:0] word;
    
+    printf("in MasterRead_before _Read\n"); 
     for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
     {
       if(!(i%DATA_BYTES)) {
@@ -265,7 +269,7 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
       *p = word[DATA_WIDTH-1:DATA_WIDTH-8];
       word = word << 8;      
     }
-    //printf("7777^^^^^^^^^^\n"); 
+    printf("in masterRead_after_wait\n"); 
   }
 };
 
@@ -278,6 +282,7 @@ channel SlaveHardwareBusLinkAccess(ISlaveHardwareBusProtocol protocol)
     unsigned char *p;
     unsigned bit[DATA_WIDTH-1:0] word = 0;
    
+    //printf("in slaveWrite\n"); 
     for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
     {
       word = (word<<8) + *p;
@@ -293,6 +298,7 @@ channel SlaveHardwareBusLinkAccess(ISlaveHardwareBusProtocol protocol)
       protocol.slaveWrite(addr, word);
     }    
   
+    //printf("in slaveWrite_after_notify\n"); 
     //printf("888888^^^^^^^^^^\n"); 
   }
   
@@ -350,7 +356,9 @@ channel HardwareBus()
   signal unsigned bit[1]    ack = 0;
   event TLMEvent1;
   event TLMEvent2;
-  // interrupts
+  
+
+// interrupts
   signal unsigned bit[1]    int0 = 0;
   signal unsigned bit[1]    int1 = 0;
 
@@ -362,48 +370,26 @@ channel HardwareBus()
 //  
 
 
- //unsigned long const mySize = 1; 
-  //c_handshake MasterSync0;
-//  c_handshake SlaveSync0;
-//
-//  c_handshake MasterSync1;
-//  c_handshake SlaveSync1;
 
-  c_handshake SlaveSync2;
+  //c_handshake SlaveSync2;
+  //c_handshake SlaveSync1;
 
-  //c_handshake MasterSync1;
- c_handshake SlaveSync1;
-
-
-
-
-
-//
-//c_double_handshake MasterSync0;
-  //c_double_handshake SlaveSync2;
-
-  //c_double_handshake MasterSync1;
- // c_double_handshake SlaveSync1;
-
-
-
-
+  c_double_handshake SlaveSync2;
+  c_double_handshake SlaveSync1;
 
 //  MasterHardwareBus Master(A, D, ready, ack);
 //  SlaveHardwareBus  Slave(A, D, ready, ack);
 //
 
-  HardwareBusProtocolTLM myHardwareBusProtocolTLM(A, D, TLMEvent1, TLMEvent2);
+  HardwareBusProtocolTLM myHardwareBusProtocolTLM(A, D,TLMEvent1,TLMEvent2);
 
 //
   MasterHardwareBusLinkAccess MasterLink(myHardwareBusProtocolTLM);
   SlaveHardwareBusLinkAccess SlaveLink(myHardwareBusProtocolTLM);
 
-  
   void MasterRead(unsigned bit[ADDR_WIDTH-1:0] addr, void *data, unsigned long len) {
     MasterLink.MasterRead(addr, data, len);
   }
-  
   void MasterWrite(unsigned bit[ADDR_WIDTH-1:0] addr, const void *data, unsigned long len) {
     MasterLink.MasterWrite(addr, data, len);
   }
@@ -416,49 +402,33 @@ channel HardwareBus()
   }
 
   void MasterSyncReceive() {
-    char myChar;
-    //unsigned long mySize = 1; 
-    //MasterSync0.receive();
-   SlaveSync1.receive();
-    //printf("here"); 
-    //SlaveSync1.receive(&myChar, 1);
-    
-    //MasterSync0.receive(&myChar, 1);
-    //printf("888888^^^^^^^^^^\n"); 
-    //printf("in syncR\n"); 
+    char myChar = 'c';
+    unsigned long mySize = 1; 
+   SlaveSync1.receive(&myChar,mySize);
+   //SlaveSync1.receive();
+    printf("MASTER_sync_receive %llu\n",now()); 
   }
  
   void MasterSyncReceive2() {
-    char myChar;
-    //unsigned long mySize = 1; 
-    //MasterSync0.receive();
-    SlaveSync2.receive();
-    //printf("999999999999999999\n"); 
-    //SlaveSync2.receive(&myChar, 1);
-    //MasterSync0.receive(&myChar, 1);
-    //printf("in syncR\n"); 
+    //SlaveSync2.receive();
   }
 
   void SlaveSyncSend() {
     char myChar = 'c';
     unsigned long mySize = 1; 
-    //SlaveSync0.send(&myChar, 1);
-    SlaveSync1.send();
-    //SlaveSync1.send(&myChar, 1);
-    //printf("777777^^^^^^^^^^\n"); 
-    //printf("after slaveSYnc1 send\n"); 
+    SlaveSync1.send(&myChar, mySize);
+    //SlaveSync1.send();
+    printf("after slaveSYnc1 after send %llu \n",now()); 
   }
 
   
   void SlaveSyncSend2() {
     char myChar = 'c';
     unsigned long mySize = 1; 
-    //SlaveSync0.send(&myChar, 1);
+
     
-     //printf("in slaveSync2 \n"); 
-    //SlaveSync2.send(&myChar, 1);
-    //printf("************************************************************&&\n"); 
-    SlaveSync2.send();
+   // SlaveSync2.send();
+    SlaveSync2.send(&myChar, 1);
     //printf("after slaveSYnc2 send\n"); 
   }
 //

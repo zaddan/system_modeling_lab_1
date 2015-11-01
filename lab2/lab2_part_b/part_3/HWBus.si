@@ -1,15 +1,10 @@
 # 1 "HWBus.sc"
-# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/susan_partition_I_dynamically_scheduled//"
+# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "HWBus.sc"
-
-
-
-
-import "i_send";
-import "i_receive";
-
+# 9 "HWBus.sc"
+import "c_double_handshake";
 import "c_handshake";
 
 # 1 "susan.sh" 1
@@ -2741,13 +2736,14 @@ import "OS";
 typedef int TOTAL_TYPE;
 # 21 "susan.sh"
 typedef unsigned char uchar;
-# 11 "HWBus.sc" 2
-# 29 "HWBus.sc"
+# 13 "HWBus.sc" 2
+# 31 "HWBus.sc"
 interface IMasterHardwareBusProtocol
 {
   void masterWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d);
   void masterRead (unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] *d);
 };
+
 
 interface ISlaveHardwareBusProtocol
 {
@@ -2760,6 +2756,7 @@ channel MasterHardwareBus(out signal unsigned bit[2 -1:0] A,
                               signal unsigned bit[32u -1:0] D,
                           out signal unsigned bit[1] ready,
                           in signal unsigned bit[1] ack)
+
   implements IMasterHardwareBusProtocol
 {
   void masterWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d)
@@ -2798,6 +2795,50 @@ channel MasterHardwareBus(out signal unsigned bit[2 -1:0] A,
     }
   }
 
+};
+
+
+channel HardwareBusProtocolTLM(inout signal unsigned bit[2 -1:0] A,signal unsigned bit[32u -1:0] D,event TLMEvent1, event TLMEvent2)
+
+  implements IMasterHardwareBusProtocol, ISlaveHardwareBusProtocol
+{
+
+
+
+  void masterWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d)
+  {
+      A = a;
+      D = d;
+      notify(TLMEvent1);
+      waitfor(20000);
+
+   }
+
+  void masterRead (unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] *d)
+  {
+
+    wait(TLMEvent2);
+
+    A = a;
+    *d = D;
+    waitfor(20000);
+  }
+
+  void slaveWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d)
+  {
+
+      D = d;
+      notify(TLMEvent2);
+
+      waitfor(20000);
+  }
+  void slaveRead (unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] *d)
+  {
+
+      wait(TLMEvent1);
+      *d = D;
+      waitfor(20000);
+  }
 };
 
 
@@ -2854,7 +2895,7 @@ channel SlaveHardwareBus(in signal unsigned bit[2 -1:0] A,
     }
   }
 };
-# 168 "HWBus.sc"
+# 216 "HWBus.sc"
 interface IMasterHardwareBusLinkAccess
 {
   void MasterRead(int addr, void *data, unsigned long len);
@@ -2881,8 +2922,8 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
       word = (word<<8) + *p;
 
       if(!((i+1)%4u)) {
- protocol.masterWrite(addr, word);
- word = 0;
+  protocol.masterWrite(addr, word);
+  word = 0;
       }
     }
 
@@ -2901,6 +2942,7 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
     unsigned char* p;
     unsigned bit[32u -1:0] word;
 
+    printf("in MasterRead_before _Read\n");
     for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
     {
       if(!(i%4u)) {
@@ -2910,7 +2952,7 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
       *p = word[32u -1:32u -8];
       word = word << 8;
     }
-
+    printf("in masterRead_after_wait\n");
   }
 };
 
@@ -2922,6 +2964,7 @@ channel SlaveHardwareBusLinkAccess(ISlaveHardwareBusProtocol protocol)
     unsigned long i;
     unsigned char *p;
     unsigned bit[32u -1:0] word = 0;
+
 
     for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
     {
@@ -2937,6 +2980,7 @@ channel SlaveHardwareBusLinkAccess(ISlaveHardwareBusProtocol protocol)
       word <<= 8 * (4u - (i%4u));
       protocol.slaveWrite(addr, word);
     }
+
 
 
   }
@@ -2993,27 +3037,30 @@ channel HardwareBus()
   signal unsigned bit[32u -1:0] D;
   signal unsigned bit[1] ready = 0;
   signal unsigned bit[1] ack = 0;
+  event TLMEvent1;
+  event TLMEvent2;
+
 
 
   signal unsigned bit[1] int0 = 0;
   signal unsigned bit[1] int1 = 0;
-# 326 "HWBus.sc"
-  c_handshake SlaveSync2;
+# 377 "HWBus.sc"
+  c_double_handshake SlaveSync2;
+  c_double_handshake SlaveSync1;
 
 
- c_handshake SlaveSync1;
-# 346 "HWBus.sc"
-  MasterHardwareBus Master(A, D, ready, ack);
-  SlaveHardwareBus Slave(A, D, ready, ack);
 
-  MasterHardwareBusLinkAccess MasterLink(Master);
-  SlaveHardwareBusLinkAccess SlaveLink(Slave);
 
+
+  HardwareBusProtocolTLM myHardwareBusProtocolTLM(A, D,TLMEvent1,TLMEvent2);
+
+
+  MasterHardwareBusLinkAccess MasterLink(myHardwareBusProtocolTLM);
+  SlaveHardwareBusLinkAccess SlaveLink(myHardwareBusProtocolTLM);
 
   void MasterRead(unsigned bit[2 -1:0] addr, void *data, unsigned long len) {
     MasterLink.MasterRead(addr, data, len);
   }
-
   void MasterWrite(unsigned bit[2 -1:0] addr, const void *data, unsigned long len) {
     MasterLink.MasterWrite(addr, data, len);
   }
@@ -3026,37 +3073,23 @@ channel HardwareBus()
   }
 
   void MasterSyncReceive() {
-    char myChar;
+    char myChar = 'c';
+    unsigned long mySize = 1;
+   SlaveSync1.receive(&myChar,mySize);
 
-
-   SlaveSync1.receive();
-
-
-
-
-
-
+    printf("MASTER_sync_receive %llu\n",now());
   }
 
   void MasterSyncReceive2() {
-    char myChar;
-
-
-    SlaveSync2.receive();
-
-
-
 
   }
 
   void SlaveSyncSend() {
     char myChar = 'c';
     unsigned long mySize = 1;
+    SlaveSync1.send(&myChar, mySize);
 
-    SlaveSync1.send();
-
-
-
+    printf("after slaveSYnc1 after send %llu \n",now());
   }
 
 
@@ -3066,10 +3099,8 @@ channel HardwareBus()
 
 
 
-
-
-    SlaveSync2.send();
+    SlaveSync2.send(&myChar, 1);
 
   }
-# 442 "HWBus.sc"
+# 462 "HWBus.sc"
 };

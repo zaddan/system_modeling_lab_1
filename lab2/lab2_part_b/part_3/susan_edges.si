@@ -1,5 +1,5 @@
 # 1 "susan_edges.sc"
-# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "susan_edges.sc"
@@ -3001,9 +3001,9 @@ behavior SusanEdgesThread_PartB(uchar image_buffer[7220], int r[7220], uchar mid
 behavior SusanEdges_ReadInput(i_uchar7220_receiver in_image, uchar in_image_buffer[7220], int r[7220], uchar mid[7220], OSAPI myOS)
 {
     void main(void) {
-
         int myTask;
         myTask = myOS.pre_wait();
+
         in_image.receive(&in_image_buffer);
         myOS.post_wait(myTask);
 

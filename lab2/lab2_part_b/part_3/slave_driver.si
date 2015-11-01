@@ -1,5 +1,5 @@
 # 1 "slave_driver.sc"
-# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "slave_driver.sc"
@@ -2741,11 +2741,8 @@ import "write_image";
 channel slave_send_driver(ISlaveHardwareBus myHardwareBus, unsigned bit[2 -1:0] addr) implements i_uchar7220_sender {
     unsigned long mySize = 7220;
     void send(uchar7220 outImage){
-        printf("--+++-----\n");
         myHardwareBus.SlaveSyncSend();
-
-        myHardwareBus.SlaveSyncSend();
-        printf("++00111111\n");
+        printf("done with syncing in slave %llu \n", now());
         myHardwareBus.SlaveWrite(addr, outImage, mySize);
     }
 };
@@ -2769,12 +2766,12 @@ behavior readImage_driver_wrapper(ISlaveHardwareBus myHardwareBus, in uchar imag
 
     void main (void) {
 
+           fsm{
+            myRead_image: goto myRead_image;
 
 
 
-            myRead_image.main();
-
-
+        }
     }
 };
 

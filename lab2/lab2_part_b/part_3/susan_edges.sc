@@ -267,9 +267,9 @@ behavior SusanEdgesThread_PartB(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZ
 behavior  SusanEdges_ReadInput(i_uchar7220_receiver in_image, uchar in_image_buffer[IMAGE_SIZE], int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], OSAPI myOS) 
 {
     void main(void) {
-        //printf("we are in susanEdges ReadInput\n"); 
         int myTask; //task;
         myTask = myOS.pre_wait(); 
+        //printf("we are in susanEdges ReadInput\n"); 
         in_image.receive(&in_image_buffer);
         myOS.post_wait(myTask); 
         //printf("we are in susanEdges ReadInput after reciving\n"); 
