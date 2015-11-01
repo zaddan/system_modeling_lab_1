@@ -1,0 +1,103 @@
+./susan_edge_detector
+Starting process 1...
+WR_start
+slave_recv_SYNC2_sent 0
+________________
+start send
+after start recvie image
+Inside monitor 0 0 us
+Starting process 2...
+in master recieve 
+done with syncing in slave 1387800 
+done with sync master recieve 1387800 
+start send
+after start recvie image
+Starting process 3...
+susan_edges_writeOutput_done
+detect_edges_end
+________________
+susan_THIN_done
+in master recieve 
+done with syncing in slave 9091395600 
+done with sync master recieve 9091395600 
+start send
+after start recvie image
+Starting process 4...
+susan_edges_writeOutput_done
+detect_edges_end
+________________
+susan_THIN_done
+in master recieve 
+done with syncing in slave 21385383400 
+done with sync master recieve 21385383400 
+start send
+after start recvie image
+Starting process 5...
+in_master_SEND 
+after slaveSYnc2 send 185285983400
+slave_recv_SYNC2_done 185285983400
+done with sync master send 185285983400 
+edgeDraw_Ended
+WR_start
+slave_recv_SYNC2_sent 185286003400
+Total process time: 185286 us
+Inside monitor 1 185286003400 us
+susan_edges_writeOutput_done
+detect_edges_end
+________________
+susan_THIN_done
+in master recieve 
+done with syncing in slave 191467391200 
+done with sync master recieve 191467391200 
+start send
+after start recvie image
+in_master_SEND 
+after slaveSYnc2 send 362567991200
+slave_recv_SYNC2_done 362567991200
+done with sync master send 362567991200 
+edgeDraw_Ended
+WR_start
+slave_recv_SYNC2_sent 362568011200
+Total process time: 362566 us
+Inside monitor 2 362568011200 us
+susan_edges_writeOutput_done
+detect_edges_end
+________________
+susan_THIN_done
+in master recieve 
+done with syncing in slave 368749399000 
+done with sync master recieve 368749399000 
+in_master_SEND 
+after slaveSYnc2 send 539849999000
+slave_recv_SYNC2_done 539849999000
+done with sync master send 539849999000 
+edgeDraw_Ended
+WR_start
+slave_recv_SYNC2_sent 539850019000
+Total process time: 530758 us
+Inside monitor 3 539850019000 us
+susan_edges_writeOutput_done
+detect_edges_end
+________________
+susan_THIN_done
+in master recieve 
+in_master_SEND 
+after slaveSYnc2 send 713131406800
+slave_recv_SYNC2_done 713131406800
+done with sync master send 713131406800 
+edgeDraw_Ended
+WR_start
+slave_recv_SYNC2_sent 713131426800
+Total process time: 691746 us
+Inside monitor 4 713131426800 us
+in_master_SEND 
+after slaveSYnc2 send 886411426800
+slave_recv_SYNC2_done 886411426800
+done with sync master send 886411426800 
+edgeDraw_Ended
+WR_start
+slave_recv_SYNC2_sent 886411446800
+Total process time: 694944 us
+Current time: 886411 us
+diff -s out.pgm golden.pgm
+Files out.pgm and golden.pgm are identical
