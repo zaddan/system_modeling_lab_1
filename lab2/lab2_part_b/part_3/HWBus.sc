@@ -406,10 +406,13 @@ channel HardwareBus()
     unsigned long mySize = 1; 
    SlaveSync1.receive(&myChar,mySize);
    //SlaveSync1.receive();
-    printf("MASTER_sync_receive %llu\n",now()); 
+   // printf("MASTER_sync_receive %llu\n",now()); 
   }
  
   void MasterSyncReceive2() {
+    char myChar = 'c';
+    unsigned long mySize = 1; 
+    SlaveSync2.receive(&myChar,mySize);
     //SlaveSync2.receive();
   }
 
@@ -418,20 +421,18 @@ channel HardwareBus()
     unsigned long mySize = 1; 
     SlaveSync1.send(&myChar, mySize);
     //SlaveSync1.send();
-    printf("after slaveSYnc1 after send %llu \n",now()); 
+   // printf("after slaveSYnc1 after send %llu \n",now()); 
   }
 
   
   void SlaveSyncSend2() {
     char myChar = 'c';
     unsigned long mySize = 1; 
-
-    
-   // SlaveSync2.send();
-    SlaveSync2.send(&myChar, 1);
-    //printf("after slaveSYnc2 send\n"); 
+    SlaveSync2.send(&myChar, mySize);
+   //SlaveSync2.send();
+    printf("after slaveSYnc2 send %llu\n",now()); 
   }
-//
+
   
 //   void MasterSyncSend() {
 //    char myChar;

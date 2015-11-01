@@ -2745,7 +2745,7 @@ behavior WriteImage(i_uchar7220_receiver in_image, i_sender out_image)
         uchar image_buffer[7220];
 
         while (true) {
-
+            printf("WR_start\n");
             in_image.receive(&image_buffer);
             out_image.send(image_buffer, sizeof(image_buffer));
 

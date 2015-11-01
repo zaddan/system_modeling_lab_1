@@ -8,7 +8,9 @@ channel master_send_driver(IMasterHardwareBus myHardwareBus, unsigned bit[ADDR_W
     unsigned long mySize =  IMAGE_SIZE;
     void send(uchar7220 outImage){
         //myHardwareBus.MasterSyncSend();
+        printf("in_master_SEND \n"); 
         myHardwareBus.MasterSyncReceive2();
+        printf("done with sync master send %llu \n",now()); 
         myHardwareBus.MasterWrite(addr, outImage, mySize);
     }
 };

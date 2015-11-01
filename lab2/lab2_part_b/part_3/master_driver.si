@@ -2742,7 +2742,9 @@ channel master_send_driver(IMasterHardwareBus myHardwareBus, unsigned bit[2 -1:0
     unsigned long mySize = 7220;
     void send(uchar7220 outImage){
 
+        printf("in_master_SEND \n");
         myHardwareBus.MasterSyncReceive2();
+        printf("done with sync master send %llu \n",now());
         myHardwareBus.MasterWrite(addr, outImage, mySize);
     }
 };

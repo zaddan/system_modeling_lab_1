@@ -2750,11 +2750,10 @@ channel slave_send_driver(ISlaveHardwareBus myHardwareBus, unsigned bit[2 -1:0] 
 channel slave_receive_driver(ISlaveHardwareBus myHardwareBus, unsigned bit[2 -1:0] addr) implements i_uchar7220_receiver {
     unsigned long mySize = 7220;
     void receive(uchar7220 *outImage){
+        printf("slave_recv_SYNC2_sent %llu\n",now());
         myHardwareBus.SlaveSyncSend2();
-
-
+        printf("slave_recv_SYNC2_done %llu\n",now());
         myHardwareBus.SlaveRead(addr, outImage, mySize);
-
     }
 };
 

@@ -18,6 +18,8 @@ behavior Monitor(i_receiver img, i_receiver start_time_channel)
         {
 	    start_time_channel.receive(&start_time, sizeof(sim_time));
             sprintf(filename, "out.pgm");
+	
+            printf ("Inside monitor %u %llu us\n",n, (now()));    
 
 #ifdef FOPENB
             if ((fd=fopen(filename,"wb")) == NULL) 
