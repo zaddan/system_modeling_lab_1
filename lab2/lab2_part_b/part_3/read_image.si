@@ -1,5 +1,5 @@
 # 1 "read_image.sc"
-# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "read_image.sc"
@@ -2747,7 +2747,7 @@ behavior ReadImage(i_receive start, in uchar image_buffer[7220], i_uchar7220_sen
         while (true) {
 
             start.receive();
-            printf("after start recvie image\n");
+
             for (i=0; i<7220; i++){
                 image_buffer_out[i] = image_buffer[i];
             }

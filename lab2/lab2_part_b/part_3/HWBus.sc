@@ -42,59 +42,57 @@ interface ISlaveHardwareBusProtocol
 };
 
 // Master protocol implementation
-channel MasterHardwareBus(out signal unsigned bit[ADDR_WIDTH-1:0] A,
-                              signal unsigned bit[DATA_WIDTH-1:0] D,
-                          out signal unsigned bit[1]    ready,
-                          in  signal unsigned bit[1]    ack)
-  
-  implements IMasterHardwareBusProtocol
-{
-  void masterWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
-  {
-    do {
-      t1: A = a;
-          D = d;
-          waitfor(5000);
-      t2: ready = 1;
-          while(!ack) wait(ack);
-      t3: waitfor(10000);
-      t4: ready = 0;
-          while(ack) wait(ack);
-    }
-    timing {
-      range(t1; t2; 5000; 15000);
-      range(t3; t4; 10000; 25000);
-    }
-  }
-
-  void masterRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
-  {
-    do {
-      t1: A = a;
-          waitfor(5000);
-      t2: ready = 1;
-          while(!ack) wait(ack);
-      t3: *d = D;
-          waitfor(15000);
-      t4: ready = 0;
-          while(ack) wait(ack);
-    }
-    timing {
-      range(t1; t2; 5000; 15000);
-      range(t3; t4; 10000; 25000);
-    }
-  }
-
-};
-
+//channel MasterHardwareBus(out signal unsigned bit[ADDR_WIDTH-1:0] A,
+//                              signal unsigned bit[DATA_WIDTH-1:0] D,
+//                          out signal unsigned bit[1]    ready,
+//                          in  signal unsigned bit[1]    ack)
+//  
+//  implements IMasterHardwareBusProtocol
+//{
+//  void masterWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
+//  {
+//    do {
+//      t1: A = a;
+//          D = d;
+//          waitfor(5000);
+//      t2: ready = 1;
+//          while(!ack) wait(ack);
+//      t3: waitfor(10000);
+//      t4: ready = 0;
+//          while(ack) wait(ack);
+//    }
+//    timing {
+//      range(t1; t2; 5000; 15000);
+//      range(t3; t4; 10000; 25000);
+//    }
+//  }
+//
+//  void masterRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
+//  {
+//    do {
+//      t1: A = a;
+//          waitfor(5000);
+//      t2: ready = 1;
+//          while(!ack) wait(ack);
+//      t3: *d = D;
+//          waitfor(15000);
+//      t4: ready = 0;
+//          while(ack) wait(ack);
+//    }
+//    timing {
+//      range(t1; t2; 5000; 15000);
+//      range(t3; t4; 10000; 25000);
+//    }
+//  }
+//
+//};
+//
 
 channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,signal unsigned bit[DATA_WIDTH-1:0] D,event TLMEvent1, event TLMEvent2)
 //channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,signal unsigned bit[DATA_WIDTH-1:0] D)
   implements IMasterHardwareBusProtocol, ISlaveHardwareBusProtocol
 {
   
-//  c_handshake TLMEvent1;
-//  c_handshake TLMEvent2;
   void masterWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
   {
       A = a;
@@ -106,9 +104,7 @@ channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,signa
    
   void masterRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
   {
-    //printf("before_masterReadprotocol %llu \n",now()); 
     wait(TLMEvent2);
-    //printf("masterReadprotocol_after_wait\n"); 
     A = a;
     *d = D;
     waitfor(20000); 
@@ -116,15 +112,12 @@ channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,signa
 
   void slaveWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
   {
-      //while(A!=a){}
       D = d;
       notify(TLMEvent2); 
-      //printf("slavewriteprotocol_after_notify %llu\n",now()); 
       waitfor(20000); 
   } 
   void slaveRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
   {
-     // while(a!=A);
       wait(TLMEvent1); 
       *d = D;
       waitfor(20000); 
@@ -133,59 +126,59 @@ channel HardwareBusProtocolTLM(inout signal unsigned bit[ADDR_WIDTH-1:0] A,signa
 
 
 // Slave protocol implementation
-channel SlaveHardwareBus(in  signal unsigned bit[ADDR_WIDTH-1:0] A,
-                             signal unsigned bit[DATA_WIDTH-1:0] D,
-                         in  signal unsigned bit[1]    ready,
-                         out signal unsigned bit[1]    ack)
-  implements ISlaveHardwareBusProtocol
-{
-  void slaveWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
-  {
-    do {
-      t1: while(!ready) wait(ready);
-      t2: if(a != A) {
-            waitfor(1000); // avoid hanging from t2 to t1
-            goto t1;
-          }
-          else {
-            D = d;
-            waitfor(12000);
-          }
-      t3: ack = 1;
-          while(ready) wait(ready);
-      t4: waitfor(7000);
-      t5: ack = 0;
-    }
-    timing {
-      range(t2; t3; 10000; 20000);
-      range(t4; t5; 5000; 15000);
-    }
-  }
-
-  void slaveRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
-  {
-    do {
-      t1: while(!ready) wait(ready);
-      t2: if(a != A) {
-            waitfor(1000);  // avoid hanging from t2 to t1
-	    goto t1;
-	  }
-          else {
-            *d = D;
-            waitfor(12000);
-          }
-      t3: ack = 1;
-          while(ready) wait(ready);
-      t4: waitfor(7000);
-      t5: ack = 0;
-    }
-    timing {
-      range(t2; t3; 10000; 20000);
-      range(t4; t5; 5000; 15000);
-    }
-  }
-};
-
+//channel SlaveHardwareBus(in  signal unsigned bit[ADDR_WIDTH-1:0] A,
+//                             signal unsigned bit[DATA_WIDTH-1:0] D,
+//                         in  signal unsigned bit[1]    ready,
+//                         out signal unsigned bit[1]    ack)
+//  implements ISlaveHardwareBusProtocol
+//{
+//  void slaveWrite(unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] d)
+//  {
+//    do {
+//      t1: while(!ready) wait(ready);
+//      t2: if(a != A) {
+//            waitfor(1000); // avoid hanging from t2 to t1
+//            goto t1;
+//          }
+//          else {
+//            D = d;
+//            waitfor(12000);
+//          }
+//      t3: ack = 1;
+//          while(ready) wait(ready);
+//      t4: waitfor(7000);
+//      t5: ack = 0;
+//    }
+//    timing {
+//      range(t2; t3; 10000; 20000);
+//      range(t4; t5; 5000; 15000);
+//    }
+//  }
+//
+//  void slaveRead (unsigned bit[ADDR_WIDTH-1:0] a, unsigned bit[DATA_WIDTH-1:0] *d)
+//  {
+//    do {
+//      t1: while(!ready) wait(ready);
+//      t2: if(a != A) {
+//            waitfor(1000);  // avoid hanging from t2 to t1
+//	    goto t1;
+//	  }
+//          else {
+//            *d = D;
+//            waitfor(12000);
+//          }
+//      t3: ack = 1;
+//          while(ready) wait(ready);
+//      t4: waitfor(7000);
+//      t5: ack = 0;
+//    }
+//    timing {
+//      range(t2; t3; 10000; 20000);
+//      range(t4; t5; 5000; 15000);
+//    }
+//  }
+//};
+//
 /* -----  Physical layer, interrupt handling ----- */
 
 //channel MasterHardwareSyncDetect(in signal unsigned bit[1] intr, i_)
@@ -259,7 +252,7 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
     unsigned char* p;
     unsigned bit[DATA_WIDTH-1:0] word;
    
-    printf("in MasterRead_before _Read\n"); 
+    //printf("in MasterRead_before _Read\n"); 
     for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
     {
       if(!(i%DATA_BYTES)) {
@@ -269,7 +262,7 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
       *p = word[DATA_WIDTH-1:DATA_WIDTH-8];
       word = word << 8;      
     }
-    printf("in masterRead_after_wait\n"); 
+    //printf("in masterRead_after_wait\n"); 
   }
 };
 
@@ -358,32 +351,16 @@ channel HardwareBus()
   event TLMEvent2;
   
 
-// interrupts
+  // interrupts
   signal unsigned bit[1]    int0 = 0;
   signal unsigned bit[1]    int1 = 0;
-
-//  MasterHardwareSyncDetect  MasterSync0(int0);
-//  SlaveHardwareSyncGenerate SlaveSync0(int0);
-
-//  MasterHardwareSyncDetect  MasterSync1(int1);
-//  SlaveHardwareSyncGenerate SlaveSync1(int1);
-//  
-
-
-
-  //c_handshake SlaveSync2;
-  //c_handshake SlaveSync1;
 
   c_double_handshake SlaveSync2;
   c_double_handshake SlaveSync1;
 
-//  MasterHardwareBus Master(A, D, ready, ack);
-//  SlaveHardwareBus  Slave(A, D, ready, ack);
-//
 
   HardwareBusProtocolTLM myHardwareBusProtocolTLM(A, D,TLMEvent1,TLMEvent2);
 
-//
   MasterHardwareBusLinkAccess MasterLink(myHardwareBusProtocolTLM);
   SlaveHardwareBusLinkAccess SlaveLink(myHardwareBusProtocolTLM);
 
@@ -405,23 +382,18 @@ channel HardwareBus()
     char myChar = 'c';
     unsigned long mySize = 1; 
    SlaveSync1.receive(&myChar,mySize);
-   //SlaveSync1.receive();
-   // printf("MASTER_sync_receive %llu\n",now()); 
   }
  
   void MasterSyncReceive2() {
     char myChar = 'c';
     unsigned long mySize = 1; 
     SlaveSync2.receive(&myChar,mySize);
-    //SlaveSync2.receive();
   }
 
   void SlaveSyncSend() {
     char myChar = 'c';
     unsigned long mySize = 1; 
     SlaveSync1.send(&myChar, mySize);
-    //SlaveSync1.send();
-   // printf("after slaveSYnc1 after send %llu \n",now()); 
   }
 
   
@@ -429,35 +401,5 @@ channel HardwareBus()
     char myChar = 'c';
     unsigned long mySize = 1; 
     SlaveSync2.send(&myChar, mySize);
-   //SlaveSync2.send();
-    printf("after slaveSYnc2 send %llu\n",now()); 
   }
-
-  
-//   void MasterSyncSend() {
-//    char myChar;
-//    //unsigned long mySize = 1; 
-//    //MasterSync0.receive();
-//    printf("999999999999999999\n"); 
-//    //SlaveSync2.send();
-//    SlaveSync2.send(&myChar, 1);
-//    //MasterSync0.receive(&myChar, 1);
-//    printf("in syncR\n"); 
-//  }
-//
-
-  
-//  void SlaveSyncReceive() {
-//    char myChar = 'c';
-//    unsigned long mySize = 1; 
-//    //SlaveSync0.send(&myChar, 1);
-//    
-//     printf("in slaveSync2 \n"); 
-//    SlaveSync2.receive(&myChar, 1);
-//    //SlaveSync2.receive();
-//    printf("after slaveSYnc2 send\n"); 
-//  }
-//
-//
-
 };

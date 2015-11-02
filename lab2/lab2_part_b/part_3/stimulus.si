@@ -1,5 +1,5 @@
 # 1 "stimulus.sc"
-# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "stimulus.sc"
@@ -2826,7 +2826,7 @@ behavior Stimulus(i_send start, inout uchar image_buffer[7220], i_sender start_t
 
      printf("Starting process %d...\n", n+1);
                 start.send();
-         printf("start send\n");
+
             start_time = now();
   start_time_channel.send(&start_time, sizeof(sim_time));
          waitfor(1000);

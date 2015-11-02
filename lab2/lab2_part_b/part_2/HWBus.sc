@@ -308,40 +308,8 @@ channel HardwareBus()
   signal unsigned bit[1]    int0 = 0;
   signal unsigned bit[1]    int1 = 0;
 
-//  MasterHardwareSyncDetect  MasterSync0(int0);
-//  SlaveHardwareSyncGenerate SlaveSync0(int0);
-
-//  MasterHardwareSyncDetect  MasterSync1(int1);
-//  SlaveHardwareSyncGenerate SlaveSync1(int1);
-//  
-
-
- //unsigned long const mySize = 1; 
-  //c_handshake MasterSync0;
-//  c_handshake SlaveSync0;
-//
-//  c_handshake MasterSync1;
-//  c_handshake SlaveSync1;
-
+  c_handshake SlaveSync1;
   c_handshake SlaveSync2;
-
-  //c_handshake MasterSync1;
- c_handshake SlaveSync1;
-
-
-
-
-
-//
-//c_double_handshake MasterSync0;
-  //c_double_handshake SlaveSync2;
-
-  //c_double_handshake MasterSync1;
- // c_double_handshake SlaveSync1;
-
-
-
-
 
   MasterHardwareBus Master(A, D, ready, ack);
   SlaveHardwareBus  Slave(A, D, ready, ack);
@@ -366,77 +334,18 @@ channel HardwareBus()
   }
 
   void MasterSyncReceive() {
-    char myChar;
-    //unsigned long mySize = 1; 
-    //MasterSync0.receive();
    SlaveSync1.receive();
-    //printf("here"); 
-    //SlaveSync1.receive(&myChar, 1);
-    
-    //MasterSync0.receive(&myChar, 1);
-    //printf("888888^^^^^^^^^^\n"); 
-    //printf("in syncR\n"); 
   }
  
   void MasterSyncReceive2() {
-    char myChar;
-    //unsigned long mySize = 1; 
-    //MasterSync0.receive();
     SlaveSync2.receive();
-    //printf("999999999999999999\n"); 
-    //SlaveSync2.receive(&myChar, 1);
-    //MasterSync0.receive(&myChar, 1);
-    //printf("in syncR\n"); 
   }
 
   void SlaveSyncSend() {
-    char myChar = 'c';
-    unsigned long mySize = 1; 
-    //SlaveSync0.send(&myChar, 1);
     SlaveSync1.send();
-    //SlaveSync1.send(&myChar, 1);
-    //printf("777777^^^^^^^^^^\n"); 
-    //printf("after slaveSYnc1 send\n"); 
   }
-
   
   void SlaveSyncSend2() {
-    char myChar = 'c';
-    unsigned long mySize = 1; 
-    //SlaveSync0.send(&myChar, 1);
-    
-     //printf("in slaveSync2 \n"); 
-    //SlaveSync2.send(&myChar, 1);
-    //printf("************************************************************&&\n"); 
     SlaveSync2.send();
-    //printf("after slaveSYnc2 send\n"); 
   }
-//
-  
-//   void MasterSyncSend() {
-//    char myChar;
-//    //unsigned long mySize = 1; 
-//    //MasterSync0.receive();
-//    printf("999999999999999999\n"); 
-//    //SlaveSync2.send();
-//    SlaveSync2.send(&myChar, 1);
-//    //MasterSync0.receive(&myChar, 1);
-//    printf("in syncR\n"); 
-//  }
-//
-
-  
-//  void SlaveSyncReceive() {
-//    char myChar = 'c';
-//    unsigned long mySize = 1; 
-//    //SlaveSync0.send(&myChar, 1);
-//    
-//     printf("in slaveSync2 \n"); 
-//    SlaveSync2.receive(&myChar, 1);
-//    //SlaveSync2.receive();
-//    printf("after slaveSYnc2 send\n"); 
-//  }
-//
-//
-
 };

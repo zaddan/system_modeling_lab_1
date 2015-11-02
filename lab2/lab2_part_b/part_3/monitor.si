@@ -1,5 +1,5 @@
 # 1 "monitor.sc"
-# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "monitor.sc"
@@ -2753,7 +2753,7 @@ behavior Monitor(i_receiver img, i_receiver start_time_channel)
      start_time_channel.receive(&start_time, sizeof(sim_time));
             sprintf(filename, "out.pgm");
 
-            printf ("Inside monitor %u %llu us\n",n, (now()));
+
 
 
 

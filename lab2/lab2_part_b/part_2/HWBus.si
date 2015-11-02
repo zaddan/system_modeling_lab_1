@@ -1,5 +1,5 @@
 # 1 "HWBus.sc"
-# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/susan_partition_I_dynamically_scheduled//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_2//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "HWBus.sc"
@@ -2997,12 +2997,10 @@ channel HardwareBus()
 
   signal unsigned bit[1] int0 = 0;
   signal unsigned bit[1] int1 = 0;
-# 326 "HWBus.sc"
+
+  c_handshake SlaveSync1;
   c_handshake SlaveSync2;
 
-
- c_handshake SlaveSync1;
-# 346 "HWBus.sc"
   MasterHardwareBus Master(A, D, ready, ack);
   SlaveHardwareBus Slave(A, D, ready, ack);
 
@@ -3026,50 +3024,18 @@ channel HardwareBus()
   }
 
   void MasterSyncReceive() {
-    char myChar;
-
-
    SlaveSync1.receive();
-
-
-
-
-
-
   }
 
   void MasterSyncReceive2() {
-    char myChar;
-
-
     SlaveSync2.receive();
-
-
-
-
   }
 
   void SlaveSyncSend() {
-    char myChar = 'c';
-    unsigned long mySize = 1;
-
     SlaveSync1.send();
-
-
-
   }
-
 
   void SlaveSyncSend2() {
-    char myChar = 'c';
-    unsigned long mySize = 1;
-
-
-
-
-
     SlaveSync2.send();
-
   }
-# 442 "HWBus.sc"
 };

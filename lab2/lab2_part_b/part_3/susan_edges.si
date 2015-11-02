@@ -1,5 +1,5 @@
 # 1 "susan_edges.sc"
-# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "susan_edges.sc"
@@ -3023,7 +3023,7 @@ behavior SusanEdges_WriteOutput(i_int7220_sender out_r, i_uchar7220_sender out_m
         out_mid.send(mid);
 
         out_image.send(out_image_buffer);
-        printf("susan_edges_writeOutput_done\n");
+
 
     }
 };

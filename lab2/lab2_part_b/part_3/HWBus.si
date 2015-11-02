@@ -1,5 +1,5 @@
 # 1 "HWBus.sc"
-# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "HWBus.sc"
@@ -2750,60 +2750,11 @@ interface ISlaveHardwareBusProtocol
   void slaveWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d);
   void slaveRead (unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] *d);
 };
-
-
-channel MasterHardwareBus(out signal unsigned bit[2 -1:0] A,
-                              signal unsigned bit[32u -1:0] D,
-                          out signal unsigned bit[1] ready,
-                          in signal unsigned bit[1] ack)
-
-  implements IMasterHardwareBusProtocol
-{
-  void masterWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d)
-  {
-    do {
-      t1: A = a;
-          D = d;
-          waitfor(5000);
-      t2: ready = 1;
-          while(!ack) wait(ack);
-      t3: waitfor(10000);
-      t4: ready = 0;
-          while(ack) wait(ack);
-    }
-    timing {
-      range(t1; t2; 5000; 15000);
-      range(t3; t4; 10000; 25000);
-    }
-  }
-
-  void masterRead (unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] *d)
-  {
-    do {
-      t1: A = a;
-          waitfor(5000);
-      t2: ready = 1;
-          while(!ack) wait(ack);
-      t3: *d = D;
-          waitfor(15000);
-      t4: ready = 0;
-          while(ack) wait(ack);
-    }
-    timing {
-      range(t1; t2; 5000; 15000);
-      range(t3; t4; 10000; 25000);
-    }
-  }
-
-};
-
-
+# 91 "HWBus.sc"
 channel HardwareBusProtocolTLM(inout signal unsigned bit[2 -1:0] A,signal unsigned bit[32u -1:0] D,event TLMEvent1, event TLMEvent2)
 
   implements IMasterHardwareBusProtocol, ISlaveHardwareBusProtocol
 {
-
-
 
   void masterWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d)
   {
@@ -2816,9 +2767,7 @@ channel HardwareBusProtocolTLM(inout signal unsigned bit[2 -1:0] A,signal unsign
 
   void masterRead (unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] *d)
   {
-
     wait(TLMEvent2);
-
     A = a;
     *d = D;
     waitfor(20000);
@@ -2826,76 +2775,18 @@ channel HardwareBusProtocolTLM(inout signal unsigned bit[2 -1:0] A,signal unsign
 
   void slaveWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d)
   {
-
       D = d;
       notify(TLMEvent2);
-
       waitfor(20000);
   }
   void slaveRead (unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] *d)
   {
-
       wait(TLMEvent1);
       *d = D;
       waitfor(20000);
   }
 };
-
-
-
-channel SlaveHardwareBus(in signal unsigned bit[2 -1:0] A,
-                             signal unsigned bit[32u -1:0] D,
-                         in signal unsigned bit[1] ready,
-                         out signal unsigned bit[1] ack)
-  implements ISlaveHardwareBusProtocol
-{
-  void slaveWrite(unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] d)
-  {
-    do {
-      t1: while(!ready) wait(ready);
-      t2: if(a != A) {
-            waitfor(1000);
-            goto t1;
-          }
-          else {
-            D = d;
-            waitfor(12000);
-          }
-      t3: ack = 1;
-          while(ready) wait(ready);
-      t4: waitfor(7000);
-      t5: ack = 0;
-    }
-    timing {
-      range(t2; t3; 10000; 20000);
-      range(t4; t5; 5000; 15000);
-    }
-  }
-
-  void slaveRead (unsigned bit[2 -1:0] a, unsigned bit[32u -1:0] *d)
-  {
-    do {
-      t1: while(!ready) wait(ready);
-      t2: if(a != A) {
-            waitfor(1000);
-     goto t1;
-   }
-          else {
-            *d = D;
-            waitfor(12000);
-          }
-      t3: ack = 1;
-          while(ready) wait(ready);
-      t4: waitfor(7000);
-      t5: ack = 0;
-    }
-    timing {
-      range(t2; t3; 10000; 20000);
-      range(t4; t5; 5000; 15000);
-    }
-  }
-};
-# 216 "HWBus.sc"
+# 209 "HWBus.sc"
 interface IMasterHardwareBusLinkAccess
 {
   void MasterRead(int addr, void *data, unsigned long len);
@@ -2942,7 +2833,7 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
     unsigned char* p;
     unsigned bit[32u -1:0] word;
 
-    printf("in MasterRead_before _Read\n");
+
     for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
     {
       if(!(i%4u)) {
@@ -2952,7 +2843,7 @@ channel MasterHardwareBusLinkAccess(IMasterHardwareBusProtocol protocol)
       *p = word[32u -1:32u -8];
       word = word << 8;
     }
-    printf("in masterRead_after_wait\n");
+
   }
 };
 
@@ -3044,16 +2935,12 @@ channel HardwareBus()
 
   signal unsigned bit[1] int0 = 0;
   signal unsigned bit[1] int1 = 0;
-# 377 "HWBus.sc"
+
   c_double_handshake SlaveSync2;
   c_double_handshake SlaveSync1;
 
 
-
-
-
   HardwareBusProtocolTLM myHardwareBusProtocolTLM(A, D,TLMEvent1,TLMEvent2);
-
 
   MasterHardwareBusLinkAccess MasterLink(myHardwareBusProtocolTLM);
   SlaveHardwareBusLinkAccess SlaveLink(myHardwareBusProtocolTLM);
@@ -3076,23 +2963,18 @@ channel HardwareBus()
     char myChar = 'c';
     unsigned long mySize = 1;
    SlaveSync1.receive(&myChar,mySize);
-
-
   }
 
   void MasterSyncReceive2() {
     char myChar = 'c';
     unsigned long mySize = 1;
     SlaveSync2.receive(&myChar,mySize);
-
   }
 
   void SlaveSyncSend() {
     char myChar = 'c';
     unsigned long mySize = 1;
     SlaveSync1.send(&myChar, mySize);
-
-
   }
 
 
@@ -3100,8 +2982,5 @@ channel HardwareBus()
     char myChar = 'c';
     unsigned long mySize = 1;
     SlaveSync2.send(&myChar, mySize);
-
-    printf("after slaveSYnc2 send %llu\n",now());
   }
-# 463 "HWBus.sc"
 };

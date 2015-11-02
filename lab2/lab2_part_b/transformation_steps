@@ -1,0 +1,31 @@
+for part2, we modified the following files:
+HWBus.sc:
+    (changed the interrupts to a single handshake with the name of SlaveSync1 and SlaveSync2)
+    we also introduced another MasterSynRceive and SlaveSyncSend to use the second handshake
+
+we introduced the following files:
+    slave_driver.sc: containing the following behaviors:
+        readImage_driver_wrapper: containing the driver wrapper for readImage 
+        writeImage_driver_wrapper: containing the driver wrapper for writeImage 
+    master_driver.sc containing the behavior:
+        susan_driver_wrapper: containg the driver wrapper for susan behavior
+
+we modified the design.sc to utilize the drivers mentioned above
+Note: we did not modifed anything inside the susan behavoir (TASK_PE1) or readImage or writeImage
+----------------------------------------------------------------------------------------------
+for part3, we modified the following files:
+in addition the modifications of part2
+we modifed HWBus.sc:
+    we defined a new channel with the name of HardwareBusProtocolTLM which would be passed to
+    MasterLink and SlaveLink channels HWBus.sc:
+        we defined a new channel with the name of HardwareBusProtocolTLM which would be passed to
+        MasterLink and SlaveLink channels. HardwareBusProtocolTLM redefined masterRead, masterWrite,
+        slaveRead and slaveWrite which were previously defined in MasterHardwareBus and
+        SlaveHardwareBus. The new defintion of masterRead, masterWrite, slaveRead and slaveWrite
+        instead of using a lowlevel busprotocol synchronized on an event(called TLMEvent1 and 2 in
+        the code)
+----------------------------------------------------------------------------------------------
+for part4, we modified the following files:
+HWBus.sc
+    we modifed the MasterHardwareBusLinkAcccess to use an event to sync on instead of the TLM
+    channel that it used in part3

@@ -12,12 +12,12 @@ behavior DetectEdges(i_uchar7220_receiver in_image,  i_int7220_sender out_r, i_u
     SusanEdges susan_edges(in_image, out_r, out_mid, bp, out_image, myOS);
     
     void main(void) {
-        printf("________________\n");      
+        //printf("________________\n");      
         setup_brightness_lut.main(); 
         //waitfor(2700); 
         //printf("MID detect edges\n"); 
         susan_edges.main();
-        printf("detect_edges_end\n"); 
+        //printf("detect_edges_end\n"); 
         //myOS.task_terminate();
     }
 

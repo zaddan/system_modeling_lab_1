@@ -1,5 +1,5 @@
 # 1 "master_driver.sc"
-# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "master_driver.sc"
@@ -2742,9 +2742,9 @@ channel master_send_driver(IMasterHardwareBus myHardwareBus, unsigned bit[2 -1:0
     unsigned long mySize = 7220;
     void send(uchar7220 outImage){
 
-        printf("in_master_SEND \n");
+
         myHardwareBus.MasterSyncReceive2();
-        printf("done with sync master send %llu \n",now());
+
         myHardwareBus.MasterWrite(addr, outImage, mySize);
     }
 };
@@ -2752,9 +2752,9 @@ channel master_send_driver(IMasterHardwareBus myHardwareBus, unsigned bit[2 -1:0
 channel master_receive_driver (IMasterHardwareBus myHardwareBus, unsigned bit[2 -1:0] addr) implements i_uchar7220_receiver {
     unsigned long mySize = 7220;
     void receive(uchar7220 *inImage){
-        printf("in master recieve \n");
+
         myHardwareBus.MasterSyncReceive();
-        printf("done with sync master recieve %llu \n",now());
+
         myHardwareBus.MasterRead(addr, inImage, mySize);
     }
 };

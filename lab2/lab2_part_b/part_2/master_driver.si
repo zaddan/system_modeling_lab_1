@@ -1,5 +1,5 @@
 # 1 "master_driver.sc"
-# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/susan_partition_I_dynamically_scheduled//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_2//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "master_driver.sc"
@@ -2741,10 +2741,7 @@ import "susan";
 channel master_send_driver(IMasterHardwareBus myHardwareBus, unsigned bit[2 -1:0] addr) implements i_uchar7220_sender{
     unsigned long mySize = 7220;
     void send(uchar7220 outImage){
-
-
         myHardwareBus.MasterSyncReceive2();
-
         myHardwareBus.MasterWrite(addr, outImage, mySize);
     }
 };
@@ -2752,9 +2749,7 @@ channel master_send_driver(IMasterHardwareBus myHardwareBus, unsigned bit[2 -1:0
 channel master_receive_driver (IMasterHardwareBus myHardwareBus, unsigned bit[2 -1:0] addr) implements i_uchar7220_receiver {
     unsigned long mySize = 7220;
     void receive(uchar7220 *inImage){
-
         myHardwareBus.MasterSyncReceive();
-
         myHardwareBus.MasterRead(addr, inImage, mySize);
     }
 };
@@ -2762,9 +2757,6 @@ channel master_receive_driver (IMasterHardwareBus myHardwareBus, unsigned bit[2 
 behavior susan_driver_wrapper(IMasterHardwareBus myHardwareBus)
 {
     OS myOS;
-
-
-
     unsigned bit[2 -1:0] addr1 = 1;
     unsigned bit[2 -1:0] addr2 = 2;
     master_receive_driver myMaster_receive_driver(myHardwareBus,addr1);

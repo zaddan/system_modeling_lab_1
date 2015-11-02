@@ -89,7 +89,7 @@ behavior Stimulus(i_send start, inout uchar  image_buffer[IMAGE_SIZE], i_sender 
      //while(1) { 
      printf("Starting process %d...\n", n+1);
                 start.send();
-	        printf("start send\n"); 
+	        //printf("start send\n"); 
             start_time = now();
 		start_time_channel.send(&start_time, sizeof(sim_time));
 	        waitfor(1000);

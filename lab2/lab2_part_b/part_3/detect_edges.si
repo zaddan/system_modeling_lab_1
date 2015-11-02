@@ -1,5 +1,5 @@
 # 1 "detect_edges.sc"
-# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "detect_edges.sc"
@@ -2746,12 +2746,12 @@ behavior DetectEdges(i_uchar7220_receiver in_image, i_int7220_sender out_r, i_uc
     SusanEdges susan_edges(in_image, out_r, out_mid, bp, out_image, myOS);
 
     void main(void) {
-        printf("________________\n");
+
         setup_brightness_lut.main();
 
 
         susan_edges.main();
-        printf("detect_edges_end\n");
+
 
     }
 

@@ -1,5 +1,5 @@
 # 1 "edge_draw.sc"
-# 1 "/home/ecelrc/students/kpunniyamurthy/modeling/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
+# 1 "/home/ecelrc/students/bboroujerdian/lab2/system_modeling_lab_1/lab2/lab2_part_b/part_3//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "edge_draw.sc"
@@ -2811,7 +2811,7 @@ behavior EdgeDraw_WriteOutput(uchar image_buffer[7220], i_uchar7220_sender out_i
         myTask = myOS.pre_wait();
         out_image.send(image_buffer);
         myOS.post_wait(myTask);
-        printf("edgeDraw_Ended\n");
+
     }
 };
 

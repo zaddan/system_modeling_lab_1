@@ -77,7 +77,7 @@ behavior EdgeDraw_WriteOutput(uchar image_buffer[IMAGE_SIZE],  i_uchar7220_sende
         myTask = myOS.pre_wait(); 
         out_image.send(image_buffer);
         myOS.post_wait(myTask); 
-        printf("edgeDraw_Ended\n");
+        //printf("edgeDraw_Ended\n");
     }
 };
 
